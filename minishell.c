@@ -6,7 +6,7 @@
 /*   By: soulee <soulee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/23 16:24:12 by soulee            #+#    #+#             */
-/*   Updated: 2023/02/23 22:46:47 by soulee           ###   ########.fr       */
+/*   Updated: 2023/02/25 21:48:28 by soulee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,20 +21,19 @@ void	print_ascii_art(void)
 	printf("\n");
 }
 
-int	check_whitespace(char *str)
+int	check_whitespace(char *line)
 {
-	while (*str)
+	while (*line)
 	{
-		if (*str == 32 || (*str >= 9 && *str <= 13))
+		if (*line == 32 || (*line >= 9 && *line <= 13))
 			return (1);
-		str++;
+		line++;
 	}
 	return (0);
 }
 
 int	main(int argc, char *argv[], char *envp[])
 {
-	struct termios	term;
 	char			*line;
 
 	print_ascii_art();
@@ -44,10 +43,9 @@ int	main(int argc, char *argv[], char *envp[])
 		if (!line)
 			break ;
 		if (*line != '\0')
-			add_history(line);
-		if (*line != '\0' && !check_whitespace(line))
 		{
-			// printf("%s", line);
+			add_history(line);
+			parse_line(line);
 		}
 		free(line);
 	}
