@@ -1,0 +1,2 @@
+- [ ] [Makefile] -Wall -Wextra -Werror 추가
+- [ ] atexit 사용, leaks 확인

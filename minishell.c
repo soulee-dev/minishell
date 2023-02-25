@@ -6,7 +6,7 @@
 /*   By: soulee <soulee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/23 16:24:12 by soulee            #+#    #+#             */
-/*   Updated: 2023/02/25 21:48:28 by soulee           ###   ########.fr       */
+/*   Updated: 2023/02/26 00:40:00 by soulee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ int	main(int argc, char *argv[], char *envp[])
 	print_ascii_art();
 	while (1)
 	{
-		line = readline("GrilledShell $ ");
+		line = readline("🔥🐚 $ ");
 		if (!line)
 			break ;
 		if (*line != '\0')
