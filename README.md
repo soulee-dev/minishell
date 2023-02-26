@@ -85,6 +85,16 @@ ls|wc -l
 < infile | cat | ""echo ls"" > outfile
 ```
 
+```shell
+cat < infile1 | cat < infile2 | cat
+```
+이 같은 경우도 실행됨
+
+```shell
+< infile cat > outfile | < outfile cat > outfile2
+```
+여러 번 redirection 해야 하는 경우도 처리할 것
+
 # Git 형상 관리
 - branch 나눠야 할 필요?
 - commit message, pull request message 등 
