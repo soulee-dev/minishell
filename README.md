@@ -85,6 +85,11 @@ ls|wc -l
 < infile | cat | ""echo ls"" > outfile
 ```
 
+```shell
+ls < infile | ls < infile
+```
+이 같은 경우도 실행됨
+
 # Git 형상 관리
 - branch 나눠야 할 필요?
 - commit message, pull request message 등 
