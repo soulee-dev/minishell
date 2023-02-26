@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strlen.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: subcho <subcho@student.42.fr>              +#+  +:+       +#+        */
+/*   By: soulee <soulee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/07 17:19:10 by soulee            #+#    #+#             */
-/*   Updated: 2023/02/26 11:42:44 by subcho           ###   ########.fr       */
+/*   Updated: 2023/02/26 12:30:13 by soulee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ size_t	ft_strlenbl(const char *s)
 	size_t	count;
 
 	count = 0;
-	while (*s != ' ' && *s != '|' && *s++)
+	while (*s != ' ' && *s != '|' && *s != '>' && *s != '<' && *s++)
 		count++;
 	if (*s == ' ')
 		count++;

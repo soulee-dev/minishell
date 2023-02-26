@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: subcho <subcho@student.42.fr>              +#+  +:+       +#+        */
+/*   By: soulee <soulee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/23 21:48:04 by soulee            #+#    #+#             */
-/*   Updated: 2023/02/26 12:09:30 by subcho           ###   ########.fr       */
+/*   Updated: 2023/02/26 12:46:59 by soulee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -122,11 +122,10 @@ void	parse_line(char *line)
 	char	*str;
 	int		quotes;
 	int		is_pipe;
-	int		is_redir;
 
+	str = 0;
 	quotes = 0;
 	is_pipe = 0;
-	str = 0;
 	while (*line)
 	{
 		quotes = parse_set_quotes(*line, quotes);
@@ -141,6 +140,7 @@ void	parse_line(char *line)
 				line = parse_redirection_in(line);
 			else if (*line == '>')
 				line = parse_redirection_out(line);
+			continue;
 		}
 		if (*line == '|')
 		{
@@ -149,8 +149,6 @@ void	parse_line(char *line)
 				printf("%s\n", str);
 				ft_free_str(&str);
 			}
-			else
-				printf("pipe error");
 			if (is_pipe)
 				printf("pipe error");
 			is_pipe = 1;
@@ -167,8 +165,11 @@ void	parse_line(char *line)
 		printf("%s\n", str);
 		ft_free_str(&str);
 	}
-	if (quotes != 0)
+	else
 	{
-		printf("quote error");
+		if (is_pipe)
+			printf("pipe error");
 	}
+	if (quotes != 0)
+		printf("quote error");
 }
