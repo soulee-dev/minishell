@@ -6,7 +6,7 @@
 /*   By: subcho <subcho@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/07 17:19:10 by soulee            #+#    #+#             */
-/*   Updated: 2023/02/26 09:29:04 by subcho           ###   ########.fr       */
+/*   Updated: 2023/02/26 11:42:44 by subcho           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ size_t	ft_strlenbl(const char *s)
 	size_t	count;
 
 	count = 0;
-	while (*s != ' ' && *s++)
+	while (*s != ' ' && *s != '|' && *s++)
 		count++;
 	if (*s == ' ')
 		count++;

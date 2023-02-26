@@ -6,7 +6,7 @@
 /*   By: subcho <subcho@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/23 21:48:04 by soulee            #+#    #+#             */
-/*   Updated: 2023/02/26 09:53:56 by subcho           ###   ########.fr       */
+/*   Updated: 2023/02/26 12:09:30 by subcho           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,7 @@ char	*ft_strjoin_char(char const *s1, char s2)
 		return (NULL);
 	ft_strlcpy(result_str, s1, s1_len + 1);
 	ft_strlcpy(result_str + s1_len, &s2, 2);
+	result_str[s1_len + 1] = 0;
 	return (result_str);
 }
 
@@ -41,7 +42,7 @@ void	ft_free_str(char **str)
 int	parse_set_quotes(char line, int quotes)
 {
 	int	result;
-	
+
 	result = quotes;
 	if (line == '\'')
 	{
@@ -76,19 +77,42 @@ char	*parse_redirection_in(char *str)
 		n_str++;
 		if (*n_str == '<')
 		{
-			printf("here_doc\n");
+			printf("here_doc in\n");
 			return (str);
 		}
 		while (*n_str == ' ')
 			n_str++;
-		if (*n_str != '<')
+		len = ft_strlenbl(n_str);
+		file_name = ft_strndup(n_str, len);
+		printf("infile : %s\n",file_name);
+		free(file_name);
+		return (n_str + len);
+	}
+	return (str);
+}
+
+char	*parse_redirection_out(char *str)
+{
+	char	*n_str;
+	char	*file_name;
+	int		len;
+
+	n_str = ft_strchr(str, '>');
+	if (n_str && *n_str == '>')
+	{
+		n_str++;
+		if (*n_str == '>')
 		{
-			len = ft_strlenbl(n_str);
-			file_name = ft_strndup(n_str, len);
-			printf("infile : %s\n",file_name);
-			free(file_name);
-			return (n_str + len);
+			printf("here_doc out\n");
+			return (str);
 		}
+		while (*n_str == ' ')
+			n_str++;
+		len = ft_strlenbl(n_str);
+		file_name = ft_strndup(n_str, len);
+		printf("outfile : %s\n",file_name);
+		free(file_name);
+		return (n_str + len);
 	}
 	return (str);
 }
@@ -98,6 +122,7 @@ void	parse_line(char *line)
 	char	*str;
 	int		quotes;
 	int		is_pipe;
+	int		is_redir;
 
 	quotes = 0;
 	is_pipe = 0;
@@ -105,8 +130,18 @@ void	parse_line(char *line)
 	while (*line)
 	{
 		quotes = parse_set_quotes(*line, quotes);
-		if (*line == '<')
-			line = parse_redirection_in(line);
+		if (*line == '<' || *line == '>')
+		{
+			if (str)
+			{
+				printf("%s\n", str);
+				ft_free_str(&str);
+			}
+			if (*line == '<')
+				line = parse_redirection_in(line);
+			else if (*line == '>')
+				line = parse_redirection_out(line);
+		}
 		if (*line == '|')
 		{
 			if (str)
