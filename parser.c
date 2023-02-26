@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: soulee <soulee@student.42seoul.kr>         +#+  +:+       +#+        */
+/*   By: subcho <subcho@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/23 21:48:04 by soulee            #+#    #+#             */
-/*   Updated: 2023/02/26 08:16:50 by soulee           ###   ########.fr       */
+/*   Updated: 2023/02/26 09:53:56 by subcho           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ char	*ft_strjoin_char(char const *s1, char s2)
 {
 	int		s1_len;
 	char	*result_str;
-	
+
 	if (!s1 && !s2)
 		return (NULL);
 	if (!s1)
@@ -64,18 +64,33 @@ int	parse_set_quotes(char line, int quotes)
 	return (result);
 }
 
-void	parse_redirection(char *str)
+char	*parse_redirection_in(char *str)
 {
-	str = ft_strchr(str, '<');
-	if (str)
+	char	*n_str;
+	char	*file_name;
+	int		len;
+
+	n_str = ft_strchr(str, '<');
+	if (n_str && *n_str == '<')
 	{
-		str++;
-		if (*str == '<')
-			// <<
-		else
-			//공백 전까지 infile name
+		n_str++;
+		if (*n_str == '<')
+		{
+			printf("here_doc\n");
+			return (str);
+		}
+		while (*n_str == ' ')
+			n_str++;
+		if (*n_str != '<')
+		{
+			len = ft_strlenbl(n_str);
+			file_name = ft_strndup(n_str, len);
+			printf("infile : %s\n",file_name);
+			free(file_name);
+			return (n_str + len);
+		}
 	}
-	
+	return (str);
 }
 
 void	parse_line(char *line)
@@ -86,9 +101,12 @@ void	parse_line(char *line)
 
 	quotes = 0;
 	is_pipe = 0;
+	str = 0;
 	while (*line)
 	{
 		quotes = parse_set_quotes(*line, quotes);
+		if (*line == '<')
+			line = parse_redirection_in(line);
 		if (*line == '|')
 		{
 			if (str)
