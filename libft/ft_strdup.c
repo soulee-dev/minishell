@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strdup.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: subcho <subcho@student.42.fr>              +#+  +:+       +#+        */
+/*   By: soulee <soulee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/08 15:08:28 by soulee            #+#    #+#             */
-/*   Updated: 2023/02/26 09:55:16 by subcho           ###   ########.fr       */
+/*   Updated: 2023/02/26 17:00:44 by soulee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,30 +34,4 @@ char	*ft_strdup(const char *src)
 		return (0);
 	ft_strcpy(str_ptr, src);
 	return (str_ptr);
-}
-
-char	*ft_strndup(const char *s1, size_t n)
-{
-	char	*p;
-	char	*org_p;
-	size_t	i;
-
-	s1 = (char *)s1;
-	i = 0;
-	if (!n)
-		return (0);
-	p = (char *)malloc(sizeof(char) * n + 1);
-	if (!p)
-	{
-		free((void *)s1);
-		return (0);
-	}
-	org_p = p;
-	while (*(s1 + i) && i < n)
-	{
-		*(p + i) = *(s1 + i);
-		i++;
-	}
-	*(p + i) = 0;
-	return (org_p);
 }

@@ -5,6 +5,7 @@ SRCS :=
 SRCS += minishell.c
 SRCS += parser.c
 SRCS += env.c
+SRCS += string_utils.c
 
 LIBFT = ./libft/libft.a
 
