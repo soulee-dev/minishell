@@ -6,7 +6,7 @@
 /*   By: soulee <soulee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/23 16:41:30 by soulee            #+#    #+#             */
-/*   Updated: 2023/02/26 07:52:29 by soulee           ###   ########.fr       */
+/*   Updated: 2023/02/26 12:36:54 by soulee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,13 +27,6 @@
 # define TYPE_REDIRECT_HEREDOC 3
 # define TYPE_REDIRECT_APPEND 4
 
-typedef struct s_redirect {
-	int		type;
-	char	*delimiter;
-	char	*infile;
-	char	*outfile;
-}	t_redirect;
-
 typedef struct s_cmd {
 	int				type;
 	char			*cmd;
@@ -43,5 +36,8 @@ typedef struct s_cmd {
 
 // parser.c
 void	parse_line(char *line);
+
+// env.c
+char	*get_env_value(char **envp, char *key);
 
 #endif

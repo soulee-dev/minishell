@@ -4,6 +4,7 @@ NAME = minishell
 SRCS :=
 SRCS += minishell.c
 SRCS += parser.c
+SRCS += env.c
 
 LIBFT = ./libft/libft.a
 
