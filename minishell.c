@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: soulee <soulee@student.42seoul.kr>         +#+  +:+       +#+        */
+/*   By: subcho <subcho@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/23 16:24:12 by soulee            #+#    #+#             */
-/*   Updated: 2023/02/27 23:25:38 by soulee           ###   ########.fr       */
+/*   Updated: 2023/02/28 02:35:31 by subcho           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,7 @@ int	check_whitespace(char *line)
 int	main(int argc, char *argv[], char **envp)
 {
 	char			*line;
+	int				status;
 	t_env_list		*env_list;
 	t_cmd_list		*cmd_list;
 
@@ -44,14 +45,15 @@ int	main(int argc, char *argv[], char **envp)
 	print_ascii_art();
 	while (1)
 	{
-		line = readline("🔥🐚 $ ");
+		line = readline("GrilledShell $ ");
 		if (!line)
 			break ;
 		if (*line != '\0')
 		{
 			add_history(line);
 			cmd_list = parse_line(&cmd_list, line);
-			iter_node(cmd_list);
+			//iter_node(cmd_list);
+			status = execute_cmd(cmd_list, convert_env_list_to_arr(env_list));
 			clear_cmd_list(&cmd_list);
 		}
 		free(line);

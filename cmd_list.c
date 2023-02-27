@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cmd_list.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: soulee <soulee@student.42seoul.kr>         +#+  +:+       +#+        */
+/*   By: subcho <subcho@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/25 22:19:01 by soulee            #+#    #+#             */
-/*   Updated: 2023/02/27 23:24:41 by soulee           ###   ########.fr       */
+/*   Updated: 2023/02/28 00:30:23 by subcho           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,8 +68,8 @@ void	clear_cmd_list(t_cmd_list **node)
 	{
 		temp = (*node)->next;
 		free((*node)->cmd);
+		free(*node);
 		*node = temp;
 	}
-	free(*node);
 	*node = 0;
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: soulee <soulee@student.42seoul.kr>         +#+  +:+       +#+        */
+/*   By: subcho <subcho@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/23 16:41:30 by soulee            #+#    #+#             */
-/*   Updated: 2023/02/27 23:24:25 by soulee           ###   ########.fr       */
+/*   Updated: 2023/02/28 00:58:51 by subcho           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 # define MINISHELL_H
 
 # include <stdio.h>
+# include <fcntl.h>
 # include <stdlib.h>
 # include <unistd.h>
 # include <termios.h>
@@ -63,7 +64,7 @@ char		*ft_strjoin_no_free(char const *s1, char const *s2);
 void		clear_cmd_list(t_cmd_list **node);
 t_cmd_list	*create_new_cmd_node(int type, char *cmd);
 void		add_cmd_node_back(t_cmd_list **node, t_cmd_list *new);
-void	iter_node(t_cmd_list *node);
+void		iter_node(t_cmd_list *node);
 
 // env_list.c
 int			get_env_list_size(t_env_list *node);
@@ -73,6 +74,21 @@ void		add_env_node_back(t_env_list **node, t_env_list *new);
 
 // env_list_utils.c
 char		**convert_env_list_to_arr(t_env_list *node);
+
+// pipe.c
+int			execute_cmd(t_cmd_list *cmd_list, char **envp);
+int			handle_cmd(t_cmd_list *cmd_list, char **path, char **envp);
+void		pipe_child(int type, char *cmd, int pipefd[]);
+void		pipe_parent(int pipefd[]);
+int			get_status(int pid);
+
+// pipe_utils.c
+void		print_error(char *msg);
+char		**get_path(char **envp);
+char		*get_cmd(char **path, char *cmd);
+int			open_file(char *file_name);
+int			create_file(char *file_name);
+void		free_str(char **str);
 
 // error.c
 void		exit_error(char *error_message);

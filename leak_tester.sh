@@ -1,2 +1,2 @@
 #!/bin/bash
-while true ;do leaks -n minishell; sleep 1;done
+while true ;do leaks -q minishell; sleep 1;done

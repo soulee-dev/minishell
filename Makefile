@@ -2,11 +2,13 @@ NAME = minishell
 # CFLAGS = -Wall -Wextra -Werror
 
 SRCS :=
+SRCS += pipe.c
 SRCS += error.c
 SRCS += parser.c
 SRCS += env_list.c
 SRCS += cmd_list.c
 SRCS += minishell.c
+SRCS += pipe_utils.c
 SRCS += string_utils.c
 SRCS += parser_utils.c
 SRCS += string_utils2.c
