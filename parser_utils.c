@@ -6,17 +6,11 @@
 /*   By: soulee <soulee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/27 17:25:02 by soulee            #+#    #+#             */
-/*   Updated: 2023/02/27 20:49:24 by soulee           ###   ########.fr       */
+/*   Updated: 2023/02/27 20:57:24 by soulee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-void	ft_free_str(char **str)
-{
-	free(*str);
-	*str = 0;
-}
 
 void	add_element_node(int cmd_type, char **str)
 {

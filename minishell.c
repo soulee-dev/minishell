@@ -6,7 +6,7 @@
 /*   By: soulee <soulee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/23 16:24:12 by soulee            #+#    #+#             */
-/*   Updated: 2023/02/27 20:45:00 by soulee           ###   ########.fr       */
+/*   Updated: 2023/02/27 20:52:58 by soulee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,7 @@ int	main(int argc, char *argv[], char **envp)
 {
 	char			*line;
 
+	parse_envp(envp);
 	print_ascii_art();
 	while (1)
 	{

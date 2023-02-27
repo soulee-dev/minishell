@@ -6,7 +6,7 @@
 /*   By: soulee <soulee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/23 21:48:04 by soulee            #+#    #+#             */
-/*   Updated: 2023/02/27 20:49:12 by soulee           ###   ########.fr       */
+/*   Updated: 2023/02/27 20:56:46 by soulee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,21 @@ int	parse_pipe(int is_pipe, char c, char **str)
 		*str = ft_strjoin_char(*str, c);
 		is_pipe = 0;
 		return (is_pipe);
+	}
+}
+
+void	parse_envp(char **envp)
+{
+	
+	while (*envp)
+	{
+		while (**envp)
+		{
+			// printf("%c", **envp);
+			(*envp)++;
+		}
+		printf("\n");
+		envp++;
 	}
 }
 
