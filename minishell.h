@@ -6,7 +6,7 @@
 /*   By: soulee <soulee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/23 16:41:30 by soulee            #+#    #+#             */
-/*   Updated: 2023/02/27 19:25:03 by soulee           ###   ########.fr       */
+/*   Updated: 2023/02/27 20:49:29 by soulee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,7 @@ void	parse_line(char *line);
 void	add_element_node(int cmd_type, char **str);
 
 // parser_utils.c
+void	add_element_node(int cmd_type, char **str);
 void	ft_free_str(char **str);
 char	*parse_redirection_in(char *str);
 char	*parse_redirection_out(char *str);

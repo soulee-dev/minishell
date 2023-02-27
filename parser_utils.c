@@ -6,7 +6,7 @@
 /*   By: soulee <soulee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/27 17:25:02 by soulee            #+#    #+#             */
-/*   Updated: 2023/02/27 19:07:18 by soulee           ###   ########.fr       */
+/*   Updated: 2023/02/27 20:49:24 by soulee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,22 @@ void	ft_free_str(char **str)
 {
 	free(*str);
 	*str = 0;
+}
+
+void	add_element_node(int cmd_type, char **str)
+{
+	if (cmd_type == TYPE_WORD)
+		printf("cmd: %s\n", *str);
+	if (cmd_type == TYPE_REDIRECT_INPUT)
+		printf("input: %s\n", *str);
+	if (cmd_type == TYPE_REDIRECT_OUTPUT)
+		printf("output: %s\n", *str);
+	if (cmd_type == TYPE_REDIRECT_HEREDOC)
+		printf("herdoc: %s\n", *str);
+	if (cmd_type == TYPE_REDIRECT_APPEND)
+		printf("append: %s\n", *str);
+	if (*str)
+		ft_free_str(str);
 }
 
 int	parse_quotes(char line, int quotes)
