@@ -6,7 +6,7 @@
 /*   By: soulee <soulee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/23 16:24:12 by soulee            #+#    #+#             */
-/*   Updated: 2023/02/27 20:52:58 by soulee           ###   ########.fr       */
+/*   Updated: 2023/02/27 21:06:29 by soulee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,8 +35,9 @@ int	check_whitespace(char *line)
 int	main(int argc, char *argv[], char **envp)
 {
 	char			*line;
+	t_env_list		*env_list;
 
-	parse_envp(envp);
+	parse_envp(&env_list, envp);
 	print_ascii_art();
 	while (1)
 	{
