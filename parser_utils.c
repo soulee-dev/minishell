@@ -6,7 +6,7 @@
 /*   By: soulee <soulee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/27 17:25:02 by soulee            #+#    #+#             */
-/*   Updated: 2023/02/27 18:29:05 by soulee           ###   ########.fr       */
+/*   Updated: 2023/02/27 18:57:48 by soulee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ char	*ft_strjoin_char(char const *s1, char s2)
 	return (result_str);
 }
 
-int	parse_set_quotes(char line, int quotes)
+int	parse_quotes(char line, int quotes)
 {
 	int	result;
 

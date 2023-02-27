@@ -6,7 +6,7 @@
 /*   By: soulee <soulee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/23 21:48:04 by soulee            #+#    #+#             */
-/*   Updated: 2023/02/27 18:57:01 by soulee           ###   ########.fr       */
+/*   Updated: 2023/02/27 18:57:37 by soulee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ void	parse_line(char *line)
 	is_pipe = 0;
 	while (*line)
 	{
-		quotes = parse_set_quotes(*line, quotes);
+		quotes = parse_quotes(*line, quotes);
 		if (parse_redirection(&line, &str))
 			continue ;
 		if (*line == '|')
