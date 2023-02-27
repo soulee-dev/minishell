@@ -6,11 +6,28 @@
 /*   By: soulee <soulee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/23 21:48:04 by soulee            #+#    #+#             */
-/*   Updated: 2023/02/27 17:26:54 by soulee           ###   ########.fr       */
+/*   Updated: 2023/02/27 18:31:14 by soulee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+// input, output, heredoc, append null 일때 error 출력
+void	add_element_node(int cmd_type, char **str)
+{
+	if (cmd_type == TYPE_WORD)
+		printf("cmd: %s\n", *str);
+	if (cmd_type == TYPE_REDIRECT_INPUT)
+		printf("input: %s\n", *str);
+	if (cmd_type == TYPE_REDIRECT_OUTPUT)
+		printf("output: %s\n", *str);
+	if (cmd_type == TYPE_REDIRECT_HEREDOC)
+		printf("herdoc: %s\n", *str);
+	if (cmd_type == TYPE_REDIRECT_APPEND)
+		printf("append: %s\n", *str);
+	if (*str)
+		ft_free_str(str);
+}
 
 void	parse_line(char *line)
 {
@@ -27,10 +44,7 @@ void	parse_line(char *line)
 		if (*line == '<' || *line == '>')
 		{
 			if (str)
-			{
-				printf("%s\n", str);
-				ft_free_str(&str);
-			}
+				add_element_node(TYPE_WORD, &str);
 			if (*line == '<')
 				line = parse_redirection_in(line);
 			else if (*line == '>')
@@ -40,10 +54,7 @@ void	parse_line(char *line)
 		if (*line == '|')
 		{
 			if (str)
-			{
-				printf("%s\n", str);
-				ft_free_str(&str);
-			}
+				add_element_node(TYPE_WORD, &str);
 			if (is_pipe)
 				printf("pipe error");
 			is_pipe = 1;
@@ -56,10 +67,7 @@ void	parse_line(char *line)
 		line++;
 	}
 	if (str)
-	{
-		printf("%s\n", str);
-		ft_free_str(&str);
-	}
+		add_element_node(TYPE_WORD, &str);
 	else
 	{
 		if (is_pipe)
