@@ -6,7 +6,7 @@
 /*   By: soulee <soulee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/23 21:48:04 by soulee            #+#    #+#             */
-/*   Updated: 2023/02/27 22:11:37 by soulee           ###   ########.fr       */
+/*   Updated: 2023/02/27 22:13:48 by soulee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,12 +52,12 @@ void	parse_envp(t_env_list **node, char **envp)
 	int			flag;
 	char		*value;
 	
-	*node = 0;
+	*node = NULL;
 	while (*envp)
 	{
 		flag = 1;
-		key = 0;
-		value = 0;
+		key = NULL;
+		value = NULL;
 		while (**envp)
 		{
 			if (**envp == '=')
@@ -82,7 +82,7 @@ void	parse_line(char *line)
 	int		quotes;
 	int		is_pipe;
 
-	str = 0;
+	str = NULL;
 	quotes = 0;
 	is_pipe = 0;
 	while (*line)

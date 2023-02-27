@@ -6,7 +6,7 @@
 /*   By: soulee <soulee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/26 17:00:14 by soulee            #+#    #+#             */
-/*   Updated: 2023/02/27 21:40:29 by soulee           ###   ########.fr       */
+/*   Updated: 2023/02/27 22:14:05 by soulee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 void	ft_free_str(char **str)
 {
 	free(*str);
-	*str = 0;
+	*str = NULL;
 }
 
 size_t	ft_strlenbl(const char *s)
@@ -52,7 +52,7 @@ char	*ft_strndup(const char *s1, size_t n)
 		*(p + i) = *(s1 + i);
 		i++;
 	}
-	*(p + i) = 0;
+	*(p + i) = NULL;
 	return (org_p);
 }
 
