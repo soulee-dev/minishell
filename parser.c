@@ -6,116 +6,11 @@
 /*   By: soulee <soulee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/23 21:48:04 by soulee            #+#    #+#             */
-/*   Updated: 2023/02/26 12:46:59 by soulee           ###   ########.fr       */
+/*   Updated: 2023/02/27 17:26:54 by soulee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-char	*ft_strjoin_char(char const *s1, char s2)
-{
-	int		s1_len;
-	char	*result_str;
-
-	if (!s1 && !s2)
-		return (NULL);
-	if (!s1)
-		return (ft_strdup(&s2));
-	if (!s2)
-		return (ft_strdup(s1));
-	s1_len = ft_strlen(s1);
-	result_str = malloc(sizeof(char) * (s1_len + 1 + 1));
-	if (!result_str)
-		return (NULL);
-	ft_strlcpy(result_str, s1, s1_len + 1);
-	ft_strlcpy(result_str + s1_len, &s2, 2);
-	result_str[s1_len + 1] = 0;
-	return (result_str);
-}
-
-void	ft_free_str(char **str)
-{
-	free(*str);
-	*str = 0;
-}
-
-int	parse_set_quotes(char line, int quotes)
-{
-	int	result;
-
-	result = quotes;
-	if (line == '\'')
-	{
-		if (quotes == 1)
-			result = 0;
-		else if (quotes == 2)
-			result = 2;
-		else
-			result = 1;
-	}
-	else if (line == '\"')
-	{
-		if (quotes == 2)
-			result = 0;
-		else if (quotes == 1)
-			result = 1;
-		else
-			result = 2;
-	}
-	return (result);
-}
-
-char	*parse_redirection_in(char *str)
-{
-	char	*n_str;
-	char	*file_name;
-	int		len;
-
-	n_str = ft_strchr(str, '<');
-	if (n_str && *n_str == '<')
-	{
-		n_str++;
-		if (*n_str == '<')
-		{
-			printf("here_doc in\n");
-			return (str);
-		}
-		while (*n_str == ' ')
-			n_str++;
-		len = ft_strlenbl(n_str);
-		file_name = ft_strndup(n_str, len);
-		printf("infile : %s\n",file_name);
-		free(file_name);
-		return (n_str + len);
-	}
-	return (str);
-}
-
-char	*parse_redirection_out(char *str)
-{
-	char	*n_str;
-	char	*file_name;
-	int		len;
-
-	n_str = ft_strchr(str, '>');
-	if (n_str && *n_str == '>')
-	{
-		n_str++;
-		if (*n_str == '>')
-		{
-			printf("here_doc out\n");
-			return (str);
-		}
-		while (*n_str == ' ')
-			n_str++;
-		len = ft_strlenbl(n_str);
-		file_name = ft_strndup(n_str, len);
-		printf("outfile : %s\n",file_name);
-		free(file_name);
-		return (n_str + len);
-	}
-	return (str);
-}
 
 void	parse_line(char *line)
 {
@@ -140,7 +35,7 @@ void	parse_line(char *line)
 				line = parse_redirection_in(line);
 			else if (*line == '>')
 				line = parse_redirection_out(line);
-			continue;
+			continue ;
 		}
 		if (*line == '|')
 		{
