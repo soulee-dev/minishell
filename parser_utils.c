@@ -6,14 +6,17 @@
 /*   By: soulee <soulee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/27 17:25:02 by soulee            #+#    #+#             */
-/*   Updated: 2023/02/27 20:57:24 by soulee           ###   ########.fr       */
+/*   Updated: 2023/02/27 22:09:27 by soulee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
+// input, output, heredoc, append, cmd 하나라도 null 일때 error 출력
 void	add_element_node(int cmd_type, char **str)
 {
+	if (!*str)
+		exit_error("syntax error");
 	if (cmd_type == TYPE_WORD)
 		printf("cmd: %s\n", *str);
 	if (cmd_type == TYPE_REDIRECT_INPUT)

@@ -6,13 +6,11 @@
 /*   By: soulee <soulee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/23 21:48:04 by soulee            #+#    #+#             */
-/*   Updated: 2023/02/27 21:40:13 by soulee           ###   ########.fr       */
+/*   Updated: 2023/02/27 22:11:37 by soulee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-// input, output, heredoc, append null 일때 error 출력
 
 int	parse_redirection(char **line, char **str)
 {
@@ -100,8 +98,8 @@ void	parse_line(char *line)
 	else
 	{
 		if (is_pipe)
-			printf("pipe error");
+			exit_error("syntax error");
 	}
 	if (quotes != 0)
-		printf("quote error");
+		exit_error("syntax error");
 }

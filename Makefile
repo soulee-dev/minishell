@@ -7,6 +7,7 @@ SRCS += parser.c
 SRCS += string_utils.c
 SRCS += parser_utils.c
 SRCS += env_list.c
+SRCS += error.c
 
 LIBFT = ./libft/libft.a
 
