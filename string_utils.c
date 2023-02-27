@@ -6,7 +6,7 @@
 /*   By: soulee <soulee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/26 17:00:14 by soulee            #+#    #+#             */
-/*   Updated: 2023/02/27 22:14:52 by soulee           ###   ########.fr       */
+/*   Updated: 2023/02/27 22:17:13 by soulee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ char	*ft_strndup(const char *s1, size_t n)
 		*(p + i) = *(s1 + i);
 		i++;
 	}
-	*(p + i) = (char)NULL;
+	*(p + i) = (char) NULL;
 	return (org_p);
 }
 

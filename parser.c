@@ -6,7 +6,7 @@
 /*   By: soulee <soulee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/23 21:48:04 by soulee            #+#    #+#             */
-/*   Updated: 2023/02/27 22:13:48 by soulee           ###   ########.fr       */
+/*   Updated: 2023/02/27 22:17:35 by soulee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,8 +51,7 @@ void	parse_envp(t_env_list **node, char **envp)
 	char		*key;
 	int			flag;
 	char		*value;
-	
-	*node = NULL;
+
 	while (*envp)
 	{
 		flag = 1;
