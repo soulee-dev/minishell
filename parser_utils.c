@@ -6,7 +6,7 @@
 /*   By: soulee <soulee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/27 17:25:02 by soulee            #+#    #+#             */
-/*   Updated: 2023/02/27 18:57:48 by soulee           ###   ########.fr       */
+/*   Updated: 2023/02/27 18:58:35 by soulee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,27 +16,6 @@ void	ft_free_str(char **str)
 {
 	free(*str);
 	*str = 0;
-}
-
-char	*ft_strjoin_char(char const *s1, char s2)
-{
-	int		s1_len;
-	char	*result_str;
-
-	if (!s1 && !s2)
-		return (NULL);
-	if (!s1)
-		return (ft_strdup(&s2));
-	if (!s2)
-		return (ft_strdup(s1));
-	s1_len = ft_strlen(s1);
-	result_str = malloc(sizeof(char) * (s1_len + 1 + 1));
-	if (!result_str)
-		return (NULL);
-	ft_strlcpy(result_str, s1, s1_len + 1);
-	ft_strlcpy(result_str + s1_len, &s2, 2);
-	result_str[s1_len + 1] = 0;
-	return (result_str);
 }
 
 int	parse_quotes(char line, int quotes)
