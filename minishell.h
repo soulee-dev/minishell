@@ -6,7 +6,7 @@
 /*   By: soulee <soulee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/23 16:41:30 by soulee            #+#    #+#             */
-/*   Updated: 2023/02/27 18:25:21 by soulee           ###   ########.fr       */
+/*   Updated: 2023/02/27 18:48:05 by soulee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,6 @@ char	*parse_redirection_in(char *str);
 char	*get_env_value(char **envp, char *key);
 
 // string_utils.c
-size_t			ft_strlenbl(const char *s);
-char			*ft_strndup(const char *s1, size_t n);
+size_t	ft_strlenbl(const char *s);
+char	*ft_strndup(const char *s1, size_t n);
 #endif

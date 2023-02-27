@@ -6,7 +6,7 @@
 /*   By: soulee <soulee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/23 21:48:04 by soulee            #+#    #+#             */
-/*   Updated: 2023/02/27 18:31:14 by soulee           ###   ########.fr       */
+/*   Updated: 2023/02/27 18:57:01 by soulee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,21 @@ void	add_element_node(int cmd_type, char **str)
 		ft_free_str(str);
 }
 
+int	parse_redirection(char **line, char **str)
+{
+	if (**line == '<' || **line == '>')
+	{
+		if (*str)
+			add_element_node(TYPE_WORD, str);
+		if (**line == '<')
+			*line = parse_redirection_in(*line);
+		else if (**line == '>')
+			*line = parse_redirection_out(*line);
+		return (1);
+	}
+	return (0);
+}
+
 void	parse_line(char *line)
 {
 	char	*str;
@@ -41,16 +56,8 @@ void	parse_line(char *line)
 	while (*line)
 	{
 		quotes = parse_set_quotes(*line, quotes);
-		if (*line == '<' || *line == '>')
-		{
-			if (str)
-				add_element_node(TYPE_WORD, &str);
-			if (*line == '<')
-				line = parse_redirection_in(line);
-			else if (*line == '>')
-				line = parse_redirection_out(line);
+		if (parse_redirection(&line, &str))
 			continue ;
-		}
 		if (*line == '|')
 		{
 			if (str)
