@@ -6,7 +6,7 @@
 /*   By: soulee <soulee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/23 16:41:30 by soulee            #+#    #+#             */
-/*   Updated: 2023/02/27 22:09:38 by soulee           ###   ########.fr       */
+/*   Updated: 2023/02/27 22:15:21 by soulee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,14 +28,14 @@
 # define TYPE_REDIRECT_APPEND 4
 
 typedef struct s_cmd_list {
-	int				cmd_type;
-	char			*cmd;
-	struct s_cmd	*next;
+	int					cmd_type;
+	char				*cmd;
+	struct s_cmd		*next;
 }	t_cmd_list;
 
 typedef struct s_env_list {
-	char	*key;
-	char	*value;
+	char				*key;
+	char				*value;
 	struct s_env_list	*next;
 }	t_env_list;
 
