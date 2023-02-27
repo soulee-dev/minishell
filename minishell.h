@@ -6,7 +6,7 @@
 /*   By: soulee <soulee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/23 16:41:30 by soulee            #+#    #+#             */
-/*   Updated: 2023/02/27 18:59:19 by soulee           ###   ########.fr       */
+/*   Updated: 2023/02/27 19:20:26 by soulee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,11 +27,11 @@
 # define TYPE_REDIRECT_HEREDOC 3
 # define TYPE_REDIRECT_APPEND 4
 
-typedef struct s_cmd {
+typedef struct s_cmd_list {
 	int				cmd_type;
 	char			*cmd;
 	struct s_cmd	*next;
-}	t_cmd;
+}	t_cmd_list;
 
 // parser.c
 void	parse_line(char *line);
