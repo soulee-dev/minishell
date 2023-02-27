@@ -6,7 +6,7 @@
 /*   By: soulee <soulee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/23 16:41:30 by soulee            #+#    #+#             */
-/*   Updated: 2023/02/27 21:53:42 by soulee           ###   ########.fr       */
+/*   Updated: 2023/02/27 22:08:48 by soulee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,9 +49,6 @@ char		*parse_redirection_out(char *str);
 int			parse_quotes(char line, int quotes);
 void		add_element_node(int cmd_type, char **str);
 
-// env.c
-char		*get_env_value(char **envp, char *key);
-
 // string_utils.c
 void		ft_free_str(char **str);
 size_t		ft_strlenbl(const char *s);
@@ -62,4 +59,7 @@ char		*ft_strjoin_char(char const *s1, char s2);
 t_env_list	*create_new_env_node(char *key, char *value);
 void		add_env_node_back(t_env_list **node, t_env_list *new);
 char		*ft_getenv(t_env_list *node, char *key);
+
+// error.c
+void		exit_error(char *error_message);
 #endif
