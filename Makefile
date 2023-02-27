@@ -4,7 +4,6 @@ NAME = minishell
 SRCS :=
 SRCS += minishell.c
 SRCS += parser.c
-SRCS += env.c
 SRCS += string_utils.c
 SRCS += parser_utils.c
 SRCS += env_list.c
