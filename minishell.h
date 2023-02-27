@@ -6,7 +6,7 @@
 /*   By: subcho <subcho@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/23 16:41:30 by soulee            #+#    #+#             */
-/*   Updated: 2023/02/28 04:49:36 by subcho           ###   ########.fr       */
+/*   Updated: 2023/02/28 05:21:01 by subcho           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,7 @@ char		**convert_env_list_to_arr(t_env_list *node);
 
 // pipe.c
 int			execute_cmd(t_cmd_list *cmd_list, char **envp, int pipe_cnt);
-t_cmd_list	*handle_cmd(t_cmd_list *cmd_list, char **path, char **envp, int *status, int pipefd[]);
+void		handle_cmd(t_cmd_list *cmd_list, char **path, char **envp, int pipefd[], pid_t pid, int pipe_cnt);
 void		pipe_child(int type, char *cmd, int pipefd[]);
 void		pipe_parent(int pipefd[]);
 int			get_status(int pid);

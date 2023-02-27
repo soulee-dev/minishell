@@ -6,7 +6,7 @@
 /*   By: subcho <subcho@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/23 21:07:21 by subcho            #+#    #+#             */
-/*   Updated: 2023/02/28 04:54:24 by subcho           ###   ########.fr       */
+/*   Updated: 2023/02/28 05:29:01 by subcho           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 
 int	execute_cmd(t_cmd_list *cmd_list, char **envp, int pipe_cnt)
 {
+	pid_t	pid;
 	int		std[2];
 	int		pipefd[2];
 	char	**path;
@@ -26,50 +27,52 @@ int	execute_cmd(t_cmd_list *cmd_list, char **envp, int pipe_cnt)
 	while (pipe_cnt && cmd_list)
 	{
 		pipe(pipefd);
-		cmd_list = handle_cmd(cmd_list, path, envp, &status, pipefd);
+		pid = fork();
+		while (cmd_list && cmd_list->cmd_type != TYPE_PIPE)
+		{
+			if (cmd_list->cmd_type == TYPE_WORD)
+			{
+				handle_cmd(cmd_list, path, envp, pipefd, pid, pipe_cnt);
+			}
+			cmd_list = cmd_list->next;
+		}
 		if (!cmd_list)
 			break ;
 		if (cmd_list->next)
 			cmd_list = cmd_list->next;
-		dup2(pipefd[0], STDIN_FILENO);
 		pipe_cnt--;
 	}
-	//close (pipefd[0]);
-	//dup2(pipefd[0], STDIN_FILENO);
-	//dup2(std[1], STDOUT_FILENO);
+	status = get_status(pid);
+	dup2(std[0], STDIN_FILENO);
+	dup2(std[1], STDOUT_FILENO);
 	free_str(path);
 	return (status);
 }
 
-t_cmd_list	*handle_cmd(t_cmd_list *cmd_list, char **path, char **envp, int *status, int pipefd[])
+void	handle_cmd(t_cmd_list *cmd_list, char **path, char **envp, int pipefd[], pid_t pid, int pipe_cnt)
 {
-	pid_t	pid;
 	char	**cmd;
 
-	while (cmd_list && cmd_list->cmd_type != TYPE_PIPE)
-	{
-		//pipe(pipefd);
-		pid = fork();
-		if (pid < 0)
+	if (pid < 0)
 			print_error(NULL);
-		if (pid == 0)
-		{
-			cmd = ft_split(cmd_list->cmd, ' ');
+	if (pid == 0)
+	{
+		cmd = ft_split(cmd_list->cmd, ' ');
+		if (pipe_cnt != 1)
 			pipe_child(cmd_list->cmd_type, cmd[0], pipefd);
-			execve(get_cmd(path, cmd[0]), cmd, envp);
-			free_str(cmd);
-		}
-		else
-			pipe_parent(pipefd);
-		cmd_list = cmd_list->next;
+		char *path_cmd = get_cmd(path, cmd[0]);
+		execve(path_cmd, cmd, envp);
+		printf("path : %s, cmd : %s\n", path_cmd, cmd[0]);
+		exit(0); // ㅇㅖ오ㅣ처리
 	}
-	*status = get_status(pid);
-	return (cmd_list);
+	else
+		pipe_parent(pipefd);
 }
 
 void	pipe_child(int type, char *cmd, int pipefd[])
 {
 	int	file;
+	
 	close(pipefd[0]);
 	if (type == TYPE_REDIRECT_INPUT)
 	{
