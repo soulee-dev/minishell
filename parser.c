@@ -6,7 +6,7 @@
 /*   By: soulee <soulee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/23 21:48:04 by soulee            #+#    #+#             */
-/*   Updated: 2023/02/27 21:15:30 by soulee           ###   ########.fr       */
+/*   Updated: 2023/02/27 21:40:13 by soulee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,15 +67,13 @@ void	parse_envp(t_env_list **node, char **envp)
 			else
 			{
 				if (flag)
-					ft_strjoin_char(key, **envp);
+					key = ft_strjoin_char(key, **envp);
 				else
-					ft_strjoin_char(value, **envp);
+					value = ft_strjoin_char(value, **envp);
 			}
 			(*envp)++;
 		}
 		add_env_node_back(node, create_new_env_node(key, value));
-		ft_free_str(&key);
-		ft_free_str(&value);
 		envp++;
 	}
 }

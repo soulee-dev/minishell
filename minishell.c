@@ -6,7 +6,7 @@
 /*   By: soulee <soulee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/23 16:24:12 by soulee            #+#    #+#             */
-/*   Updated: 2023/02/27 21:06:29 by soulee           ###   ########.fr       */
+/*   Updated: 2023/02/27 22:04:56 by soulee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,8 @@ int	main(int argc, char *argv[], char **envp)
 	char			*line;
 	t_env_list		*env_list;
 
+	line = NULL;
+	env_list = NULL;
 	parse_envp(&env_list, envp);
 	print_ascii_art();
 	while (1)
@@ -50,5 +52,6 @@ int	main(int argc, char *argv[], char **envp)
 			parse_line(line);
 		}
 		free(line);
+		line = NULL;
 	}
 }

@@ -6,7 +6,7 @@
 /*   By: soulee <soulee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/26 17:00:14 by soulee            #+#    #+#             */
-/*   Updated: 2023/02/27 20:57:31 by soulee           ###   ########.fr       */
+/*   Updated: 2023/02/27 21:40:29 by soulee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,5 +74,6 @@ char	*ft_strjoin_char(char const *s1, char s2)
 	ft_strlcpy(result_str, s1, s1_len + 1);
 	ft_strlcpy(result_str + s1_len, &s2, 2);
 	result_str[s1_len + 1] = 0;
+	free((void *)s1);
 	return (result_str);
 }

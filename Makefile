@@ -16,10 +16,10 @@ OBJS = $(SRCS:.c=.o)
 all: $(LIBFT) $(NAME)
 
 %.o: %.c
-	$(CC) -c $(CFLAGS) $? -g3 -fsanitize=address
+	$(CC) -c $(CFLAGS) $? -g3
 
 $(NAME): $(OBJS) $(LIBFT)
-	$(CC) -o $@ $^ -Llibft -lft -lreadline -g3 -fsanitize=address
+	$(CC) -o $@ $^ -Llibft -lft -lreadline -g3
 	@echo Mandatory Compile Complete! 🥳
 
 $(LIBFT):
