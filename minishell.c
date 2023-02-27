@@ -6,7 +6,7 @@
 /*   By: soulee <soulee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/23 16:24:12 by soulee            #+#    #+#             */
-/*   Updated: 2023/02/27 23:04:25 by soulee           ###   ########.fr       */
+/*   Updated: 2023/02/27 23:24:03 by soulee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,7 @@ int	main(int argc, char *argv[], char **envp)
 			add_history(line);
 			cmd_list = parse_line(&cmd_list, line);
 			iter_node(cmd_list);
+			clear_cmd_list(&cmd_list);
 		}
 		free(line);
 		line = NULL;

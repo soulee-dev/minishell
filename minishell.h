@@ -6,7 +6,7 @@
 /*   By: soulee <soulee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/23 16:41:30 by soulee            #+#    #+#             */
-/*   Updated: 2023/02/27 23:05:12 by soulee           ###   ########.fr       */
+/*   Updated: 2023/02/27 23:24:25 by soulee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,7 @@ char		*ft_strjoin_free(char const *s1, char const *s2);
 char		*ft_strjoin_no_free(char const *s1, char const *s2);
 
 // cmd_list.c
+void		clear_cmd_list(t_cmd_list **node);
 t_cmd_list	*create_new_cmd_node(int type, char *cmd);
 void		add_cmd_node_back(t_cmd_list **node, t_cmd_list *new);
 void	iter_node(t_cmd_list *node);
