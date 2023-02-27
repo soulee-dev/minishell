@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: subcho <subcho@student.42.fr>              +#+  +:+       +#+        */
+/*   By: soulee <soulee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/23 16:24:12 by soulee            #+#    #+#             */
-/*   Updated: 2023/02/28 02:35:31 by subcho           ###   ########.fr       */
+/*   Updated: 2023/02/28 03:46:36 by soulee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,7 @@ int	main(int argc, char *argv[], char **envp)
 	int				status;
 	t_env_list		*env_list;
 	t_cmd_list		*cmd_list;
+	int				count_pipe;
 
 	line = NULL;
 	env_list = NULL;
@@ -52,8 +53,10 @@ int	main(int argc, char *argv[], char **envp)
 		{
 			add_history(line);
 			cmd_list = parse_line(&cmd_list, line);
-			//iter_node(cmd_list);
-			status = execute_cmd(cmd_list, convert_env_list_to_arr(env_list));
+			iter_node(cmd_list);
+			count_pipe = count_cmd_list_node(cmd_list, TYPE_PIPE) + 1;
+			printf("count pipe: %d\n", count_pipe);
+			// status = execute_cmd(cmd_list, convert_env_list_to_arr(env_list), get_pipe_count(cmd_list));
 			clear_cmd_list(&cmd_list);
 		}
 		free(line);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: subcho <subcho@student.42.fr>              +#+  +:+       +#+        */
+/*   By: soulee <soulee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/23 16:41:30 by soulee            #+#    #+#             */
-/*   Updated: 2023/02/28 00:58:51 by subcho           ###   ########.fr       */
+/*   Updated: 2023/02/28 03:45:20 by soulee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@
 # define TYPE_REDIRECT_OUTPUT 2
 # define TYPE_REDIRECT_HEREDOC 3
 # define TYPE_REDIRECT_APPEND 4
+# define TYPE_PIPE 5
 
 typedef struct s_cmd_list {
 	int					cmd_type;
@@ -63,6 +64,7 @@ char		*ft_strjoin_no_free(char const *s1, char const *s2);
 // cmd_list.c
 void		clear_cmd_list(t_cmd_list **node);
 t_cmd_list	*create_new_cmd_node(int type, char *cmd);
+int			count_cmd_list_node(t_cmd_list *node, int cmd_type);
 void		add_cmd_node_back(t_cmd_list **node, t_cmd_list *new);
 void		iter_node(t_cmd_list *node);
 

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cmd_list.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: subcho <subcho@student.42.fr>              +#+  +:+       +#+        */
+/*   By: soulee <soulee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/25 22:19:01 by soulee            #+#    #+#             */
-/*   Updated: 2023/02/28 00:30:23 by subcho           ###   ########.fr       */
+/*   Updated: 2023/02/28 03:45:26 by soulee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,12 +50,26 @@ void	add_cmd_node_back(t_cmd_list **node, t_cmd_list *new)
 
 void	iter_node(t_cmd_list *node)
 {
-	printf("node\n");
+	// REMOVE BEFORE FLIGHT
 	while (node)
 	{
 		printf("[%d]=%s\n", node->cmd_type, node->cmd);
 		node = node->next;
 	}
+}
+
+int	count_cmd_list_node(t_cmd_list *node, int cmd_type)
+{
+	int	count;
+
+	count = 0;
+	while (node)
+	{
+		if (node->cmd_type == cmd_type)
+			count++;
+		node = node->next;
+	}
+	return (count);
 }
 
 void	clear_cmd_list(t_cmd_list **node)

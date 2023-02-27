@@ -6,7 +6,7 @@
 /*   By: soulee <soulee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/23 21:48:04 by soulee            #+#    #+#             */
-/*   Updated: 2023/02/27 23:06:45 by soulee           ###   ########.fr       */
+/*   Updated: 2023/02/28 03:41:37 by soulee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,7 @@ int	parse_pipe(t_cmd_list **cmd_list, int is_pipe, char c, char **str)
 		if (is_pipe)
 			printf("pipe error");
 		is_pipe = 1;
+		add_element_node(cmd_list, TYPE_PIPE, 0);
 		return (is_pipe);
 	}
 	else

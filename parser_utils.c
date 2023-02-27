@@ -6,7 +6,7 @@
 /*   By: soulee <soulee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/27 17:25:02 by soulee            #+#    #+#             */
-/*   Updated: 2023/02/27 23:05:22 by soulee           ###   ########.fr       */
+/*   Updated: 2023/02/28 03:39:25 by soulee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,19 +17,15 @@ void	add_element_node(t_cmd_list **cmd_list, int cmd_type, char **str)
 {
 	char	*cmd;
 
+	if (cmd_type == TYPE_PIPE)
+	{
+		add_cmd_node_back(cmd_list, create_new_cmd_node(TYPE_PIPE, 0));
+		return ;
+	}
 	if (!*str)
 		exit_error("syntax error");
 	cmd = ft_strdup(*str);
-	if (cmd_type == TYPE_WORD)
-		add_cmd_node_back(cmd_list, create_new_cmd_node(TYPE_WORD, cmd));
-	if (cmd_type == TYPE_REDIRECT_INPUT)
-		add_cmd_node_back(cmd_list, create_new_cmd_node(TYPE_REDIRECT_INPUT, cmd));
-	if (cmd_type == TYPE_REDIRECT_OUTPUT)
-		add_cmd_node_back(cmd_list, create_new_cmd_node(TYPE_REDIRECT_OUTPUT, cmd));
-	if (cmd_type == TYPE_REDIRECT_HEREDOC)
-		add_cmd_node_back(cmd_list, create_new_cmd_node(TYPE_REDIRECT_HEREDOC, cmd));
-	if (cmd_type == TYPE_REDIRECT_APPEND)
-		add_cmd_node_back(cmd_list, create_new_cmd_node(TYPE_REDIRECT_APPEND, cmd));
+	add_cmd_node_back(cmd_list, create_new_cmd_node(cmd_type, cmd));
 	if (*str)
 		ft_free_str(str);
 }
