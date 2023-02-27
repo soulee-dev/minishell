@@ -1,32 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   cmd_list.c                                         :+:      :+:    :+:   */
+/*   env_list.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: soulee <soulee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/02/25 22:19:01 by soulee            #+#    #+#             */
-/*   Updated: 2023/02/27 19:29:36 by soulee           ###   ########.fr       */
+/*   Created: 2023/02/27 19:25:21 by soulee            #+#    #+#             */
+/*   Updated: 2023/02/27 19:30:09 by soulee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-// list 구현 필요. 단방향 양방향 할지 선택해야 함.
 #include "minishell.h"
 
-t_cmd_list	*create_new_cmd_node(int type, char *cmd)
+t_env_list	*create_new_env_node(char *key, char *value)
 {
-	t_cmd_list	*new_node;
+	t_env_list	*new_node;
 
-	new_node = (t_cmd_list *)malloc(sizeof(t_cmd_list));
+	new_node = (t_env_list *)malloc(sizeof(t_env_list));
 	if (!new_node)
 		return (NULL);
-	new_node->cmd_type = type;
-	new_node->cmd = cmd;
+	new_node->key = key;
+	new_node->value = value;
 	new_node->next = NULL;
 	return (new_node);
 }
 
-t_cmd_list	*get_last_cmd_node(t_cmd_list *node)
+t_env_list	*get_last_env_node(t_env_list *node)
 {
 	if (!node)
 		return (NULL);
@@ -35,15 +34,15 @@ t_cmd_list	*get_last_cmd_node(t_cmd_list *node)
 	return (node);
 }
 
-void	add_cmd_node_back(t_cmd_list **node, t_cmd_list *new)
+void	add_env_node_back(t_env_list **node, t_env_list *new)
 {
-	t_cmd_list	*last;
+	t_env_list	*last;
 
 	if (!*node)
 	{
 		*node = new;
 		return (NULL);
 	}
-	last = get_last_cmd_node(*node);
+	last = get_last_env_node(*node);
 	last->next = new;
 }
