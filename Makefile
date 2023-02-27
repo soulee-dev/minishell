@@ -2,14 +2,15 @@ NAME = minishell
 # CFLAGS = -Wall -Wextra -Werror
 
 SRCS :=
-SRCS += minishell.c
-SRCS += parser.c
-SRCS += string_utils.c
-SRCS += string_utils2.c
-SRCS += parser_utils.c
-SRCS += env_list.c
-SRCS += env_list_utils.c
 SRCS += error.c
+SRCS += parser.c
+SRCS += env_list.c
+SRCS += cmd_list.c
+SRCS += minishell.c
+SRCS += string_utils.c
+SRCS += parser_utils.c
+SRCS += string_utils2.c
+SRCS += env_list_utils.c
 
 LIBFT = ./libft/libft.a
 

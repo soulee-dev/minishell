@@ -6,7 +6,7 @@
 /*   By: soulee <soulee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/23 16:24:12 by soulee            #+#    #+#             */
-/*   Updated: 2023/02/27 22:43:35 by soulee           ###   ########.fr       */
+/*   Updated: 2023/02/27 23:04:25 by soulee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,7 @@ int	main(int argc, char *argv[], char **envp)
 {
 	char			*line;
 	t_env_list		*env_list;
+	t_cmd_list		*cmd_list;
 
 	line = NULL;
 	env_list = NULL;
@@ -49,7 +50,8 @@ int	main(int argc, char *argv[], char **envp)
 		if (*line != '\0')
 		{
 			add_history(line);
-			parse_line(line);
+			cmd_list = parse_line(&cmd_list, line);
+			iter_node(cmd_list);
 		}
 		free(line);
 		line = NULL;

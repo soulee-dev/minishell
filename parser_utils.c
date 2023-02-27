@@ -6,27 +6,30 @@
 /*   By: soulee <soulee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/27 17:25:02 by soulee            #+#    #+#             */
-/*   Updated: 2023/02/27 22:09:27 by soulee           ###   ########.fr       */
+/*   Updated: 2023/02/27 23:05:22 by soulee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
 // input, output, heredoc, append, cmd 하나라도 null 일때 error 출력
-void	add_element_node(int cmd_type, char **str)
+void	add_element_node(t_cmd_list **cmd_list, int cmd_type, char **str)
 {
+	char	*cmd;
+
 	if (!*str)
 		exit_error("syntax error");
+	cmd = ft_strdup(*str);
 	if (cmd_type == TYPE_WORD)
-		printf("cmd: %s\n", *str);
+		add_cmd_node_back(cmd_list, create_new_cmd_node(TYPE_WORD, cmd));
 	if (cmd_type == TYPE_REDIRECT_INPUT)
-		printf("input: %s\n", *str);
+		add_cmd_node_back(cmd_list, create_new_cmd_node(TYPE_REDIRECT_INPUT, cmd));
 	if (cmd_type == TYPE_REDIRECT_OUTPUT)
-		printf("output: %s\n", *str);
+		add_cmd_node_back(cmd_list, create_new_cmd_node(TYPE_REDIRECT_OUTPUT, cmd));
 	if (cmd_type == TYPE_REDIRECT_HEREDOC)
-		printf("herdoc: %s\n", *str);
+		add_cmd_node_back(cmd_list, create_new_cmd_node(TYPE_REDIRECT_HEREDOC, cmd));
 	if (cmd_type == TYPE_REDIRECT_APPEND)
-		printf("append: %s\n", *str);
+		add_cmd_node_back(cmd_list, create_new_cmd_node(TYPE_REDIRECT_APPEND, cmd));
 	if (*str)
 		ft_free_str(str);
 }
@@ -57,7 +60,7 @@ int	parse_quotes(char line, int quotes)
 	return (result);
 }
 
-char	*parse_redirection_in(char *str)
+char	*parse_redirection_in(t_cmd_list **cmd_list, char *str)
 {
 	int		len;
 	char	*n_str;
@@ -78,13 +81,13 @@ char	*parse_redirection_in(char *str)
 			n_str++;
 		len = ft_strlenbl(n_str);
 		file_name = ft_strndup(n_str, len);
-		add_element_node(cmd_type, &file_name);
+		add_element_node(cmd_list, cmd_type, &file_name);
 		return (n_str + len);
 	}
 	return (str);
 }
 
-char	*parse_redirection_out(char *str)
+char	*parse_redirection_out(t_cmd_list **cmd_list, char *str)
 {
 	int		len;
 	char	*n_str;
@@ -105,7 +108,7 @@ char	*parse_redirection_out(char *str)
 			n_str++;
 		len = ft_strlenbl(n_str);
 		file_name = ft_strndup(n_str, len);
-		add_element_node(cmd_type, &file_name);
+		add_element_node(cmd_list, cmd_type, &file_name);
 		return (n_str + len);
 	}
 	return (str);

@@ -6,7 +6,7 @@
 /*   By: soulee <soulee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/23 16:41:30 by soulee            #+#    #+#             */
-/*   Updated: 2023/02/27 22:37:22 by soulee           ###   ########.fr       */
+/*   Updated: 2023/02/27 23:05:12 by soulee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@
 typedef struct s_cmd_list {
 	int					cmd_type;
 	char				*cmd;
-	struct s_cmd		*next;
+	struct s_cmd_list	*next;
 }	t_cmd_list;
 
 typedef struct s_env_list {
@@ -40,14 +40,14 @@ typedef struct s_env_list {
 }	t_env_list;
 
 // parser.c
-void		parse_line(char *line);
 void		parse_envp(t_env_list **node, char **envp);
+t_cmd_list	*parse_line(t_cmd_list **cmd_list, char *line);
 
 // parser_utils.c
-char		*parse_redirection_in(char *str);
-char		*parse_redirection_out(char *str);
 int			parse_quotes(char line, int quotes);
-void		add_element_node(int cmd_type, char **str);
+char		*parse_redirection_in(t_cmd_list **cmd_list, char *str);
+char		*parse_redirection_out(t_cmd_list **cmd_list, char *str);
+void		add_element_node(t_cmd_list **cmd_list, int cmd_type, char **str);
 
 // string_utils.c
 void		ft_free_str(char **str);
@@ -56,8 +56,13 @@ char		*ft_strndup(const char *s1, size_t n);
 char		*ft_strjoin_char(char const *s1, char s2);
 
 // string_utils2.c
-char	*ft_strjoin_free(char const *s1, char const *s2);
-char	*ft_strjoin_no_free(char const *s1, char const *s2);
+char		*ft_strjoin_free(char const *s1, char const *s2);
+char		*ft_strjoin_no_free(char const *s1, char const *s2);
+
+// cmd_list.c
+t_cmd_list	*create_new_cmd_node(int type, char *cmd);
+void		add_cmd_node_back(t_cmd_list **node, t_cmd_list *new);
+void	iter_node(t_cmd_list *node);
 
 // env_list.c
 int			get_env_list_size(t_env_list *node);

@@ -6,33 +6,33 @@
 /*   By: soulee <soulee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/23 21:48:04 by soulee            #+#    #+#             */
-/*   Updated: 2023/02/27 22:17:35 by soulee           ###   ########.fr       */
+/*   Updated: 2023/02/27 23:06:45 by soulee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	parse_redirection(char **line, char **str)
+int	parse_redirection(t_cmd_list **cmd_list, char **line, char **str)
 {
 	if (**line == '<' || **line == '>')
 	{
 		if (*str)
-			add_element_node(TYPE_WORD, str);
+			add_element_node(cmd_list, TYPE_WORD, str);
 		if (**line == '<')
-			*line = parse_redirection_in(*line);
+			*line = parse_redirection_in(cmd_list, *line);
 		else if (**line == '>')
-			*line = parse_redirection_out(*line);
+			*line = parse_redirection_out(cmd_list, *line);
 		return (1);
 	}
 	return (0);
 }
 
-int	parse_pipe(int is_pipe, char c, char **str)
+int	parse_pipe(t_cmd_list **cmd_list, int is_pipe, char c, char **str)
 {
 	if (c == '|')
 	{
 		if (str)
-			add_element_node(TYPE_WORD, str);
+			add_element_node(cmd_list, TYPE_WORD, str);
 		if (is_pipe)
 			printf("pipe error");
 		is_pipe = 1;
@@ -75,11 +75,11 @@ void	parse_envp(t_env_list **node, char **envp)
 	}
 }
 
-void	parse_line(char *line)
+t_cmd_list	*parse_line(t_cmd_list **cmd_list, char *line)
 {
-	char	*str;
-	int		quotes;
-	int		is_pipe;
+	char		*str;
+	int			quotes;
+	int			is_pipe;
 
 	str = NULL;
 	quotes = 0;
@@ -87,13 +87,13 @@ void	parse_line(char *line)
 	while (*line)
 	{
 		quotes = parse_quotes(*line, quotes);
-		if (parse_redirection(&line, &str))
+		if (parse_redirection(cmd_list, &line, &str))
 			continue ;
-		is_pipe = parse_pipe(is_pipe, *line, &str);
+		is_pipe = parse_pipe(cmd_list, is_pipe, *line, &str);
 		line++;
 	}
 	if (str)
-		add_element_node(TYPE_WORD, &str);
+		add_element_node(cmd_list, TYPE_WORD, &str);
 	else
 	{
 		if (is_pipe)
@@ -101,4 +101,5 @@ void	parse_line(char *line)
 	}
 	if (quotes != 0)
 		exit_error("syntax error");
+	return (*cmd_list);
 }
