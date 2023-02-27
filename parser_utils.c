@@ -6,11 +6,17 @@
 /*   By: soulee <soulee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/27 17:25:02 by soulee            #+#    #+#             */
-/*   Updated: 2023/02/27 17:28:32 by soulee           ###   ########.fr       */
+/*   Updated: 2023/02/27 18:29:05 by soulee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+void	ft_free_str(char **str)
+{
+	free(*str);
+	*str = 0;
+}
 
 char	*ft_strjoin_char(char const *s1, char s2)
 {
@@ -31,12 +37,6 @@ char	*ft_strjoin_char(char const *s1, char s2)
 	ft_strlcpy(result_str + s1_len, &s2, 2);
 	result_str[s1_len + 1] = 0;
 	return (result_str);
-}
-
-void	ft_free_str(char **str)
-{
-	free(*str);
-	*str = 0;
 }
 
 int	parse_set_quotes(char line, int quotes)
@@ -65,12 +65,14 @@ int	parse_set_quotes(char line, int quotes)
 	return (result);
 }
 
-char	*parse_redirection_in(char delimiter, char *str)
+char	*parse_redirection_in(char *str)
 {
 	int		len;
 	char	*n_str;
 	char	*file_name;
+	int		cmd_type;
 
+	cmd_type = TYPE_REDIRECT_INPUT;
 	n_str = ft_strchr(str, '<');
 	if (n_str && *n_str == '<')
 	{
@@ -78,14 +80,13 @@ char	*parse_redirection_in(char delimiter, char *str)
 		if (*n_str == '<')
 		{
 			n_str++;
-			printf("here_doc in\n");
+			cmd_type = TYPE_REDIRECT_HEREDOC;
 		}
 		while (*n_str == ' ')
 			n_str++;
 		len = ft_strlenbl(n_str);
 		file_name = ft_strndup(n_str, len);
-		printf("infile : %s\n", file_name);
-		free(file_name);
+		add_element_node(cmd_type, &file_name);
 		return (n_str + len);
 	}
 	return (str);
@@ -96,7 +97,10 @@ char	*parse_redirection_out(char *str)
 	int		len;
 	char	*n_str;
 	char	*file_name;
+	int		cmd_type;
 
+	
+	cmd_type = TYPE_REDIRECT_OUTPUT;
 	n_str = ft_strchr(str, '>');
 	if (n_str && *n_str == '>')
 	{
@@ -104,14 +108,13 @@ char	*parse_redirection_out(char *str)
 		if (*n_str == '>')
 		{
 			n_str++;
-			printf("append out\n");
+			cmd_type = TYPE_REDIRECT_APPEND;
 		}
 		while (*n_str == ' ')
 			n_str++;
 		len = ft_strlenbl(n_str);
 		file_name = ft_strndup(n_str, len);
-		printf("outfile : %s\n", file_name);
-		free(file_name);
+		add_element_node(cmd_type, &file_name);
 		return (n_str + len);
 	}
 	return (str);

@@ -6,7 +6,7 @@
 /*   By: soulee <soulee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/23 16:41:30 by soulee            #+#    #+#             */
-/*   Updated: 2023/02/27 17:27:55 by soulee           ###   ########.fr       */
+/*   Updated: 2023/02/27 18:25:21 by soulee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,21 +28,25 @@
 # define TYPE_REDIRECT_APPEND 4
 
 typedef struct s_cmd {
-	int				type;
+	int				cmd_type;
 	char			*cmd;
-	// struct s_cmd	*prev;
 	struct s_cmd	*next;
 }	t_cmd;
 
 // parser.c
 void	parse_line(char *line);
+void	add_element_node(int cmd_type, char **str);
 
 // parser_utils.c
-char	*ft_strjoin_char(char const *s1, char s2);
 void	ft_free_str(char **str);
-
-
+char	*parse_redirection_out(char *str);
+int		parse_set_quotes(char line, int quotes);
+char	*ft_strjoin_char(char const *s1, char s2);
+char	*parse_redirection_in(char *str);
 // env.c
 char	*get_env_value(char **envp, char *key);
 
+// string_utils.c
+size_t			ft_strlenbl(const char *s);
+char			*ft_strndup(const char *s1, size_t n);
 #endif
