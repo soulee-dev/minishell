@@ -6,7 +6,7 @@
 /*   By: soulee <soulee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/26 17:00:14 by soulee            #+#    #+#             */
-/*   Updated: 2023/02/27 22:17:13 by soulee           ###   ########.fr       */
+/*   Updated: 2023/02/27 22:37:37 by soulee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,8 +58,8 @@ char	*ft_strndup(const char *s1, size_t n)
 
 char	*ft_strjoin_char(char const *s1, char s2)
 {
-	int		s1_len;
-	char	*result_str;
+	size_t		s1_len;
+	char		*result_str;
 
 	if (!s1 && !s2)
 		return (NULL);

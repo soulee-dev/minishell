@@ -6,7 +6,7 @@
 /*   By: soulee <soulee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/23 16:41:30 by soulee            #+#    #+#             */
-/*   Updated: 2023/02/27 22:15:21 by soulee           ###   ########.fr       */
+/*   Updated: 2023/02/27 22:37:22 by soulee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,10 +55,18 @@ size_t		ft_strlenbl(const char *s);
 char		*ft_strndup(const char *s1, size_t n);
 char		*ft_strjoin_char(char const *s1, char s2);
 
+// string_utils2.c
+char	*ft_strjoin_free(char const *s1, char const *s2);
+char	*ft_strjoin_no_free(char const *s1, char const *s2);
+
 // env_list.c
+int			get_env_list_size(t_env_list *node);
+char		*ft_getenv(t_env_list *node, char *key);
 t_env_list	*create_new_env_node(char *key, char *value);
 void		add_env_node_back(t_env_list **node, t_env_list *new);
-char		*ft_getenv(t_env_list *node, char *key);
+
+// env_list_utils.c
+char		**convert_env_list_to_arr(t_env_list *node);
 
 // error.c
 void		exit_error(char *error_message);

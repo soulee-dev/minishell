@@ -6,7 +6,7 @@
 /*   By: soulee <soulee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/27 19:25:21 by soulee            #+#    #+#             */
-/*   Updated: 2023/02/27 22:03:55 by soulee           ###   ########.fr       */
+/*   Updated: 2023/02/27 22:26:16 by soulee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,15 +47,15 @@ void	add_env_node_back(t_env_list **node, t_env_list *new)
 	last->next = new;
 }
 
-char	*ft_getenv(t_env_list *node, char *key)
+int	get_env_list_size(t_env_list *node)
 {
+	int	count;
+
+	count = 0;
 	while (node)
 	{
-		if (!node->key)
-			return (0);
-		if (!ft_strncmp(node->key, key, ft_strlen(key)))
-			return (node->value);
+		count++;
 		node = node->next;
 	}
-	return (0);
+	return (count);
 }
