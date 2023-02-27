@@ -6,7 +6,7 @@
 /*   By: soulee <soulee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/23 16:41:30 by soulee            #+#    #+#             */
-/*   Updated: 2023/02/27 19:20:26 by soulee           ###   ########.fr       */
+/*   Updated: 2023/02/27 19:22:05 by soulee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,12 @@ typedef struct s_cmd_list {
 	char			*cmd;
 	struct s_cmd	*next;
 }	t_cmd_list;
+
+typedef struct s_env_list {
+	char	*key;
+	char	*value;
+	struct s_env_list	*next;
+}	t_env_list;
 
 // parser.c
 void	parse_line(char *line);
