@@ -6,7 +6,7 @@
 /*   By: soulee <soulee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/25 22:19:01 by soulee            #+#    #+#             */
-/*   Updated: 2023/02/27 19:29:36 by soulee           ###   ########.fr       */
+/*   Updated: 2023/02/27 21:14:50 by soulee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ t_cmd_list	*get_last_cmd_node(t_cmd_list *node)
 {
 	if (!node)
 		return (NULL);
-	while (node)
+	while (node->next)
 		node = node->next;
 	return (node);
 }
@@ -42,7 +42,7 @@ void	add_cmd_node_back(t_cmd_list **node, t_cmd_list *new)
 	if (!*node)
 	{
 		*node = new;
-		return (NULL);
+		return ;
 	}
 	last = get_last_cmd_node(*node);
 	last->next = new;

@@ -7,6 +7,7 @@ SRCS += parser.c
 SRCS += env.c
 SRCS += string_utils.c
 SRCS += parser_utils.c
+SRCS += env_list.c
 
 LIBFT = ./libft/libft.a
 
@@ -15,10 +16,10 @@ OBJS = $(SRCS:.c=.o)
 all: $(LIBFT) $(NAME)
 
 %.o: %.c
-	$(CC) -c $(CFLAGS) $? -g3
+	$(CC) -c $(CFLAGS) $? -g3 -fsanitize=address
 
 $(NAME): $(OBJS) $(LIBFT)
-	$(CC) -o $@ $^ -Llibft -lft -lreadline -g3
+	$(CC) -o $@ $^ -Llibft -lft -lreadline -g3 -fsanitize=address
 	@echo Mandatory Compile Complete! 🥳
 
 $(LIBFT):

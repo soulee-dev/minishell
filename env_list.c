@@ -6,7 +6,7 @@
 /*   By: soulee <soulee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/27 19:25:21 by soulee            #+#    #+#             */
-/*   Updated: 2023/02/27 19:30:09 by soulee           ###   ########.fr       */
+/*   Updated: 2023/02/27 21:14:46 by soulee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ t_env_list	*get_last_env_node(t_env_list *node)
 {
 	if (!node)
 		return (NULL);
-	while (node)
+	while (node->next)
 		node = node->next;
 	return (node);
 }
@@ -41,7 +41,7 @@ void	add_env_node_back(t_env_list **node, t_env_list *new)
 	if (!*node)
 	{
 		*node = new;
-		return (NULL);
+		return ;
 	}
 	last = get_last_env_node(*node);
 	last->next = new;
