@@ -6,7 +6,7 @@
 /*   By: soulee <soulee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/27 17:25:02 by soulee            #+#    #+#             */
-/*   Updated: 2023/02/27 18:58:35 by soulee           ###   ########.fr       */
+/*   Updated: 2023/02/27 19:07:18 by soulee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,8 +48,8 @@ char	*parse_redirection_in(char *str)
 {
 	int		len;
 	char	*n_str;
-	char	*file_name;
 	int		cmd_type;
+	char	*file_name;
 
 	cmd_type = TYPE_REDIRECT_INPUT;
 	n_str = ft_strchr(str, '<');
@@ -75,10 +75,9 @@ char	*parse_redirection_out(char *str)
 {
 	int		len;
 	char	*n_str;
-	char	*file_name;
 	int		cmd_type;
+	char	*file_name;
 
-	
 	cmd_type = TYPE_REDIRECT_OUTPUT;
 	n_str = ft_strchr(str, '>');
 	if (n_str && *n_str == '>')
