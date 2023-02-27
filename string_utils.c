@@ -6,11 +6,17 @@
 /*   By: soulee <soulee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/26 17:00:14 by soulee            #+#    #+#             */
-/*   Updated: 2023/02/27 18:58:38 by soulee           ###   ########.fr       */
+/*   Updated: 2023/02/27 20:57:31 by soulee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+void	ft_free_str(char **str)
+{
+	free(*str);
+	*str = 0;
+}
 
 size_t	ft_strlenbl(const char *s)
 {
