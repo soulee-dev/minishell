@@ -6,7 +6,7 @@
 /*   By: soulee <soulee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/26 17:00:14 by soulee            #+#    #+#             */
-/*   Updated: 2023/02/27 22:37:37 by soulee           ###   ########.fr       */
+/*   Updated: 2023/03/02 17:56:18 by soulee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,24 +56,20 @@ char	*ft_strndup(const char *s1, size_t n)
 	return (org_p);
 }
 
-char	*ft_strjoin_char(char const *s1, char s2)
+int	check_is_whitespace(char c)
 {
-	size_t		s1_len;
-	char		*result_str;
+	if (c == 32 || (c >= 9 && c <= 13))
+		return (1);
+	return (0);
+}
 
-	if (!s1 && !s2)
-		return (NULL);
-	if (!s1)
-		return (ft_strdup(&s2));
-	if (!s2)
-		return (ft_strdup(s1));
-	s1_len = ft_strlen(s1);
-	result_str = malloc(sizeof(char) * (s1_len + 1 + 1));
-	if (!result_str)
-		return (NULL);
-	ft_strlcpy(result_str, s1, s1_len + 1);
-	ft_strlcpy(result_str + s1_len, &s2, 2);
-	result_str[s1_len + 1] = 0;
-	free((void *)s1);
-	return (result_str);
+int	check_whitespace_str(char *line)
+{
+	while (*line)
+	{
+		if (check_is_whitespace(*line))
+			return (1);
+		line++;
+	}
+	return (0);
 }

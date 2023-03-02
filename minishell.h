@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: subcho <subcho@student.42.fr>              +#+  +:+       +#+        */
+/*   By: soulee <soulee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/23 16:41:30 by soulee            #+#    #+#             */
-/*   Updated: 2023/02/28 05:21:01 by subcho           ###   ########.fr       */
+/*   Updated: 2023/03/02 17:58:08 by soulee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,10 +54,12 @@ void		add_element_node(t_cmd_list **cmd_list, int cmd_type, char **str);
 // string_utils.c
 void		ft_free_str(char **str);
 size_t		ft_strlenbl(const char *s);
+int			check_is_whitespace(char c);
+int			check_whitespace_str(char *line);
 char		*ft_strndup(const char *s1, size_t n);
-char		*ft_strjoin_char(char const *s1, char s2);
 
 // string_utils2.c
+char		*ft_strjoin_char(char const *s1, char s2);
 char		*ft_strjoin_free(char const *s1, char const *s2);
 char		*ft_strjoin_no_free(char const *s1, char const *s2);
 
