@@ -5,6 +5,7 @@ SRCS :=
 SRCS += pipe.c
 SRCS += error.c
 SRCS += parser.c
+SRCS += builtins.c
 SRCS += env_list.c
 SRCS += cmd_list.c
 SRCS += minishell.c

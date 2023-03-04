@@ -6,7 +6,7 @@
 /*   By: soulee <soulee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/23 16:24:12 by soulee            #+#    #+#             */
-/*   Updated: 2023/03/04 17:21:43 by soulee           ###   ########.fr       */
+/*   Updated: 2023/03/04 22:00:46 by soulee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,7 @@ int	main(int argc, char *argv[], char **envp)
 			iter_node(cmd_list);
 			// status = execute_cmd(cmd_list, convert_env_list_to_arr(env_list), count_cmd_list_node(cmd_list, TYPE_PIPE) + 1);
 			clear_cmd_list(&cmd_list);
+			env(env_list);
 		}
 		free(line);
 		line = NULL;
