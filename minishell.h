@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: subcho <subcho@student.42.fr>              +#+  +:+       +#+        */
+/*   By: soulee <soulee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/23 16:41:30 by soulee            #+#    #+#             */
-/*   Updated: 2023/03/04 19:21:48 by subcho           ###   ########.fr       */
+/*   Updated: 2023/03/04 20:19:06 by soulee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,7 @@ int			parse_quotes(char line, int quotes);
 char		*parse_redirection_in(t_cmd_list **cmd_list, char *str);
 char		*parse_redirection_out(t_cmd_list **cmd_list, char *str);
 void		add_element_node(t_cmd_list **cmd_list, int cmd_type, char **str);
+void		parse_dollar_sign_loop(t_cmd_list *cmd_list, t_env_list *env_list);
 
 // string_utils.c
 void		ft_free_str(char **str);
