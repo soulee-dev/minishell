@@ -6,14 +6,14 @@
 /*   By: soulee <soulee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/04 22:42:37 by soulee            #+#    #+#             */
-/*   Updated: 2023/03/04 22:43:01 by soulee           ###   ########.fr       */
+/*   Updated: 2023/03/04 22:59:49 by soulee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
 // TODO fix unset
-// TODO add export
+// TODO add exportw
 void	unset(t_env_list *env_list, char *key)
 {
 	t_env_list	*temp;
