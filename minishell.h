@@ -6,7 +6,7 @@
 /*   By: soulee <soulee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/23 16:41:30 by soulee            #+#    #+#             */
-/*   Updated: 2023/03/04 22:50:50 by soulee           ###   ########.fr       */
+/*   Updated: 2023/03/04 22:53:44 by soulee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,7 +98,7 @@ void		free_str(char **str);
 void		exit_error(char *error_message);
 
 // builtins1.c
-void		pwd();
+void		pwd(void);
 void		cd(const char *path);
 void		echo(const char *s, int no_newline);
 

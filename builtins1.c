@@ -6,7 +6,7 @@
 /*   By: soulee <soulee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/04 21:58:42 by soulee            #+#    #+#             */
-/*   Updated: 2023/03/04 22:52:07 by soulee           ###   ########.fr       */
+/*   Updated: 2023/03/04 22:53:15 by soulee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,10 +23,10 @@ void	echo(const char *s, int no_newline)
 // TODO add exit
 void	cd(const char *path)
 {
-	chdir(path);	
+	chdir(path);
 }
 
-void	pwd()
+void	pwd(void)
 {
 	char	*curr_dir;
 
