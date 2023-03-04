@@ -1,17 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   builtins.c                                         :+:      :+:    :+:   */
+/*   builtins2.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: soulee <soulee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/03/04 21:58:42 by soulee            #+#    #+#             */
-/*   Updated: 2023/03/04 22:41:07 by soulee           ###   ########.fr       */
+/*   Created: 2023/03/04 22:42:37 by soulee            #+#    #+#             */
+/*   Updated: 2023/03/04 22:43:01 by soulee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
+// TODO fix unset
+// TODO add export
 void	unset(t_env_list *env_list, char *key)
 {
 	t_env_list	*temp;
@@ -40,18 +42,4 @@ void	env(t_env_list *env_list)
 		printf("%s\n", *envp);
 		envp++;
 	}
-}
-
-void	cd(const char *path)
-{
-	chdir(path);	
-}
-
-void	pwd()
-{
-	char	*curr_dir;
-
-	curr_dir = getcwd(NULL, 0);
-	printf("%s\n", curr_dir);
-	free(curr_dir);
 }
