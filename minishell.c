@@ -6,7 +6,7 @@
 /*   By: soulee <soulee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/23 16:24:12 by soulee            #+#    #+#             */
-/*   Updated: 2023/03/04 16:57:07 by soulee           ###   ########.fr       */
+/*   Updated: 2023/03/04 17:21:43 by soulee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,11 @@ int	main(int argc, char *argv[], char **envp)
 
 	line = NULL;
 	env_list = NULL;
+	if (argc != 1)
+	{
+		print_error("arguments error");
+		exit(1);
+	}
 	parse_envp(&env_list, envp);
 	print_ascii_art();
 	while (1)

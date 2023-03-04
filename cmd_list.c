@@ -6,11 +6,10 @@
 /*   By: soulee <soulee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/25 22:19:01 by soulee            #+#    #+#             */
-/*   Updated: 2023/02/28 03:45:26 by soulee           ###   ########.fr       */
+/*   Updated: 2023/03/04 16:59:34 by soulee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-// list 구현 필요. 단방향 양방향 할지 선택해야 함.
 #include "minishell.h"
 
 t_cmd_list	*create_new_cmd_node(int type, char *cmd)
