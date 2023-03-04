@@ -6,7 +6,7 @@
 /*   By: subcho <subcho@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/23 21:10:01 by subcho            #+#    #+#             */
-/*   Updated: 2023/03/02 18:16:28 by subcho           ###   ########.fr       */
+/*   Updated: 2023/03/04 20:07:45 by subcho           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 void	print_error(char *msg)
 {
 	perror(msg);
-	exit(1);
+	//exit(1);
 }
 
 char	**get_path(char **envp)
@@ -49,7 +49,6 @@ char	*get_cmd(char **path, char *cmd)
 	write(2, "command not found: ", 19);
 	write(2, cmd, ft_strlen(cmd));
 	write(2, "\n", 1);
-	exit(1);
 	return (0);
 }
 
