@@ -6,7 +6,7 @@
 /*   By: soulee <soulee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/23 21:48:04 by soulee            #+#    #+#             */
-/*   Updated: 2023/03/02 18:30:09 by soulee           ###   ########.fr       */
+/*   Updated: 2023/03/04 16:56:31 by soulee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,33 +85,30 @@ void	parse_dollar_sign(t_cmd_list *cmd_list, t_env_list *env_list)
 
 	while (cmd_list)
 	{
-		if (cmd_list->cmd_type == TYPE_WORD || cmd_list->cmd_type == TYPE_REDIRECT_INPUT)
+		i = 0;
+		str = NULL;
+		is_dollar = 0;
+		if (cmd_list->cmd && ft_strchr(cmd_list->cmd, '$'))
 		{
-			i = 0;
-			str = NULL;
-			is_dollar = 0;
-			if (ft_strchr(cmd_list->cmd, '$'))
+			key = 0;
+			while (cmd_list->cmd[i])
 			{
-				key = 0;
-				while (cmd_list->cmd[i])
+				if (cmd_list->cmd[i] == '$')
 				{
-					if (cmd_list->cmd[i] == '$')
-					{
-						i++;
-						while (cmd_list->cmd[i] && !check_is_whitespace(cmd_list->cmd[i]))
-						{
-							key = ft_strjoin_char(key, cmd_list->cmd[i]);
-							i++;
-						}
-						str = ft_strjoin_free(str, ft_getenv(env_list, key));
-						ft_free_str(&key);
-					}
-					str = ft_strjoin_char(str, cmd_list->cmd[i]);
 					i++;
+					while (cmd_list->cmd[i] && !check_is_whitespace(cmd_list->cmd[i]))
+					{
+						key = ft_strjoin_char(key, cmd_list->cmd[i]);
+						i++;
+					}
+					str = ft_strjoin_free(str, ft_getenv(env_list, key));
+					ft_free_str(&key);
 				}
-				ft_free_str(&(cmd_list->cmd));
-				cmd_list->cmd = str;
+				str = ft_strjoin_char(str, cmd_list->cmd[i]);
+				i++;
 			}
+			ft_free_str(&(cmd_list->cmd));
+			cmd_list->cmd = str;
 		}
 		cmd_list = cmd_list->next;
 	}
