@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: soulee <soulee@student.42seoul.kr>         +#+  +:+       +#+        */
+/*   By: subcho <subcho@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/23 16:41:30 by soulee            #+#    #+#             */
-/*   Updated: 2023/03/02 18:24:45 by soulee           ###   ########.fr       */
+/*   Updated: 2023/03/04 19:21:48 by subcho           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,9 +82,7 @@ char		**convert_env_list_to_arr(t_env_list *node);
 
 // pipe.c
 int			execute_cmd(t_cmd_list *cmd_list, char **envp, int pipe_cnt);
-void		handle_cmd(t_cmd_list *cmd_list, char **path, char **envp, int pipefd[], pid_t pid, int pipe_cnt);
-void		pipe_child(int type, char *cmd, int pipefd[]);
-void		pipe_parent(int pipefd[]);
+void		handle_cmd(int type, char *cmd, char **path, char **envp, int pipefd[], pid_t pid, int pipe_cnt, int *fd);
 int			get_status(int pid);
 
 // pipe_utils.c
