@@ -6,7 +6,7 @@
 /*   By: soulee <soulee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/04 21:58:42 by soulee            #+#    #+#             */
-/*   Updated: 2023/03/04 22:32:28 by soulee           ###   ########.fr       */
+/*   Updated: 2023/03/04 22:41:07 by soulee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,4 +40,18 @@ void	env(t_env_list *env_list)
 		printf("%s\n", *envp);
 		envp++;
 	}
+}
+
+void	cd(const char *path)
+{
+	chdir(path);	
+}
+
+void	pwd()
+{
+	char	*curr_dir;
+
+	curr_dir = getcwd(NULL, 0);
+	printf("%s\n", curr_dir);
+	free(curr_dir);
 }
