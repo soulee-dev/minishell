@@ -6,7 +6,7 @@
 /*   By: soulee <soulee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/27 22:21:31 by soulee            #+#    #+#             */
-/*   Updated: 2023/02/27 22:43:06 by soulee           ###   ########.fr       */
+/*   Updated: 2023/03/04 18:41:49 by soulee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,10 @@
 
 char	*ft_getenv(t_env_list *node, char *key)
 {
+	if (!key)
+		return (0);
 	while (node)
 	{
-		if (!node->key)
-			return (0);
 		if (!ft_strncmp(node->key, key, ft_strlen(key)))
 			return (node->value);
 		node = node->next;

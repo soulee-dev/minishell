@@ -6,7 +6,7 @@
 /*   By: soulee <soulee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/23 21:48:04 by soulee            #+#    #+#             */
-/*   Updated: 2023/03/04 18:01:34 by soulee           ###   ########.fr       */
+/*   Updated: 2023/03/04 18:40:57 by soulee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,6 +101,8 @@ void	parse_dollar_sign(t_cmd_list *cmd_list, t_env_list *env_list)
 						i++;
 					}
 					str = ft_strjoin_free(str, ft_getenv(env_list, key));
+					printf("key: %s\n", key);
+					printf("value: %s\n", ft_getenv(env_list, key));
 					ft_free_str(&key);
 				}
 				str = ft_strjoin_char(str, cmd_list->cmd[i]);
