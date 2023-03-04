@@ -6,7 +6,7 @@
 /*   By: soulee <soulee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/23 16:41:30 by soulee            #+#    #+#             */
-/*   Updated: 2023/03/02 17:58:08 by soulee           ###   ########.fr       */
+/*   Updated: 2023/03/02 18:24:45 by soulee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,7 @@ typedef struct s_env_list {
 // parser.c
 void		parse_envp(t_env_list **node, char **envp);
 t_cmd_list	*parse_line(t_cmd_list **cmd_list, char *line);
+void		parse_dollar_sign(t_cmd_list *cmd_list, t_env_list *env_list);
 
 // parser_utils.c
 int			parse_quotes(char line, int quotes);

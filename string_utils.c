@@ -6,7 +6,7 @@
 /*   By: soulee <soulee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/26 17:00:14 by soulee            #+#    #+#             */
-/*   Updated: 2023/03/02 17:56:18 by soulee           ###   ########.fr       */
+/*   Updated: 2023/03/02 18:26:07 by soulee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,8 @@
 
 void	ft_free_str(char **str)
 {
-	free(*str);
+	if (*str)
+		free(*str);
 	*str = NULL;
 }
 

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: subcho <subcho@student.42.fr>              +#+  +:+       +#+        */
+/*   By: soulee <soulee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/23 16:24:12 by soulee            #+#    #+#             */
-/*   Updated: 2023/02/28 05:24:16 by subcho           ###   ########.fr       */
+/*   Updated: 2023/03/02 18:25:00 by soulee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,17 +19,6 @@ void	print_ascii_art(void)
 	printf(" | (_ | '_| | | / -_) _` | \\__ \\ ' \\/ -_) | |\n");
 	printf("  \\___|_| |_|_|_\\___\\__,_| |___/_||_\\___|_|_|\n");
 	printf("\n");
-}
-
-int	check_whitespace(char *line)
-{
-	while (*line)
-	{
-		if (*line == 32 || (*line >= 9 && *line <= 13))
-			return (1);
-		line++;
-	}
-	return (0);
 }
 
 int	main(int argc, char *argv[], char **envp)
@@ -53,8 +42,9 @@ int	main(int argc, char *argv[], char **envp)
 		{
 			add_history(line);
 			cmd_list = parse_line(&cmd_list, line);
-			//iter_node(cmd_list);
-			status = execute_cmd(cmd_list, convert_env_list_to_arr(env_list), count_cmd_list_node(cmd_list, TYPE_PIPE) + 1);
+			parse_dollar_sign(cmd_list, env_list);
+			iter_node(cmd_list);
+			// status = execute_cmd(cmd_list, convert_env_list_to_arr(env_list), count_cmd_list_node(cmd_list, TYPE_PIPE) + 1);
 			clear_cmd_list(&cmd_list);
 		}
 		free(line);
