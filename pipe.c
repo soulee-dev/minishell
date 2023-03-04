@@ -6,7 +6,7 @@
 /*   By: subcho <subcho@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/23 21:07:21 by subcho            #+#    #+#             */
-/*   Updated: 2023/02/28 05:29:01 by subcho           ###   ########.fr       */
+/*   Updated: 2023/03/04 19:13:42 by subcho           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 
 int	execute_cmd(t_cmd_list *cmd_list, char **envp, int pipe_cnt)
 {
+	int		fd;
 	pid_t	pid;
 	int		std[2];
 	int		pipefd[2];
@@ -24,77 +25,49 @@ int	execute_cmd(t_cmd_list *cmd_list, char **envp, int pipe_cnt)
 	std[1] = dup(STDOUT_FILENO);
 	path = get_path(envp);
 	// cmd_list 첫 번째가 here_doc일 때 here_doc file 만들어서 handle할 것
-	while (pipe_cnt && cmd_list)
+	while (pipe_cnt)
 	{
-		pipe(pipefd);
-		pid = fork();
 		while (cmd_list && cmd_list->cmd_type != TYPE_PIPE)
 		{
-			if (cmd_list->cmd_type == TYPE_WORD)
+			char	**split_cmd = ft_split(cmd_list->cmd, ' ');
+			if (cmd_list->cmd_type == TYPE_REDIRECT_INPUT)
+				fd = open_file(split_cmd[0]);
+			else if (cmd_list->cmd_type == TYPE_WORD)
 			{
-				handle_cmd(cmd_list, path, envp, pipefd, pid, pipe_cnt);
+				pipe(pipefd);
+				pid = fork();
+				if (pid < 0)
+					print_error(0);
+				else if (pid == 0)
+				{
+					close(pipefd[0]);
+					if (fd > 0)
+					{
+						dup2(fd, STDIN_FILENO);
+						close(fd);
+						fd = 0;
+					}
+					if (pipe_cnt != 1)
+						dup2(pipefd[1], STDOUT_FILENO);
+					execve(get_cmd(path, split_cmd[0]), split_cmd, envp);
+					close(pipefd[1]);
+					free_str(split_cmd);
+				}
+				close(pipefd[1]);
+				dup2(pipefd[0], STDIN_FILENO);
+				close(pipefd[0]);
 			}
+			free_str(split_cmd);
 			cmd_list = cmd_list->next;
 		}
-		if (!cmd_list)
-			break ;
-		if (cmd_list->next)
+		if (cmd_list)
 			cmd_list = cmd_list->next;
 		pipe_cnt--;
 	}
-	status = get_status(pid);
 	dup2(std[0], STDIN_FILENO);
 	dup2(std[1], STDOUT_FILENO);
 	free_str(path);
-	return (status);
-}
-
-void	handle_cmd(t_cmd_list *cmd_list, char **path, char **envp, int pipefd[], pid_t pid, int pipe_cnt)
-{
-	char	**cmd;
-
-	if (pid < 0)
-			print_error(NULL);
-	if (pid == 0)
-	{
-		cmd = ft_split(cmd_list->cmd, ' ');
-		if (pipe_cnt != 1)
-			pipe_child(cmd_list->cmd_type, cmd[0], pipefd);
-		char *path_cmd = get_cmd(path, cmd[0]);
-		execve(path_cmd, cmd, envp);
-		printf("path : %s, cmd : %s\n", path_cmd, cmd[0]);
-		exit(0); // ㅇㅖ오ㅣ처리
-	}
-	else
-		pipe_parent(pipefd);
-}
-
-void	pipe_child(int type, char *cmd, int pipefd[])
-{
-	int	file;
-	
-	close(pipefd[0]);
-	if (type == TYPE_REDIRECT_INPUT)
-	{
-		file = open_file(cmd);
-        if (dup2(file, STDIN_FILENO) == -1)
-            print_error(NULL);
-        close(file);
-	}
-	else
-	{
-		if (dup2(pipefd[1], STDOUT_FILENO) == -1)
-			print_error(NULL);
-	}
-	close(pipefd[1]);
-}
-
-void	pipe_parent(int pipefd[])
-{
-	close(pipefd[1]);
-	if (dup2(pipefd[0], STDIN_FILENO) == -1)
-		print_error(NULL);
-	close(pipefd[0]);
+	return (get_status(pid));
 }
 
 int	get_status(int pid)
