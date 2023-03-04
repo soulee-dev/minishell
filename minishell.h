@@ -6,7 +6,7 @@
 /*   By: soulee <soulee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/23 16:41:30 by soulee            #+#    #+#             */
-/*   Updated: 2023/03/04 22:02:59 by soulee           ###   ########.fr       */
+/*   Updated: 2023/03/04 22:32:40 by soulee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,5 +99,5 @@ void		exit_error(char *error_message);
 
 // builtins.c
 void		env(t_env_list *env_list);
-void		unset(t_env_list *env_list);
+// void		unset(t_env_list *env_list, char *key);
 #endif

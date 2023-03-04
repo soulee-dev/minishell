@@ -6,7 +6,7 @@
 /*   By: soulee <soulee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/23 16:24:12 by soulee            #+#    #+#             */
-/*   Updated: 2023/03/04 22:00:46 by soulee           ###   ########.fr       */
+/*   Updated: 2023/03/04 22:32:36 by soulee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,22 +38,23 @@ int	main(int argc, char *argv[], char **envp)
 	}
 	parse_envp(&env_list, envp);
 	print_ascii_art();
-	while (1)
-	{
-		line = readline("GrilledShell $ ");
-		if (!line)
-			break ;
-		if (*line != '\0')
-		{
-			add_history(line);
-			cmd_list = parse_line(&cmd_list, line);
-			parse_dollar_sign(cmd_list, env_list);
-			iter_node(cmd_list);
-			// status = execute_cmd(cmd_list, convert_env_list_to_arr(env_list), count_cmd_list_node(cmd_list, TYPE_PIPE) + 1);
-			clear_cmd_list(&cmd_list);
-			env(env_list);
-		}
-		free(line);
-		line = NULL;
-	}
+	env(env_list);
+	// while (1)
+	// {
+	// 	line = readline("GrilledShell $ ");
+	// 	if (!line)
+	// 		break ;
+	// 	if (*line != '\0')
+	// 	{
+	// 		add_history(line);
+	// 		cmd_list = parse_line(&cmd_list, line);
+	// 		parse_dollar_sign(cmd_list, env_list);
+	// 		iter_node(cmd_list);
+	// 		// status = execute_cmd(cmd_list, convert_env_list_to_arr(env_list), count_cmd_list_node(cmd_list, TYPE_PIPE) + 1);
+	// 		clear_cmd_list(&cmd_list);
+	// 		env(env_list);
+	// 	}
+	// 	free(line);
+	// 	line = NULL;
+	// }
 }
