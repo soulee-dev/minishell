@@ -6,7 +6,7 @@
 /*   By: subcho <subcho@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/23 16:41:30 by soulee            #+#    #+#             */
-/*   Updated: 2023/03/04 19:21:48 by subcho           ###   ########.fr       */
+/*   Updated: 2023/03/05 21:45:43 by subcho           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,7 +82,10 @@ char		**convert_env_list_to_arr(t_env_list *node);
 
 // pipe.c
 int			execute_cmd(t_cmd_list *cmd_list, char **envp, int pipe_cnt);
-void		handle_cmd(int type, char *cmd, char **path, char **envp, int pipefd[], pid_t pid, int pipe_cnt, int *fd);
+int			exe_cmd(char	**cmd, char **path, int pipe_cnt, int pipefd[], char **envp);
+char		**get_pipe_cmd(t_cmd_list *cmd_list);
+t_cmd_list	*redirect_pipe(t_cmd_list *cmd_list);
+void		redirect_fd(int type, char *file_name);
 int			get_status(int pid);
 
 // pipe_utils.c
