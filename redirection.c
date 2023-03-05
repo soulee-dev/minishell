@@ -6,7 +6,7 @@
 /*   By: subcho <subcho@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/05 22:12:15 by subcho            #+#    #+#             */
-/*   Updated: 2023/03/05 22:17:13 by subcho           ###   ########.fr       */
+/*   Updated: 2023/03/05 22:19:11 by subcho           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,11 @@ void	redirect_fd(int type, char *file_name)
 	else if (type == TYPE_REDIRECT_OUTPUT)
 	{
 		fd = create_file(split_file_name[0]);
+		dup2(fd, STDOUT_FILENO);
+	}
+	else if (type == TYPE_REDIRECT_APPEND)
+	{
+		fd = append_file(split_file_name[0]);
 		dup2(fd, STDOUT_FILENO);
 	}
 	ft_free_str(split_file_name);

@@ -6,7 +6,7 @@
 /*   By: subcho <subcho@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/23 16:41:30 by soulee            #+#    #+#             */
-/*   Updated: 2023/03/05 22:14:56 by subcho           ###   ########.fr       */
+/*   Updated: 2023/03/05 22:23:26 by subcho           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,8 +94,11 @@ int			get_status(int pid);
 // pipe_utils.c
 char		**get_path(char **envp);
 char		*get_cmd(char **path, char *cmd);
+
+// file_control.c
 int			open_file(char *file_name);
 int			create_file(char *file_name);
+int			append_file(char *file_name);
 
 // error.c
 void		print_error(char *msg);
