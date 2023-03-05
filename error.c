@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   error.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: soulee <soulee@student.42seoul.kr>         +#+  +:+       +#+        */
+/*   By: subcho <subcho@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/27 18:35:34 by soulee            #+#    #+#             */
-/*   Updated: 2023/02/27 22:10:15 by soulee           ###   ########.fr       */
+/*   Updated: 2023/03/05 22:11:22 by subcho           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,4 +15,9 @@
 void	exit_error(char *error_message)
 {
 	ft_putendl_fd(error_message, 2);
+}
+
+void	print_error(char *msg)
+{
+	perror(msg);
 }

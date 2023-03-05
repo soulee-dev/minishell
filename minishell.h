@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: soulee <soulee@student.42seoul.kr>         +#+  +:+       +#+        */
+/*   By: subcho <subcho@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/23 16:41:30 by soulee            #+#    #+#             */
-/*   Updated: 2023/03/05 21:45:43 by subcho           ###   ########.fr       */
+/*   Updated: 2023/03/05 22:14:56 by subcho           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,23 +81,24 @@ void		add_env_node_back(t_env_list **node, t_env_list *new);
 // env_list_utils.c
 char		**convert_env_list_to_arr(t_env_list *node);
 
-// pipe.c
-int			execute_cmd(t_cmd_list *cmd_list, char **envp, int pipe_cnt);
-int			exe_cmd(char	**cmd, char **path, int pipe_cnt, int pipefd[], char **envp);
-char		**get_pipe_cmd(t_cmd_list *cmd_list);
+// redirection.c
 t_cmd_list	*redirect_pipe(t_cmd_list *cmd_list);
 void		redirect_fd(int type, char *file_name);
+
+// pipe.c
+int			execute(t_cmd_list *cmd_list, char **envp, int pipe_cnt);
+int			exe_cmd(char	**cmd, char **path, int pipe_cnt, char **envp);
+char		**get_pipe_cmd(t_cmd_list *cmd_list);
 int			get_status(int pid);
 
 // pipe_utils.c
-void		print_error(char *msg);
 char		**get_path(char **envp);
 char		*get_cmd(char **path, char *cmd);
 int			open_file(char *file_name);
 int			create_file(char *file_name);
-void		free_str(char **str);
 
 // error.c
+void		print_error(char *msg);
 void		exit_error(char *error_message);
 
 // builtins1.c
