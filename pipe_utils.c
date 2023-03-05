@@ -6,17 +6,11 @@
 /*   By: subcho <subcho@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/23 21:10:01 by subcho            #+#    #+#             */
-/*   Updated: 2023/03/04 20:07:45 by subcho           ###   ########.fr       */
+/*   Updated: 2023/03/05 22:13:20 by subcho           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-void	print_error(char *msg)
-{
-	perror(msg);
-	//exit(1);
-}
 
 char	**get_path(char **envp)
 {
@@ -70,17 +64,4 @@ int	create_file(char *file_name)
 	if (fd == -1)
 		print_error(file_name);
 	return (fd);
-}
-
-void	free_str(char **str)
-{
-	int	i;
-
-	i = 0;
-	while (str[i])
-	{
-		free(str[i]);
-		i++;
-	}
-	free(str);
 }

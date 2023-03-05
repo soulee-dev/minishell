@@ -6,7 +6,7 @@
 /*   By: subcho <subcho@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/23 21:07:21 by subcho            #+#    #+#             */
-/*   Updated: 2023/03/05 21:59:22 by subcho           ###   ########.fr       */
+/*   Updated: 2023/03/05 22:15:10 by subcho           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,44 +25,10 @@ char	**get_pipe_cmd(t_cmd_list *cmd_list)
 	return (ft_split(cmd, ' '));
 }
 
-t_cmd_list	*redirect_pipe(t_cmd_list *cmd_list)
-{
-	while (cmd_list && cmd_list->cmd_type != TYPE_PIPE)
-	{
-		if (cmd_list->cmd_type != TYPE_WORD)
-			redirect_fd(cmd_list->cmd_type, cmd_list->cmd);
-		if (cmd_list->next)
-			cmd_list = cmd_list->next;
-		else
-			break ;
-	}
-	if (cmd_list->cmd_type == TYPE_PIPE)
-		cmd_list = cmd_list->next;
-	return (cmd_list);
-}
-
-void	redirect_fd(int type, char *file_name)
-{
-	int		fd;
-	char	**split_file_name;
-
-	split_file_name = ft_split(file_name, ' ');
-	if (type == TYPE_REDIRECT_INPUT)
-	{
-		fd = open_file(split_file_name[0]);
-		dup2(fd, STDIN_FILENO);
-	}
-	else if (type == TYPE_REDIRECT_OUTPUT)
-	{
-		fd = create_file(split_file_name[0]);
-		dup2(fd, STDOUT_FILENO);
-	}
-	free_str(split_file_name);
-}
-
-int	exe_cmd(char	**cmd, char **path, int pipe_cnt, int pipefd[], char **envp)
+int	exe_cmd(char	**cmd, char **path, int pipe_cnt, char **envp)
 {
 	pid_t	pid;
+	int		pipefd[2];
 
 	pipe(pipefd);
 	pid = fork();
@@ -77,7 +43,7 @@ int	exe_cmd(char	**cmd, char **path, int pipe_cnt, int pipefd[], char **envp)
 	}
 	else
 	{
-		if (1 != pipe_cnt)
+		if (pipe_cnt != 1)
 		{
 			close(pipefd[1]);
 			dup2(pipefd[0], STDIN_FILENO);
@@ -87,12 +53,11 @@ int	exe_cmd(char	**cmd, char **path, int pipe_cnt, int pipefd[], char **envp)
 	return (pid);
 }
 
-int	execute_cmd(t_cmd_list *cmd_list, char **envp, int pipe_cnt)
+int	execute(t_cmd_list *cmd_list, char **envp, int pipe_cnt)
 {
 	int		std[2];
 	int		status;
 	char	**path;
-	int		pipefd[2];
 	char	**split_cmd;
 
 	std[0] = dup(STDIN_FILENO);
@@ -102,11 +67,11 @@ int	execute_cmd(t_cmd_list *cmd_list, char **envp, int pipe_cnt)
 	{
 		split_cmd = get_pipe_cmd(cmd_list);
 		cmd_list = redirect_pipe(cmd_list);
-		status = exe_cmd(split_cmd, path, pipe_cnt, pipefd, envp);
-		free_str(split_cmd);
+		status = exe_cmd(split_cmd, path, pipe_cnt, envp);
+		ft_free_str(split_cmd);
 		pipe_cnt--;
 	}
-	free_str(path);
+	ft_free_str(path);
 	dup2(std[0], STDIN_FILENO);
 	dup2(std[1], STDOUT_FILENO);
 	return (get_status(status));
