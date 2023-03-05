@@ -6,13 +6,12 @@
 /*   By: soulee <soulee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/27 17:25:02 by soulee            #+#    #+#             */
-/*   Updated: 2023/02/28 03:39:25 by soulee           ###   ########.fr       */
+/*   Updated: 2023/03/04 20:18:27 by soulee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-// input, output, heredoc, append, cmd 하나라도 null 일때 error 출력
 void	add_element_node(t_cmd_list **cmd_list, int cmd_type, char **str)
 {
 	char	*cmd;
@@ -108,4 +107,31 @@ char	*parse_redirection_out(t_cmd_list **cmd_list, char *str)
 		return (n_str + len);
 	}
 	return (str);
+}
+
+void	parse_dollar_sign_loop(t_cmd_list *cmd_list, t_env_list *env_list)
+{
+	int		i;
+	char	*str;
+	char	*key;
+
+	i = 0;
+	key = 0;
+	str = NULL;
+	while (i < ft_strlen(cmd_list->cmd))
+	{
+		if (cmd_list->cmd[i] == '$')
+		{
+			i++;
+			while (cmd_list->cmd[i]
+				&& !check_is_whitespace(cmd_list->cmd[i]))
+				key = ft_strjoin_char(key, cmd_list->cmd[i++]);
+			str = ft_strjoin_free(str, ft_getenv(env_list, key));
+			ft_free_str(&key);
+		}
+		str = ft_strjoin_char(str, cmd_list->cmd[i]);
+		i++;
+	}
+	ft_free_str(&(cmd_list->cmd));
+	cmd_list->cmd = str;
 }

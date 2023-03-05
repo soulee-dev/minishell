@@ -3,7 +3,7 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: subcho <subcho@student.42.fr>              +#+  +:+       +#+        */
+/*   By: soulee <soulee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/23 16:41:30 by soulee            #+#    #+#             */
 /*   Updated: 2023/03/05 21:45:43 by subcho           ###   ########.fr       */
@@ -51,6 +51,7 @@ int			parse_quotes(char line, int quotes);
 char		*parse_redirection_in(t_cmd_list **cmd_list, char *str);
 char		*parse_redirection_out(t_cmd_list **cmd_list, char *str);
 void		add_element_node(t_cmd_list **cmd_list, int cmd_type, char **str);
+void		parse_dollar_sign_loop(t_cmd_list *cmd_list, t_env_list *env_list);
 
 // string_utils.c
 void		ft_free_str(char **str);
@@ -98,4 +99,13 @@ void		free_str(char **str);
 
 // error.c
 void		exit_error(char *error_message);
+
+// builtins1.c
+void		pwd(void);
+void		cd(const char *path);
+void		echo(const char *s, int no_newline);
+
+// builtins2.c
+void		env(t_env_list *env_list);
+// void		unset(t_env_list *env_list, char *key);
 #endif
