@@ -6,7 +6,7 @@
 /*   By: subcho <subcho@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/23 21:07:21 by subcho            #+#    #+#             */
-/*   Updated: 2023/03/05 22:15:10 by subcho           ###   ########.fr       */
+/*   Updated: 2023/03/05 23:02:32 by subcho           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,12 +16,15 @@ char	**get_pipe_cmd(t_cmd_list *cmd_list)
 {
 	char	*cmd;
 
+	cmd = 0;
 	while (cmd_list && cmd_list->cmd_type != TYPE_PIPE)
 	{
 		if (cmd_list->cmd_type == TYPE_WORD)
 			cmd = cmd_list->cmd;
 		cmd_list = cmd_list->next;
 	}
+	if (!cmd)
+		return (0);
 	return (ft_split(cmd, ' '));
 }
 
@@ -67,8 +70,11 @@ int	execute(t_cmd_list *cmd_list, char **envp, int pipe_cnt)
 	{
 		split_cmd = get_pipe_cmd(cmd_list);
 		cmd_list = redirect_pipe(cmd_list);
-		status = exe_cmd(split_cmd, path, pipe_cnt, envp);
-		ft_free_str(split_cmd);
+		if (split_cmd)
+		{
+			status = exe_cmd(split_cmd, path, pipe_cnt, envp);
+			ft_free_str(split_cmd);
+		}
 		pipe_cnt--;
 	}
 	ft_free_str(path);

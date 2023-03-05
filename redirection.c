@@ -6,7 +6,7 @@
 /*   By: subcho <subcho@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/05 22:12:15 by subcho            #+#    #+#             */
-/*   Updated: 2023/03/05 22:19:11 by subcho           ###   ########.fr       */
+/*   Updated: 2023/03/05 22:53:45 by subcho           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,20 @@ t_cmd_list	*redirect_pipe(t_cmd_list *cmd_list)
 	if (cmd_list->cmd_type == TYPE_PIPE)
 		cmd_list = cmd_list->next;
 	return (cmd_list);
+}
+
+void	read_here_doc(char	*delimiter)
+{
+	char	*line;
+
+	while (1)
+	{
+		line = readline("> ");
+		if (ft_strncmp(line, delimiter, ft_strlen(delimiter)) == 0)
+			break ;
+		free(line);
+		line = NULL;
+	}
 }
 
 void	redirect_fd(int type, char *file_name)
@@ -48,6 +62,11 @@ void	redirect_fd(int type, char *file_name)
 	{
 		fd = append_file(split_file_name[0]);
 		dup2(fd, STDOUT_FILENO);
+	}
+	else if (type == TYPE_REDIRECT_HEREDOC)
+	{
+		dup2(STDOUT_FILENO, STDIN_FILENO);
+		read_here_doc(split_file_name[0]);
 	}
 	ft_free_str(split_file_name);
 }
