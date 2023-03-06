@@ -6,7 +6,7 @@
 /*   By: subcho <subcho@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/23 16:41:30 by soulee            #+#    #+#             */
-/*   Updated: 2023/03/05 22:23:26 by subcho           ###   ########.fr       */
+/*   Updated: 2023/03/05 22:52:10 by subcho           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,6 +84,7 @@ char		**convert_env_list_to_arr(t_env_list *node);
 // redirection.c
 t_cmd_list	*redirect_pipe(t_cmd_list *cmd_list);
 void		redirect_fd(int type, char *file_name);
+void		read_here_doc(char	*delimiter);
 
 // pipe.c
 int			execute(t_cmd_list *cmd_list, char **envp, int pipe_cnt);

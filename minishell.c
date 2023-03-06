@@ -6,7 +6,7 @@
 /*   By: subcho <subcho@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/23 16:24:12 by soulee            #+#    #+#             */
-/*   Updated: 2023/03/05 22:11:57 by subcho           ###   ########.fr       */
+/*   Updated: 2023/03/06 15:48:01 by subcho           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,16 @@
 
 void	print_ascii_art(void)
 {
-	printf("   ___     _ _ _        _   ___ _        _ _ \n");
-	printf("  / __|_ _(_) | |___ __| | / __| |_  ___| | |\n");
-	printf(" | (_ | '_| | | / -_) _` | \\__ \\ ' \\/ -_) | |\n");
-	printf("  \\___|_| |_|_|_\\___\\__,_| |___/_||_\\___|_|_|\n");
+    printf("\nMewww  |\\      _,,,—,,_        \n");
+	printf("       /,`.-'`'   ._  \\-;;,_    \n");
+	printf("      |,4-  ) )_   .;.(  `'-'   \n");
+    printf("     '—''(_/._)-'(_\\_)     Mewww…   \n");
+	printf("  ___     _       _   _    _ _                     ___ _        _ _ \n");
+	printf(" / __| __| |_  _ (_)_(_)__| (_)_ _  __ _ ___ _ _  / __| |_  ___| | |\n");
+	printf(" \\__ \\/ _| ' \\| '_/ _ \\/ _` | | ' \\/ _` / -_) '_| \\__ \\ ' \\/ -_) | |\n");
+	printf(" |___/\\__|_||_|_| \\___/\\__,_|_|_||_\\__, \\___|_|   |___/_||_\\___|_|_|\n");
+	printf("                                   |___/                            \n");
+	printf("                                              Mewww…                      \n");
 	printf("\n");
 }
 
@@ -31,6 +37,7 @@ int	main(int argc, char *argv[], char **envp)
 
 	line = NULL;
 	env_list = NULL;
+	cmd_list = NULL;
 	if (argc != 1)
 	{
 		print_error("arguments error");
@@ -40,7 +47,7 @@ int	main(int argc, char *argv[], char **envp)
 	print_ascii_art();
 	while (1)
 	{
-		line = readline("GrilledShell $ ");
+		line = readline("🐈 $ ");
 		if (!line)
 			break ;
 		if (*line != '\0')
