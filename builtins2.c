@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtins2.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: soulee <soulee@student.42seoul.kr>         +#+  +:+       +#+        */
+/*   By: subcho <subcho@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/04 22:42:37 by soulee            #+#    #+#             */
-/*   Updated: 2023/03/04 22:59:49 by soulee           ###   ########.fr       */
+/*   Updated: 2023/03/06 16:52:47 by subcho           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,11 +32,8 @@ void	unset(t_env_list *env_list, char *key)
 	}
 }
 
-void	env(t_env_list *env_list)
+void	env(char **envp)
 {
-	char	**envp;
-
-	envp = convert_env_list_to_arr(env_list);
 	while (*envp)
 	{
 		printf("%s\n", *envp);

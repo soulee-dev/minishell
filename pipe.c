@@ -6,7 +6,7 @@
 /*   By: subcho <subcho@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/23 21:07:21 by subcho            #+#    #+#             */
-/*   Updated: 2023/03/05 23:02:32 by subcho           ###   ########.fr       */
+/*   Updated: 2023/03/06 16:53:39 by subcho           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,8 @@ int	exe_cmd(char	**cmd, char **path, int pipe_cnt, char **envp)
 	{
 		if (pipe_cnt != 1)
 			dup2(pipefd[1], STDOUT_FILENO);
-		execve(get_cmd(path, cmd[0]), cmd, envp);
+		if (!is_builtin((const char **)cmd, envp))
+			execve(get_cmd(path, cmd[0]), cmd, envp);
 		exit(0);
 	}
 	else
