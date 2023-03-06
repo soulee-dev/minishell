@@ -6,7 +6,7 @@
 /*   By: soulee <soulee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/23 16:41:30 by soulee            #+#    #+#             */
-/*   Updated: 2023/03/06 16:51:27 by soulee           ###   ########.fr       */
+/*   Updated: 2023/03/06 17:23:09 by subcho           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,6 +96,8 @@ int			get_status(int pid);
 // pipe_utils.c
 char		**get_path(char **envp);
 char		*get_cmd(char **path, char *cmd);
+int			is_builtin(const char **command, char **envp);
+int			get_echo_n_cnt(const char **command);
 
 // file_control.c
 int			open_file(char *file_name);
@@ -112,6 +114,6 @@ void		cd(const char *path);
 void		echo(const char *s, int no_newline);
 
 // builtins2.c
-void		env(t_env_list *env_list);
+void		env(char **envp);
 // void		unset(t_env_list *env_list, char *key);
 #endif

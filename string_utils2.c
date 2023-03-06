@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   string_utils2.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: soulee <soulee@student.42seoul.kr>         +#+  +:+       +#+        */
+/*   By: subcho <subcho@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/27 22:35:09 by soulee            #+#    #+#             */
-/*   Updated: 2023/03/02 17:58:05 by soulee           ###   ########.fr       */
+/*   Updated: 2023/03/06 16:10:40 by subcho           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,4 +82,18 @@ char	*ft_strjoin_char(char const *s1, char s2)
 	result_str[s1_len + 1] = 0;
 	free((void *)s1);
 	return (result_str);
+}
+
+int	ft_strcmp(const char *s1, const char *s2)
+{
+	size_t	i;
+
+	i = 0;
+	while (((unsigned char *)s1)[i] || ((unsigned char *)s2)[i])
+	{
+		if (((unsigned char *)s1)[i] != ((unsigned char *)s2)[i])
+			return (((unsigned char *)s1)[i] - ((unsigned char *)s2)[i]);
+		i++;
+	}
+	return (0);
 }

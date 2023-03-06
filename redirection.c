@@ -6,7 +6,7 @@
 /*   By: subcho <subcho@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/05 22:12:15 by subcho            #+#    #+#             */
-/*   Updated: 2023/03/05 22:53:45 by subcho           ###   ########.fr       */
+/*   Updated: 2023/03/06 16:14:56 by subcho           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ void	read_here_doc(char	*delimiter)
 	while (1)
 	{
 		line = readline("> ");
-		if (ft_strncmp(line, delimiter, ft_strlen(delimiter)) == 0)
+		if (ft_strcmp(line, delimiter) == 0)
 			break ;
 		free(line);
 		line = NULL;

@@ -6,7 +6,7 @@
 /*   By: subcho <subcho@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/23 21:10:01 by subcho            #+#    #+#             */
-/*   Updated: 2023/03/05 22:20:37 by subcho           ###   ########.fr       */
+/*   Updated: 2023/03/06 17:22:25 by subcho           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,5 +43,59 @@ char	*get_cmd(char **path, char *cmd)
 	write(2, "command not found: ", 19);
 	write(2, cmd, ft_strlen(cmd));
 	write(2, "\n", 1);
+	return (0);
+}
+
+int	get_echo_n_cnt(const char **command)
+{
+	int	i;
+
+	i = 1;
+	while (++i)
+	{
+		if (ft_strcmp(command[i], "-n"))
+			break ;
+	}
+	return (i);
+}
+
+int	is_builtin(const char **command, char **envp)
+{
+	if (!ft_strcmp(command[0], "echo"))
+	{
+		if (!ft_strcmp(command[1], "-n"))
+			echo(command[get_echo_n_cnt(command)], 1);
+		else
+			echo(command[1], 0);
+		return (1);
+	}
+	if (!ft_strcmp(command[0], "cd"))
+	{
+		cd(command[1]);
+		return (1);
+	}
+	if (!ft_strcmp(command[0], "pwd"))
+	{
+		pwd();
+		return (1);
+	}
+	// if (!ft_strcmp(command[0], "export"))
+	// {
+	// 	export();
+	// }
+	if (!ft_strcmp(command[0], "unset"))
+	{
+		unsetenv(command[1]);
+		return (1);
+	}
+	if (!ft_strcmp(command[0], "env"))
+	{
+		env(envp);
+		return (1);
+	}
+	// if (!ft_strcmp(command[0], "exit"))
+	// {
+	// 	exit();
+	// }
 	return (0);
 }
