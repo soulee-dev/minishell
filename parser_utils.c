@@ -6,23 +6,29 @@
 /*   By: soulee <soulee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/27 17:25:02 by soulee            #+#    #+#             */
-/*   Updated: 2023/03/04 20:18:27 by soulee           ###   ########.fr       */
+/*   Updated: 2023/03/06 16:58:32 by soulee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	add_element_node(t_cmd_list **cmd_list, int cmd_type, char **str)
+void	add_element_node(t_cmd_list **cmd_list, int cmd_type, char **str, int *is_parse_error)
 {
 	char	*cmd;
 
+	if (*is_parse_error)
+		return ;
+	if (!*str)
+	{
+		exit_error("syntax error");
+		*is_parse_error = 1;
+		return ;
+	}
 	if (cmd_type == TYPE_PIPE)
 	{
 		add_cmd_node_back(cmd_list, create_new_cmd_node(TYPE_PIPE, 0));
 		return ;
 	}
-	if (!*str)
-		exit_error("syntax error");
 	cmd = ft_strdup(*str);
 	add_cmd_node_back(cmd_list, create_new_cmd_node(cmd_type, cmd));
 	if (*str)
@@ -55,7 +61,7 @@ int	parse_quotes(char line, int quotes)
 	return (result);
 }
 
-char	*parse_redirection_in(t_cmd_list **cmd_list, char *str)
+char	*parse_redirection_in(t_cmd_list **cmd_list, char *str, int *is_parse_error)
 {
 	int		len;
 	char	*n_str;
@@ -76,13 +82,13 @@ char	*parse_redirection_in(t_cmd_list **cmd_list, char *str)
 			n_str++;
 		len = ft_strlenbl(n_str);
 		file_name = ft_strndup(n_str, len);
-		add_element_node(cmd_list, cmd_type, &file_name);
+		add_element_node(cmd_list, cmd_type, &file_name, is_parse_error);
 		return (n_str + len);
 	}
 	return (str);
 }
 
-char	*parse_redirection_out(t_cmd_list **cmd_list, char *str)
+char	*parse_redirection_out(t_cmd_list **cmd_list, char *str, int *is_parse_error)
 {
 	int		len;
 	char	*n_str;
@@ -103,7 +109,7 @@ char	*parse_redirection_out(t_cmd_list **cmd_list, char *str)
 			n_str++;
 		len = ft_strlenbl(n_str);
 		file_name = ft_strndup(n_str, len);
-		add_element_node(cmd_list, cmd_type, &file_name);
+		add_element_node(cmd_list, cmd_type, &file_name, is_parse_error);
 		return (n_str + len);
 	}
 	return (str);

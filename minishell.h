@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: subcho <subcho@student.42.fr>              +#+  +:+       +#+        */
+/*   By: soulee <soulee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/23 16:41:30 by soulee            #+#    #+#             */
-/*   Updated: 2023/03/05 22:52:10 by subcho           ###   ########.fr       */
+/*   Updated: 2023/03/06 16:51:27 by soulee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,15 +43,15 @@ typedef struct s_env_list {
 
 // parser.c
 void		parse_envp(t_env_list **node, char **envp);
-t_cmd_list	*parse_line(t_cmd_list **cmd_list, char *line);
+int			parse_line(t_cmd_list **cmd_list, char *line);
 void		parse_dollar_sign(t_cmd_list *cmd_list, t_env_list *env_list);
 
 // parser_utils.c
 int			parse_quotes(char line, int quotes);
-char		*parse_redirection_in(t_cmd_list **cmd_list, char *str);
-char		*parse_redirection_out(t_cmd_list **cmd_list, char *str);
-void		add_element_node(t_cmd_list **cmd_list, int cmd_type, char **str);
+char		*parse_redirection_in(t_cmd_list **cmd_list, char *str, int *is_parse_error);
+char		*parse_redirection_out(t_cmd_list **cmd_list, char *str, int *is_parse_error);
 void		parse_dollar_sign_loop(t_cmd_list *cmd_list, t_env_list *env_list);
+void		add_element_node(t_cmd_list **cmd_list, int cmd_type, char **str, int *is_parse_error);
 
 // string_utils.c
 void		ft_free_str(char **str);
@@ -70,6 +70,7 @@ void		clear_cmd_list(t_cmd_list **node);
 t_cmd_list	*create_new_cmd_node(int type, char *cmd);
 int			count_cmd_list_node(t_cmd_list *node, int cmd_type);
 void		add_cmd_node_back(t_cmd_list **node, t_cmd_list *new);
+// REMOVE BEFORE FLIGHT
 void		iter_node(t_cmd_list *node);
 
 // env_list.c
