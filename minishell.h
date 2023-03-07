@@ -116,11 +116,12 @@ void		print_error(char *msg);
 void		exit_error(char *error_message);
 
 // builtins1.c
-void		pwd(void);
-void		cd(const char *path);
-void		echo(const char *s, int no_newline);
+void		command_pwd(void);
+void		command_cd(const char *path);
+void		command_echo(const char *s, int no_newline);
 
 // builtins2.c
-void		env(char **envp);
-// void		unset(t_env_list *env_list, char *key);
+void		command_env(char **envp);
+void		command_export(t_env_list *env_list, char *key, char *value);
+// void		command_unset(t_env_list *env_list, char *key);
 #endif
