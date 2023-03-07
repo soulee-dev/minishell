@@ -6,7 +6,7 @@
 /*   By: soulee <soulee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/23 21:10:01 by subcho            #+#    #+#             */
-/*   Updated: 2023/03/07 19:15:56 by soulee           ###   ########.fr       */
+/*   Updated: 2023/03/07 19:45:34 by subcho           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,19 @@ char	*get_cmd(char **path, char *cmd)
 	write(2, cmd, ft_strlen(cmd));
 	write(2, "\n", 1);
 	return (0);
+}
+
+void	ft_free_strs(char **str)
+{
+	int	i;
+
+	i = 0;
+	while (str[i])
+	{
+		free(str[i]);
+		i++;
+	}
+	free(str);
 }
 
 int	get_echo_n_cnt(const char **command)

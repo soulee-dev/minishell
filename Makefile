@@ -7,6 +7,7 @@ SRCS += error.c
 SRCS += parser.c
 SRCS += env_list.c
 SRCS += cmd_list.c
+SRCS += here_doc.c
 SRCS += builtins1.c
 SRCS += builtins2.c
 SRCS += minishell.c

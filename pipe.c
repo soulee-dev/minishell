@@ -6,7 +6,7 @@
 /*   By: subcho <subcho@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/23 21:07:21 by subcho            #+#    #+#             */
-/*   Updated: 2023/03/06 16:53:39 by subcho           ###   ########.fr       */
+/*   Updated: 2023/03/07 20:11:24 by subcho           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,22 +63,25 @@ int	execute(t_cmd_list *cmd_list, char **envp, int pipe_cnt)
 	int		status;
 	char	**path;
 	char	**split_cmd;
+	int		here_doc_cnt;
 
 	std[0] = dup(STDIN_FILENO);
 	std[1] = dup(STDOUT_FILENO);
 	path = get_path(envp);
-	while (cmd_list && pipe_cnt)
+	here_doc_cnt = is_here_doc_exist(&cmd_list, pipe_cnt);
+	while (pipe_cnt)
 	{
 		split_cmd = get_pipe_cmd(cmd_list);
 		cmd_list = redirect_pipe(cmd_list);
 		if (split_cmd)
 		{
 			status = exe_cmd(split_cmd, path, pipe_cnt, envp);
-			ft_free_str(split_cmd);
+			ft_free_strs(split_cmd);
 		}
 		pipe_cnt--;
 	}
-	ft_free_str(path);
+	ft_free_strs(path);
+	delete_here_doc(here_doc_cnt);
 	dup2(std[0], STDIN_FILENO);
 	dup2(std[1], STDOUT_FILENO);
 	return (get_status(status));
