@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtins1.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: soulee <soulee@student.42seoul.kr>         +#+  +:+       +#+        */
+/*   By: subcho <subcho@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/04 21:58:42 by soulee            #+#    #+#             */
-/*   Updated: 2023/03/07 18:15:21 by soulee           ###   ########.fr       */
+/*   Updated: 2023/03/07 22:19:47 by subcho           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ void	command_pwd(void)
 	free(curr_dir);
 }
 
-void	command_exit(char *str)
+void	command_exit(const char *str)
 {
 	long long	num;
 	long long	sign;
@@ -62,7 +62,7 @@ void	command_exit(char *str)
 		}
 	}
 	if (sign * num > INT64_MAX || sign * num < INT64_MIN
-	|| (sign == -1 && num == 0))
+		|| (sign == -1 && num == 0))
 	{
 		printf("numeric argument required\n");
 		exit(255);

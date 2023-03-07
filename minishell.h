@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: soulee <soulee@student.42seoul.kr>         +#+  +:+       +#+        */
+/*   By: subcho <subcho@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/23 16:41:30 by soulee            #+#    #+#             */
-/*   Updated: 2023/03/07 22:10:28 by soulee           ###   ########.fr       */
+/*   Updated: 2023/03/07 22:18:02 by subcho           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -118,6 +118,7 @@ void		exit_error(char *error_message);
 // builtins1.c
 void		command_pwd(void);
 void		command_cd(const char *path);
+void		command_exit(const char *str);
 void		command_echo(const char *s, int no_newline);
 
 // builtins2.c
