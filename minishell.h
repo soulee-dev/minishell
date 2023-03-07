@@ -6,7 +6,7 @@
 /*   By: subcho <subcho@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/23 16:41:30 by soulee            #+#    #+#             */
-/*   Updated: 2023/03/07 22:18:02 by subcho           ###   ########.fr       */
+/*   Updated: 2023/03/07 23:27:57 by subcho           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,8 +87,8 @@ t_cmd_list	*redirect_pipe(t_cmd_list *cmd_list);
 void		redirect_fd(int type, char *file_name);
 
 // pipe.c
-int			execute(t_cmd_list *cmd_list, char **envp, int pipe_cnt);
-int			exe_cmd(char	**cmd, char **path, int pipe_cnt, char **envp);
+int			execute(t_cmd_list *cmd_list, t_env_list *env_list, int pipe_cnt);
+int			exe_cmd(char **cmd, int pipe_cnt, t_env_list *env_list);
 char		**get_pipe_cmd(t_cmd_list *cmd_list);
 int			get_status(int pid);
 void		ft_free_strs(char **str);
@@ -96,7 +96,7 @@ void		ft_free_strs(char **str);
 // pipe_utils.c
 char		**get_path(char **envp);
 char		*get_cmd(char **path, char *cmd);
-int			is_builtin(const char **command, char **envp);
+int			is_builtin(const char **command, t_env_list *env_list);
 int			get_echo_n_cnt(const char **command);
 
 // here_doc.c
@@ -122,7 +122,7 @@ void		command_exit(const char *str);
 void		command_echo(const char *s, int no_newline);
 
 // builtins2.c
-void		command_env(char **envp);
+void		command_env(t_env_list *env_list);
 void		command_export(t_env_list *env_list, char *key, char *value);
-// void		command_unset(t_env_list *env_list, char *key);
+void		command_unset(t_env_list *env_list, const char *key);
 #endif

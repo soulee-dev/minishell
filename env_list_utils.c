@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env_list_utils.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: soulee <soulee@student.42seoul.kr>         +#+  +:+       +#+        */
+/*   By: subcho <subcho@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/27 22:21:31 by soulee            #+#    #+#             */
-/*   Updated: 2023/03/04 18:41:49 by soulee           ###   ########.fr       */
+/*   Updated: 2023/03/07 23:44:36 by subcho           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,5 +43,6 @@ char	**convert_env_list_to_arr(t_env_list *node)
 		node = node->next;
 		i++;
 	}
+	env[i] = 0;
 	return (env);
 }

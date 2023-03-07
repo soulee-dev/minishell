@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtins2.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: soulee <soulee@student.42seoul.kr>         +#+  +:+       +#+        */
+/*   By: subcho <subcho@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/04 22:42:37 by soulee            #+#    #+#             */
-/*   Updated: 2023/03/07 19:30:16 by soulee           ###   ########.fr       */
+/*   Updated: 2023/03/07 23:48:45 by subcho           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,29 +32,39 @@ void	command_export(t_env_list *env_list, char *key, char *value)
 	add_env_node_back(&env_list, create_new_env_node(key, value));
 }
 
-void	command_unset(t_env_list *env_list, char *key)
+void	command_unset(t_env_list *env_list, const char *key)
 {
 	t_env_list	*temp;
+	t_env_list	*before;
 
+	before = 0;
 	while (env_list)
 	{
 		if (!ft_strncmp(env_list->key, key, ft_strlen(key)))
 		{
 			temp = env_list;
 			env_list = env_list->next;
+			if (before)
+				before->next = env_list;
 			free(temp->key);
 			free(temp->value);
 			free(temp);
 		}
+		before = env_list;
 		env_list = env_list->next;
 	}
 }
 
-void	command_env(char **envp)
+void	command_env(t_env_list *env_list)
 {
+	char	**envp;
+
+	envp = convert_env_list_to_arr(env_list);
 	while (*envp)
 	{
 		printf("%s\n", *envp);
 		envp++;
 	}
+	//ft_free_strs(envp);
+	envp = 0;
 }

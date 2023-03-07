@@ -6,7 +6,7 @@
 /*   By: subcho <subcho@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/23 21:07:21 by subcho            #+#    #+#             */
-/*   Updated: 2023/03/07 22:31:06 by subcho           ###   ########.fr       */
+/*   Updated: 2023/03/07 23:46:30 by subcho           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ char	**get_pipe_cmd(t_cmd_list *cmd_list)
 	return (ft_split(cmd, ' '));
 }
 
-int	exe_cmd(char **cmd, char **path, int pipe_cnt, char **envp)
+int	exe_cmd(char **cmd, int pipe_cnt, t_env_list *env_list)
 {
 	pid_t	pid;
 	int		pipefd[2];
@@ -41,8 +41,8 @@ int	exe_cmd(char **cmd, char **path, int pipe_cnt, char **envp)
 	{
 		if (pipe_cnt != 1)
 			dup2(pipefd[1], STDOUT_FILENO);
-		if (!is_builtin((const char **)cmd, envp))
-			execve(get_cmd(path, cmd[0]), cmd, envp);
+		if (!is_builtin((const char **)cmd, env_list))
+			execve(get_cmd(get_path(convert_env_list_to_arr(env_list)), cmd[0]), cmd, convert_env_list_to_arr(env_list));
 		exit(0);
 	}
 	else
@@ -57,35 +57,32 @@ int	exe_cmd(char **cmd, char **path, int pipe_cnt, char **envp)
 	return (pid);
 }
 
-int	execute(t_cmd_list *cmd_list, char **envp, int pipe_cnt)
+int	execute(t_cmd_list *cmd_list, t_env_list *env_list, int pipe_cnt)
 {
 	int		std[2];
 	int		status;
-	char	**path;
 	char	**split_cmd;
 	int		here_doc_cnt;
 
 	std[0] = dup(STDIN_FILENO);
 	std[1] = dup(STDOUT_FILENO);
-	path = get_path(envp);
 	here_doc_cnt = is_here_doc_exist(&cmd_list, pipe_cnt);
 	while (pipe_cnt)
 	{
 		split_cmd = get_pipe_cmd(cmd_list);
 		cmd_list = redirect_pipe(cmd_list);
-		if (pipe_cnt == 1 && is_builtin((const char **)split_cmd, envp))
+		if (pipe_cnt == 1 && is_builtin((const char **)split_cmd, env_list))
 		{
 			ft_free_strs(split_cmd);
 			break ;
 		}
 		if (split_cmd)
 		{
-			status = exe_cmd(split_cmd, path, pipe_cnt, envp);
+			status = exe_cmd(split_cmd, pipe_cnt, env_list);
 			ft_free_strs(split_cmd);
 		}
 		pipe_cnt--;
 	}
-	ft_free_strs(path);
 	delete_here_doc(here_doc_cnt);
 	dup2(std[0], STDIN_FILENO);
 	dup2(std[1], STDOUT_FILENO);
