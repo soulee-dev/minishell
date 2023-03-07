@@ -6,7 +6,7 @@
 /*   By: subcho <subcho@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/23 16:41:30 by soulee            #+#    #+#             */
-/*   Updated: 2023/03/06 17:23:09 by subcho           ###   ########.fr       */
+/*   Updated: 2023/03/07 20:08:54 by subcho           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,19 +84,26 @@ char		**convert_env_list_to_arr(t_env_list *node);
 // redirection.c
 t_cmd_list	*redirect_pipe(t_cmd_list *cmd_list);
 void		redirect_fd(int type, char *file_name);
-void		read_here_doc(char	*delimiter);
 
 // pipe.c
 int			execute(t_cmd_list *cmd_list, char **envp, int pipe_cnt);
 int			exe_cmd(char	**cmd, char **path, int pipe_cnt, char **envp);
 char		**get_pipe_cmd(t_cmd_list *cmd_list);
 int			get_status(int pid);
+void		ft_free_strs(char **str);
 
 // pipe_utils.c
 char		**get_path(char **envp);
 char		*get_cmd(char **path, char *cmd);
 int			is_builtin(const char **command, char **envp);
 int			get_echo_n_cnt(const char **command);
+
+// here_doc.c
+void		read_here_doc(int fd, char	*delimiter);
+void		delete_here_doc(int here_doc_cnt);
+int			is_here_doc_exist(t_cmd_list **cmd_list, int pipe_cnt);
+char		*create_here_doc_file(int count, char *delimiter,
+				char *here_doc_org);
 
 // file_control.c
 int			open_file(char *file_name);
