@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: subcho <subcho@student.42.fr>              +#+  +:+       +#+        */
+/*   By: soulee <soulee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/23 16:24:12 by soulee            #+#    #+#             */
-/*   Updated: 2023/03/07 20:31:07 by subcho           ###   ########.fr       */
+/*   Updated: 2023/03/07 22:09:51 by soulee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ int	main(int argc, char *argv[], char **envp)
 		if (*line != '\0')
 		{
 			add_history(line);
-			printf("%d", parse_line(&cmd_list, line));
+			cmd_list = parse_line(&cmd_list, line);
 			parse_dollar_sign(cmd_list, env_list);
 			iter_node(cmd_list);
 			status = execute(cmd_list, convert_env_list_to_arr(env_list), count_cmd_list_node(cmd_list, TYPE_PIPE) + 1);
