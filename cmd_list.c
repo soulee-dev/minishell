@@ -6,7 +6,7 @@
 /*   By: soulee <soulee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/25 22:19:01 by soulee            #+#    #+#             */
-/*   Updated: 2023/03/04 20:19:42 by soulee           ###   ########.fr       */
+/*   Updated: 2023/03/06 16:12:41 by soulee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,7 @@ void	iter_node(t_cmd_list *node)
 		printf("[%d]=%s\n", node->cmd_type, node->cmd);
 		node = node->next;
 	}
+	// REMOVE BEFORE FLIGHT
 }
 
 int	count_cmd_list_node(t_cmd_list *node, int cmd_type)

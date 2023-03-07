@@ -6,7 +6,7 @@
 /*   By: subcho <subcho@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/23 16:24:12 by soulee            #+#    #+#             */
-/*   Updated: 2023/03/07 19:42:30 by subcho           ###   ########.fr       */
+/*   Updated: 2023/03/07 20:31:07 by subcho           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void	print_ascii_art(void)
 {
-    printf("\nMewww  |\\      _,,,—,,_        \n");
+	printf("\nMewww  |\\      _,,,—,,_        \n");
 	printf("       /,`.-'`'   ._  \\-;;,_    \n");
 	printf("      |,4-  ) )_   .;.(  `'-'   \n");
     printf("     '—''(_/._)-'(_\\_)     Mewww…   \n");
@@ -33,7 +33,6 @@ int	main(int argc, char *argv[], char **envp)
 	int				status;
 	t_env_list		*env_list;
 	t_cmd_list		*cmd_list;
-	int				count_pipe;
 
 	line = NULL;
 	env_list = NULL;
@@ -53,9 +52,9 @@ int	main(int argc, char *argv[], char **envp)
 		if (*line != '\0')
 		{
 			add_history(line);
-			cmd_list = parse_line(&cmd_list, line);
+			printf("%d", parse_line(&cmd_list, line));
 			parse_dollar_sign(cmd_list, env_list);
-			//iter_node(cmd_list);
+			iter_node(cmd_list);
 			status = execute(cmd_list, convert_env_list_to_arr(env_list), count_cmd_list_node(cmd_list, TYPE_PIPE) + 1);
 			clear_cmd_list(&cmd_list);
 		}
