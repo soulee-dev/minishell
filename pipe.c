@@ -6,7 +6,7 @@
 /*   By: subcho <subcho@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/23 21:07:21 by subcho            #+#    #+#             */
-/*   Updated: 2023/03/07 20:11:24 by subcho           ###   ########.fr       */
+/*   Updated: 2023/03/07 21:45:55 by subcho           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,6 +72,11 @@ int	execute(t_cmd_list *cmd_list, char **envp, int pipe_cnt)
 	while (pipe_cnt)
 	{
 		split_cmd = get_pipe_cmd(cmd_list);
+		// if (pipe_cnt == 1 && is_builtin((const char **)split_cmd, envp))
+		// {
+		// 	ft_free_strs(split_cmd);
+		// 	break ;
+		// }
 		cmd_list = redirect_pipe(cmd_list);
 		if (split_cmd)
 		{
