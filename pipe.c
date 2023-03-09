@@ -6,7 +6,7 @@
 /*   By: subcho <subcho@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/23 21:07:21 by subcho            #+#    #+#             */
-/*   Updated: 2023/03/07 23:46:30 by subcho           ###   ########.fr       */
+/*   Updated: 2023/03/09 21:42:45 by subcho           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,64 +28,59 @@ char	**get_pipe_cmd(t_cmd_list *cmd_list)
 	return (ft_split(cmd, ' '));
 }
 
-int	exe_cmd(char **cmd, int pipe_cnt, t_env_list *env_list)
+int	exe_cmd(char **cmd, int pipe_cnt, t_env_list *env_list, char **env_list_str)
 {
 	pid_t	pid;
+	char	**path;
 	int		pipefd[2];
 
+	path = get_path(env_list_str);
 	pipe(pipefd);
 	pid = fork();
 	if (pid < 0)
 		print_error(0);
-	else if (pid == 0)
+	else if (!pid)
 	{
-		if (pipe_cnt != 1)
+		if (pipe_cnt)
 			dup2(pipefd[1], STDOUT_FILENO);
 		if (!is_builtin((const char **)cmd, env_list))
-			execve(get_cmd(get_path(convert_env_list_to_arr(env_list)), cmd[0]), cmd, convert_env_list_to_arr(env_list));
+			execve(get_cmd(path, cmd[0]), cmd, env_list_str);
 		exit(0);
 	}
-	else
+	if (pipe_cnt)
 	{
-		if (pipe_cnt != 1)
-		{
-			close(pipefd[1]);
-			dup2(pipefd[0], STDIN_FILENO);
-			close(pipefd[0]);
-		}
+		close(pipefd[1]);
+		dup2(pipefd[0], STDIN_FILENO);
+		close(pipefd[0]);
 	}
 	return (pid);
 }
 
 int	execute(t_cmd_list *cmd_list, t_env_list *env_list, int pipe_cnt)
 {
-	int		std[2];
+	int		*std;
 	int		status;
 	char	**split_cmd;
 	int		here_doc_cnt;
+	char	**env_list_str;
 
-	std[0] = dup(STDIN_FILENO);
-	std[1] = dup(STDOUT_FILENO);
+	std = dup_std();
+	env_list_str = convert_env_list_to_arr(env_list);
 	here_doc_cnt = is_here_doc_exist(&cmd_list, pipe_cnt);
-	while (pipe_cnt)
+	while (--pipe_cnt >= 0)
 	{
 		split_cmd = get_pipe_cmd(cmd_list);
 		cmd_list = redirect_pipe(cmd_list);
-		if (pipe_cnt == 1 && is_builtin((const char **)split_cmd, env_list))
-		{
-			ft_free_strs(split_cmd);
-			break ;
-		}
-		if (split_cmd)
-		{
-			status = exe_cmd(split_cmd, pipe_cnt, env_list);
-			ft_free_strs(split_cmd);
-		}
-		pipe_cnt--;
+		if (!split_cmd)
+			continue ;
+		if (pipe_cnt || !pipe_cnt
+			&& !is_builtin((const char **)split_cmd, env_list))
+			status = exe_cmd(split_cmd, pipe_cnt, env_list, env_list_str);
+		ft_free_strs(split_cmd);
 	}
 	delete_here_doc(here_doc_cnt);
-	dup2(std[0], STDIN_FILENO);
-	dup2(std[1], STDOUT_FILENO);
+	ft_free_strs(env_list_str);
+	redirect_std(std);
 	return (get_status(status));
 }
 

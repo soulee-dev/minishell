@@ -6,7 +6,7 @@
 /*   By: subcho <subcho@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/23 21:10:01 by subcho            #+#    #+#             */
-/*   Updated: 2023/03/09 20:34:07 by subcho           ###   ########.fr       */
+/*   Updated: 2023/03/09 21:21:27 by subcho           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,7 @@ void	ft_free_strs(char **str)
 		i++;
 	}
 	free(str);
+	str = 0;
 }
 
 int	get_echo_n_cnt(const char **command)

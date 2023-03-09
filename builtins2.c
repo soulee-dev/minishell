@@ -6,7 +6,7 @@
 /*   By: subcho <subcho@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/04 22:42:37 by soulee            #+#    #+#             */
-/*   Updated: 2023/03/09 20:56:46 by subcho           ###   ########.fr       */
+/*   Updated: 2023/03/09 21:23:53 by subcho           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,7 @@ void	command_unset(t_env_list *env_list, const char *key)
 			free(temp->key);
 			free(temp->value);
 			free(temp);
+			return ;
 		}
 		before = env_list;
 		env_list = env_list->next;
