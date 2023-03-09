@@ -6,7 +6,7 @@
 /*   By: subcho <subcho@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/04 22:42:37 by soulee            #+#    #+#             */
-/*   Updated: 2023/03/07 23:48:45 by subcho           ###   ########.fr       */
+/*   Updated: 2023/03/09 20:56:46 by subcho           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,22 +14,33 @@
 
 // TODO fix unset
 // TODO add exportw
-void	command_export(t_env_list *env_list, char *key, char *value)
+void	command_export(t_env_list *env_list, const char **command)
 {
+	int			i;
+	int			flag;
 	t_env_list	*temp;
+	char		**cmd;
 
-	temp = env_list;
-	while (temp)
+	i = 0;
+	while (command[++i])
 	{
-		if (!ft_strncmp(temp->key, key, ft_strlen(key)))
+		flag = 0;
+		temp = env_list;
+		cmd = ft_split(command[i], '=');
+		while (temp && !flag)
 		{
-			ft_free_str(&(env_list->value));
-			temp->value = ft_strdup(value);
-			return ;
+			if (!ft_strncmp(temp->key, cmd[0], ft_strlen(cmd[0])))
+			{
+				ft_free_str(&(env_list->value));
+				temp->value = ft_strdup(cmd[1]);
+				ft_free_strs(cmd);
+				flag = 1;
+			}
+			temp = temp->next;
 		}
-		temp = temp->next;
+		if (!flag)
+			add_env_node_back(&env_list, create_new_env_node(cmd[0], cmd[1]));
 	}
-	add_env_node_back(&env_list, create_new_env_node(key, value));
 }
 
 void	command_unset(t_env_list *env_list, const char *key)
