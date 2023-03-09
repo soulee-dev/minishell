@@ -6,7 +6,7 @@
 /*   By: subcho <subcho@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/23 21:07:21 by subcho            #+#    #+#             */
-/*   Updated: 2023/03/09 22:40:55 by subcho           ###   ########.fr       */
+/*   Updated: 2023/03/09 23:06:19 by subcho           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,8 +68,8 @@ int	execute(t_cmd_list *cmd_list, t_env_list *env_list, int pipe_cnt)
 	while (--pipe_cnt >= 0)
 	{
 		split_cmd = get_pipe_cmd(cmd_list);
-		if (redirect_pipe(&cmd_list) == -1)
-			exe_cmd(0, pipe_cnt, env_list, env_list_str);
+		if (redirect_pipe(&cmd_list) == -1 && split_cmd)
+			status = exe_cmd(0, pipe_cnt, env_list, env_list_str);
 		else if (!split_cmd)
 			continue ;
 		else if (pipe_cnt || !pipe_cnt
