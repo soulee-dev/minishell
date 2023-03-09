@@ -6,7 +6,7 @@
 /*   By: subcho <subcho@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/23 21:07:21 by subcho            #+#    #+#             */
-/*   Updated: 2023/03/09 23:25:23 by subcho           ###   ########.fr       */
+/*   Updated: 2023/03/10 00:00:13 by subcho           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,11 +16,14 @@ char	**get_pipe_cmd(t_cmd_list *cmd_list)
 {
 	char	*cmd;
 
+	cmd = 0;
 	while (cmd_list && cmd_list->cmd_type != TYPE_PIPE)
 	{
-		cmd = 0;
 		if (cmd_list->cmd_type == TYPE_WORD)
+		{
 			cmd = cmd_list->cmd;
+			break ;
+		}
 		cmd_list = cmd_list->next;
 	}
 	if (!cmd)
@@ -45,11 +48,14 @@ int	exe_cmd(char **cmd, int pipe_cnt, t_env_list *env_list, char **env_list_str)
 			execve(get_cmd(get_path(env_list_str), cmd[0]), cmd, env_list_str);
 		exit(0);
 	}
-	if (pipe_cnt)
-	{
-		close(pipefd[1]);
-		dup2(pipefd[0], STDIN_FILENO);
-		close(pipefd[0]);
+	else
+	{	
+		if (pipe_cnt)
+		{
+			close(pipefd[1]);
+			dup2(pipefd[0], STDIN_FILENO);
+			close(pipefd[0]);
+		}
 	}
 	return (pid);
 }
@@ -72,8 +78,8 @@ int	execute(t_cmd_list *cmd_list, t_env_list *env_list, int pipe_cnt)
 			status = exe_cmd(0, pipe_cnt, env_list, env_list_str);
 		else if (!split_cmd)
 			continue ;
-		else if (pipe_cnt || !pipe_cnt
-			&& !is_builtin((const char **)split_cmd, env_list))
+		else if (pipe_cnt || (!pipe_cnt
+				&& !is_builtin((const char **)split_cmd, env_list)))
 			status = exe_cmd(split_cmd, pipe_cnt, env_list, env_list_str);
 		ft_free_strs(split_cmd);
 	}
