@@ -6,7 +6,7 @@
 /*   By: subcho <subcho@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/05 22:12:15 by subcho            #+#    #+#             */
-/*   Updated: 2023/03/09 22:36:45 by subcho           ###   ########.fr       */
+/*   Updated: 2023/03/09 23:59:36 by subcho           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,11 +18,8 @@ int	redirect_pipe(t_cmd_list **cmd_list)
 
 	while (*cmd_list && (*cmd_list)->cmd_type != TYPE_PIPE)
 	{
-		if ((*cmd_list)->cmd_type != TYPE_WORD)
-		{
-			if (fd != -1)
-				fd = redirect_fd((*cmd_list)->cmd_type, (*cmd_list)->cmd);
-		}
+		if ((*cmd_list)->cmd_type != TYPE_WORD && fd != -1)
+			fd = redirect_fd((*cmd_list)->cmd_type, (*cmd_list)->cmd);
 		if ((*cmd_list)->next)
 			*cmd_list = (*cmd_list)->next;
 		else
