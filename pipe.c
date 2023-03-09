@@ -6,7 +6,7 @@
 /*   By: subcho <subcho@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/23 21:07:21 by subcho            #+#    #+#             */
-/*   Updated: 2023/03/09 21:42:45 by subcho           ###   ########.fr       */
+/*   Updated: 2023/03/09 22:12:13 by subcho           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,10 +31,8 @@ char	**get_pipe_cmd(t_cmd_list *cmd_list)
 int	exe_cmd(char **cmd, int pipe_cnt, t_env_list *env_list, char **env_list_str)
 {
 	pid_t	pid;
-	char	**path;
 	int		pipefd[2];
 
-	path = get_path(env_list_str);
 	pipe(pipefd);
 	pid = fork();
 	if (pid < 0)
@@ -44,7 +42,7 @@ int	exe_cmd(char **cmd, int pipe_cnt, t_env_list *env_list, char **env_list_str)
 		if (pipe_cnt)
 			dup2(pipefd[1], STDOUT_FILENO);
 		if (!is_builtin((const char **)cmd, env_list))
-			execve(get_cmd(path, cmd[0]), cmd, env_list_str);
+			execve(get_cmd(get_path(env_list_str), cmd[0]), cmd, env_list_str);
 		exit(0);
 	}
 	if (pipe_cnt)
@@ -70,8 +68,7 @@ int	execute(t_cmd_list *cmd_list, t_env_list *env_list, int pipe_cnt)
 	while (--pipe_cnt >= 0)
 	{
 		split_cmd = get_pipe_cmd(cmd_list);
-		cmd_list = redirect_pipe(cmd_list);
-		if (!split_cmd)
+		if (redirect_pipe(&cmd_list) == -1 || !split_cmd)
 			continue ;
 		if (pipe_cnt || !pipe_cnt
 			&& !is_builtin((const char **)split_cmd, env_list))

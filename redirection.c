@@ -6,29 +6,31 @@
 /*   By: subcho <subcho@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/05 22:12:15 by subcho            #+#    #+#             */
-/*   Updated: 2023/03/09 21:42:08 by subcho           ###   ########.fr       */
+/*   Updated: 2023/03/09 22:12:32 by subcho           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-t_cmd_list	*redirect_pipe(t_cmd_list *cmd_list)
+int	redirect_pipe(t_cmd_list **cmd_list)
 {
-	while (cmd_list && cmd_list->cmd_type != TYPE_PIPE)
+	int	fd;
+
+	while (*cmd_list && (*cmd_list)->cmd_type != TYPE_PIPE)
 	{
-		if (cmd_list->cmd_type != TYPE_WORD)
-			redirect_fd(cmd_list->cmd_type, cmd_list->cmd);
-		if (cmd_list->next)
-			cmd_list = cmd_list->next;
+		if ((*cmd_list)->cmd_type != TYPE_WORD)
+			fd = redirect_fd((*cmd_list)->cmd_type, (*cmd_list)->cmd);
+		if ((*cmd_list)->next)
+			*cmd_list = (*cmd_list)->next;
 		else
 			break ;
 	}
-	if (cmd_list && cmd_list->cmd_type == TYPE_PIPE)
-		cmd_list = cmd_list->next;
-	return (cmd_list);
+	if (*cmd_list && (*cmd_list)->cmd_type == TYPE_PIPE)
+		*cmd_list = (*cmd_list)->next;
+	return (fd);
 }
 
-void	redirect_fd(int type, char *file_name)
+int	redirect_fd(int type, char *file_name)
 {
 	int		fd;
 	char	**split_file_name;
@@ -50,6 +52,7 @@ void	redirect_fd(int type, char *file_name)
 		dup2(fd, STDOUT_FILENO);
 	}
 	ft_free_str(split_file_name);
+	return (fd);
 }
 
 int	*dup_std(void)
