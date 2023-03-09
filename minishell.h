@@ -6,7 +6,7 @@
 /*   By: subcho <subcho@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/23 16:41:30 by soulee            #+#    #+#             */
-/*   Updated: 2023/03/09 22:12:24 by subcho           ###   ########.fr       */
+/*   Updated: 2023/03/10 00:57:21 by subcho           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,6 +64,8 @@ char		*ft_strndup(const char *s1, size_t n);
 char		*ft_strjoin_char(char const *s1, char s2);
 char		*ft_strjoin_free(char const *s1, char const *s2);
 char		*ft_strjoin_no_free(char const *s1, char const *s2);
+int			ft_strcmp(const char *s1, const char *s2);
+int			is_str_all_blank(char *str);
 
 // cmd_list.c
 void		clear_cmd_list(t_cmd_list **node);
