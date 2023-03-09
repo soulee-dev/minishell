@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strdup.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: soulee <soulee@student.42seoul.kr>         +#+  +:+       +#+        */
+/*   By: subcho <subcho@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/08 15:08:28 by soulee            #+#    #+#             */
-/*   Updated: 2023/02/26 17:00:44 by soulee           ###   ########.fr       */
+/*   Updated: 2023/03/09 20:43:46 by subcho           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,8 @@ char	*ft_strdup(const char *src)
 {
 	char	*str_ptr;
 
+	if (!src)
+		return (0);
 	str_ptr = malloc(sizeof(char) * ft_strlen(src) + 1);
 	if (!str_ptr)
 		return (0);

@@ -6,7 +6,7 @@
 /*   By: subcho <subcho@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/23 16:41:30 by soulee            #+#    #+#             */
-/*   Updated: 2023/03/07 23:27:57 by subcho           ###   ########.fr       */
+/*   Updated: 2023/03/09 20:45:48 by subcho           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -123,6 +123,6 @@ void		command_echo(const char *s, int no_newline);
 
 // builtins2.c
 void		command_env(t_env_list *env_list);
-void		command_export(t_env_list *env_list, char *key, char *value);
+void		command_export(t_env_list *env_list, const char **command);
 void		command_unset(t_env_list *env_list, const char *key);
 #endif

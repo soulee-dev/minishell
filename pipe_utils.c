@@ -6,7 +6,7 @@
 /*   By: subcho <subcho@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/23 21:10:01 by subcho            #+#    #+#             */
-/*   Updated: 2023/03/07 23:23:51 by subcho           ###   ########.fr       */
+/*   Updated: 2023/03/09 20:34:07 by subcho           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,10 +92,11 @@ int	is_builtin(const char **command, t_env_list *env_list)
 		command_pwd();
 		return (1);
 	}
-	// if (!ft_strcmp(command[0], "export"))
-	// {
-		
-	// }
+	if (!ft_strcmp(command[0], "export"))
+	{
+		command_export(env_list, command);
+		return (1);
+	}
 	if (!ft_strcmp(command[0], "unset"))
 	{
 		command_unset(env_list, command[1]);
