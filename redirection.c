@@ -6,7 +6,7 @@
 /*   By: subcho <subcho@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/05 22:12:15 by subcho            #+#    #+#             */
-/*   Updated: 2023/03/07 19:57:08 by subcho           ###   ########.fr       */
+/*   Updated: 2023/03/09 21:42:08 by subcho           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,4 +50,21 @@ void	redirect_fd(int type, char *file_name)
 		dup2(fd, STDOUT_FILENO);
 	}
 	ft_free_str(split_file_name);
+}
+
+int	*dup_std(void)
+{
+	int	*std;
+
+	std = malloc(sizeof(int) * 2);
+	std[0] = dup(STDIN_FILENO);
+	std[1] = dup(STDOUT_FILENO);
+	return (std);
+}
+
+void	redirect_std(int *std)
+{
+	dup2(std[0], STDIN_FILENO);
+	dup2(std[1], STDOUT_FILENO);
+	free(std);
 }

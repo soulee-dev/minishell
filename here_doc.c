@@ -6,7 +6,7 @@
 /*   By: subcho <subcho@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/07 19:37:33 by subcho            #+#    #+#             */
-/*   Updated: 2023/03/07 20:28:39 by subcho           ###   ########.fr       */
+/*   Updated: 2023/03/09 21:48:23 by subcho           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ int	is_here_doc_exist(t_cmd_list **cmd_list, int pipe_cnt)
 	count = 0;
 	here_doc_org = ".here_doc";
 	top = *cmd_list;
-	while (pipe_cnt)
+	while (--pipe_cnt >= 0)
 	{
 		while (*cmd_list && (*cmd_list)->cmd_type != TYPE_PIPE)
 		{
@@ -53,9 +53,6 @@ int	is_here_doc_exist(t_cmd_list **cmd_list, int pipe_cnt)
 		}
 		if ((*cmd_list) && (*cmd_list)->next)
 			*cmd_list = (*cmd_list)->next;
-		else
-			break ;
-		pipe_cnt--;
 	}
 	*cmd_list = top;
 	return (count);
@@ -67,6 +64,8 @@ void	delete_here_doc(int here_doc_cnt)
 	char	*here_doc_org;
 	char	*here_doc_str;
 
+	if (!here_doc_cnt)
+		return ;
 	here_doc_org = ".here_doc";
 	while (--here_doc_cnt >= 0)
 	{
