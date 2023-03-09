@@ -6,7 +6,7 @@
 /*   By: subcho <subcho@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/23 21:07:21 by subcho            #+#    #+#             */
-/*   Updated: 2023/03/09 23:06:19 by subcho           ###   ########.fr       */
+/*   Updated: 2023/03/09 23:25:23 by subcho           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,9 +16,9 @@ char	**get_pipe_cmd(t_cmd_list *cmd_list)
 {
 	char	*cmd;
 
-	cmd = 0;
 	while (cmd_list && cmd_list->cmd_type != TYPE_PIPE)
 	{
+		cmd = 0;
 		if (cmd_list->cmd_type == TYPE_WORD)
 			cmd = cmd_list->cmd;
 		cmd_list = cmd_list->next;
