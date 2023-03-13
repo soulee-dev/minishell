@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: subcho <subcho@student.42.fr>              +#+  +:+       +#+        */
+/*   By: soulee <soulee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/23 16:41:30 by soulee            #+#    #+#             */
-/*   Updated: 2023/03/10 00:57:21 by subcho           ###   ########.fr       */
+/*   Updated: 2023/03/13 12:48:56 by soulee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -130,4 +130,9 @@ void		command_echo(const char *s, int no_newline);
 void		command_env(t_env_list *env_list);
 void		command_export(t_env_list *env_list, const char **command);
 void		command_unset(t_env_list *env_list, const char *key);
+
+// builtin_utils.c
+void		exit_numberic_argument(void);
+int			check_long_long(long long sum, int sign, int num);
+void		preprocess_atoi(const char **str, long long *sign);
 #endif

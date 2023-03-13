@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtins1.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: subcho <subcho@student.42.fr>              +#+  +:+       +#+        */
+/*   By: soulee <soulee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/04 21:58:42 by soulee            #+#    #+#             */
-/*   Updated: 2023/03/07 22:19:47 by subcho           ###   ########.fr       */
+/*   Updated: 2023/03/13 12:48:31 by soulee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,33 +39,27 @@ void	command_exit(const char *str)
 {
 	long long	num;
 	long long	sign;
+	int			count;
 
 	num = 0;
 	sign = 1;
-	while (((int)(*str) >= 9 && (int)(*str) <= 13) || (int)(*str) == 32)
-		str++;
-	if (*str == '-')
-		sign = -1;
-	if (*str == '+' || *str == '-')
-		str++;
-	while (*str)
+	count = 0;
+	preprocess_atoi(&str, &sign);
+	while (*str != 0)
 	{
+		if (count > 18)
+			exit_numberic_argument();
 		if (*str >= '0' && *str <= '9')
 		{
+			check_long_long(num, (int)sign, *str - '0');
 			num = num * 10 + (*str - '0');
 			str++;
+			count++;
 		}
 		else
-		{
-			printf("numeric argument required\n");
-			exit(255);
-		}
+			exit_numberic_argument();
 	}
-	if (sign * num > INT64_MAX || sign * num < INT64_MIN
-		|| (sign == -1 && num == 0))
-	{
-		printf("numeric argument required\n");
-		exit(255);
-	}
+	if (sign == -1 && num == 0)
+		exit_numberic_argument();
 	exit((unsigned char)(sign * num));
 }
