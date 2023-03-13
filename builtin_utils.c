@@ -6,7 +6,7 @@
 /*   By: soulee <soulee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/13 11:28:37 by soulee            #+#    #+#             */
-/*   Updated: 2023/03/13 12:50:05 by soulee           ###   ########.fr       */
+/*   Updated: 2023/03/13 14:07:56 by soulee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,8 @@ int	check_long_long(long long sum, int sign, int num)
 
 void	preprocess_atoi(const char **str, long long *sign)
 {
+	if (!*str)
+		exit(0);
 	while (((int)(**str) >= 9 && (int)(**str) <= 13) || (int)(**str) == 32)
 		(*str)++;
 	if (**str == '-')
