@@ -6,7 +6,7 @@
 /*   By: soulee <soulee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/23 21:10:01 by subcho            #+#    #+#             */
-/*   Updated: 2023/03/13 12:47:27 by soulee           ###   ########.fr       */
+/*   Updated: 2023/03/20 17:49:28 by soulee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,6 +77,7 @@ int	is_builtin(const char **command, t_env_list *env_list)
 {
 	if (!ft_strcmp(command[0], "echo"))
 	{
+		// command가 1개만 있을때 (null일때) 에러 처리
 		if (!ft_strcmp(command[1], "-n"))
 			command_echo(command[get_echo_n_cnt(command)], 1);
 		else

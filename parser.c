@@ -6,7 +6,7 @@
 /*   By: soulee <soulee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/23 21:48:04 by soulee            #+#    #+#             */
-/*   Updated: 2023/03/07 22:12:33 by soulee           ###   ########.fr       */
+/*   Updated: 2023/03/20 17:41:33 by soulee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,6 +80,7 @@ void	parse_dollar_sign(t_cmd_list *cmd_list, t_env_list *env_list)
 {
 	while (cmd_list)
 	{
+		printf("%s\n", cmd_list->cmd);
 		if (cmd_list->cmd && ft_strchr(cmd_list->cmd, '$'))
 			parse_dollar_sign_loop(cmd_list, env_list);
 		cmd_list = cmd_list->next;
