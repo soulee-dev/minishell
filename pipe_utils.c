@@ -6,7 +6,7 @@
 /*   By: subcho <subcho@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/23 21:10:01 by subcho            #+#    #+#             */
-/*   Updated: 2023/03/22 17:01:38 by subcho           ###   ########.fr       */
+/*   Updated: 2023/03/22 20:08:24 by subcho           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,7 @@ int	get_echo_n_cnt(const char **command)
 	int	i;
 
 	i = 1;
-	while (++i)
+	while (++i && command[i])
 	{
 		if (ft_strcmp(command[i], "-n"))
 			break ;
@@ -77,7 +77,7 @@ int	is_builtin(const char **command, t_env_list *env_list)
 {
 	if (!ft_strcmp(command[0], "echo"))
 	{
-		if (!ft_strcmp(command[1], "-n"))
+		if (command[1] && !ft_strcmp(command[1], "-n"))
 			command_echo(command + get_echo_n_cnt(command), 1);
 		else
 			command_echo(command + 1, 0);
