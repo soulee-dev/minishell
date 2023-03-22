@@ -3,7 +3,7 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: subcho <subcho@student.42.fr>              +#+  +:+       +#+        */
+/*   By: soulee <soulee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/23 16:41:30 by soulee            #+#    #+#             */
 /*   Updated: 2023/03/22 16:59:14 by subcho           ###   ########.fr       */
@@ -66,6 +66,9 @@ char		*ft_strjoin_free(char const *s1, char const *s2);
 char		*ft_strjoin_no_free(char const *s1, char const *s2);
 int			ft_strcmp(const char *s1, const char *s2);
 int			is_str_all_blank(char *str);
+
+// string_utils3.c
+int			count_splitted_str(const char **splitted_str);
 
 // cmd_list.c
 void		clear_cmd_list(t_cmd_list **node);
@@ -130,4 +133,9 @@ void		command_echo(const char **s, int no_newline);
 void		command_env(t_env_list *env_list);
 void		command_export(t_env_list *env_list, const char **command);
 void		command_unset(t_env_list *env_list, const char *key);
+
+// builtin_utils.c
+void		exit_numberic_argument(void);
+int			check_long_long(long long sum, int sign, int num);
+void		preprocess_atoi(const char **str, long long *sign);
 #endif

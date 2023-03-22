@@ -3,7 +3,7 @@
 /*                                                        :::      ::::::::   */
 /*   pipe_utils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: subcho <subcho@student.42.fr>              +#+  +:+       +#+        */
+/*   By: soulee <soulee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/23 21:10:01 by subcho            #+#    #+#             */
 /*   Updated: 2023/03/22 20:08:24 by subcho           ###   ########.fr       */
@@ -88,6 +88,16 @@ int	is_builtin(const char **command, t_env_list *env_list)
 		command_cd(command[1]);
 		return (1);
 	}
+	if (!ft_strcmp(command[0], "unset"))
+	{
+		command_unset(env_list, command[1]);
+		return (1);
+	}
+	if (!ft_strcmp(command[0], "exit"))
+	{
+		command_exit(command[1]);
+		return (1);
+	}
 	if (!ft_strcmp(command[0], "pwd"))
 	{
 		command_pwd();
@@ -98,19 +108,9 @@ int	is_builtin(const char **command, t_env_list *env_list)
 		command_export(env_list, command);
 		return (1);
 	}
-	if (!ft_strcmp(command[0], "unset"))
-	{
-		command_unset(env_list, command[1]);
-		return (1);
-	}
 	if (!ft_strcmp(command[0], "env"))
 	{
 		command_env(env_list);
-		return (1);
-	}
-	if (!ft_strcmp(command[0], "exit"))
-	{
-		command_exit(command[1]);
 		return (1);
 	}
 	return (0);

@@ -17,6 +17,7 @@
 		"unordered_map": "c",
 		"utility": "c",
 		"vector": "c",
-		"_types.h": "c"
+		"_types.h": "c",
+		"ratio": "c"
 	}
 }
