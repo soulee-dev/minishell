@@ -6,7 +6,7 @@
 /*   By: soulee <soulee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/23 21:10:01 by subcho            #+#    #+#             */
-/*   Updated: 2023/03/20 17:49:28 by soulee           ###   ########.fr       */
+/*   Updated: 2023/03/22 18:05:51 by soulee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,6 +78,7 @@ int	is_builtin(const char **command, t_env_list *env_list)
 	if (!ft_strcmp(command[0], "echo"))
 	{
 		// command가 1개만 있을때 (null일때) 에러 처리
+		// command[1]이 필요한 명령어의 경우, parameter를 안 넣어 주거나, 틀린 env 참조시 segfault
 		if (!ft_strcmp(command[1], "-n"))
 			command_echo(command[get_echo_n_cnt(command)], 1);
 		else
@@ -87,6 +88,16 @@ int	is_builtin(const char **command, t_env_list *env_list)
 	if (!ft_strcmp(command[0], "cd"))
 	{
 		command_cd(command[1]);
+		return (1);
+	}
+	if (!ft_strcmp(command[0], "unset"))
+	{
+		command_unset(env_list, command[1]);
+		return (1);
+	}
+	if (!ft_strcmp(command[0], "exit"))
+	{
+		command_exit(command[1]);
 		return (1);
 	}
 	if (!ft_strcmp(command[0], "pwd"))
@@ -99,19 +110,9 @@ int	is_builtin(const char **command, t_env_list *env_list)
 		command_export(env_list, command);
 		return (1);
 	}
-	if (!ft_strcmp(command[0], "unset"))
-	{
-		command_unset(env_list, command[1]);
-		return (1);
-	}
 	if (!ft_strcmp(command[0], "env"))
 	{
 		command_env(env_list);
-		return (1);
-	}
-	if (!ft_strcmp(command[0], "exit"))
-	{
-		command_exit(command[1]);
 		return (1);
 	}
 	return (0);
