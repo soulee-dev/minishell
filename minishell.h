@@ -41,6 +41,8 @@ typedef struct s_env_list {
 	struct s_env_list	*next;
 }	t_env_list;
 
+int			g_exit_code;
+
 // parser.c
 void		parse_envp(t_env_list **node, char **envp);
 t_cmd_list	*parse_line(t_cmd_list **cmd_list, char *line);

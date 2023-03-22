@@ -129,7 +129,10 @@ void	parse_dollar_sign_loop(t_cmd_list *cmd_list, t_env_list *env_list)
 			while (cmd_list->cmd[i]
 				&& !check_is_whitespace(cmd_list->cmd[i]))
 				key = ft_strjoin_char(key, cmd_list->cmd[i++]);
-			str = ft_strjoin_free(str, ft_getenv(env_list, key));
+			if (!ft_strcmp(key, "?"))
+				str = ft_strjoin_free(str, ft_itoa(g_exit_code));
+			else
+				str = ft_strjoin_free(str, ft_getenv(env_list, key));
 			ft_free_str(&key);
 		}
 		str = ft_strjoin_char(str, cmd_list->cmd[i]);

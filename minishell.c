@@ -60,7 +60,7 @@ int	main(int argc, char *argv[], char **envp)
 			add_history(line);
 			cmd_list = parse_line(&cmd_list, line);
 			parse_dollar_sign(cmd_list, env_list);
-			//iter_node(cmd_list);
+			iter_node(cmd_list);
 			status = execute(cmd_list, env_list, count_cmd_list_node(cmd_list, TYPE_PIPE) + 1);
 			clear_cmd_list(&cmd_list);
 		}
