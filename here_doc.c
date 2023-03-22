@@ -6,7 +6,7 @@
 /*   By: subcho <subcho@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/07 19:37:33 by subcho            #+#    #+#             */
-/*   Updated: 2023/03/09 21:48:23 by subcho           ###   ########.fr       */
+/*   Updated: 2023/03/22 20:40:43 by subcho           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ int	is_here_doc_exist(t_cmd_list **cmd_list, int pipe_cnt)
 	char		*here_doc_org;
 
 	count = 0;
-	here_doc_org = ".here_doc";
+	here_doc_org = "/tmp/.here_doc";
 	top = *cmd_list;
 	while (--pipe_cnt >= 0)
 	{
@@ -66,7 +66,7 @@ void	delete_here_doc(int here_doc_cnt)
 
 	if (!here_doc_cnt)
 		return ;
-	here_doc_org = ".here_doc";
+	here_doc_org = "/tmp/.here_doc";
 	while (--here_doc_cnt >= 0)
 	{
 		cnt_str = ft_itoa(here_doc_cnt);
