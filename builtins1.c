@@ -6,18 +6,36 @@
 /*   By: subcho <subcho@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/04 21:58:42 by soulee            #+#    #+#             */
-/*   Updated: 2023/03/07 22:19:47 by subcho           ###   ########.fr       */
+/*   Updated: 2023/03/22 19:53:42 by subcho           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	command_echo(const char *s, int no_newline)
+void	command_echo(const char **s, int no_newline)
 {
-	if (no_newline)
-		printf("%s", s);
-	else
-		printf("%s\n", s);
+	int	quote;
+
+	quote = 0;
+	while (*s)
+	{
+		if (**s == '"')
+		{
+			quote = 1;
+			while (*(*s + quote) && *(*s + quote) != '"')
+			{
+				ft_putchar_fd(*(*s + quote), 1);
+				quote++;
+			}
+		}
+		else
+			ft_putstr_fd((char *)*s, 1);
+		s++;
+		if (*s)
+			ft_putchar_fd(' ', 1);
+	}
+	if (!no_newline)
+		ft_putchar_fd('\n', 1);
 }
 
 void	command_cd(const char *path)
