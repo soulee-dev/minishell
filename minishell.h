@@ -6,7 +6,7 @@
 /*   By: soulee <soulee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/23 16:41:30 by soulee            #+#    #+#             */
-/*   Updated: 2023/03/22 17:55:41 by soulee           ###   ########.fr       */
+/*   Updated: 2023/03/22 16:59:14 by subcho           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -127,7 +127,7 @@ void		exit_error(char *error_message);
 void		command_pwd(void);
 void		command_cd(const char *path);
 void		command_exit(const char *str);
-void		command_echo(const char *s, int no_newline);
+void		command_echo(const char **s, int no_newline);
 
 // builtins2.c
 void		command_env(t_env_list *env_list);
