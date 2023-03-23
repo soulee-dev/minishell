@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: soulee <soulee@student.42seoul.kr>         +#+  +:+       +#+        */
+/*   By: soulee <soulee@studnet.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/23 16:41:30 by soulee            #+#    #+#             */
-/*   Updated: 2023/03/22 16:59:14 by subcho           ###   ########.fr       */
+/*   Updated: 2023/03/23 16:44:13 by soulee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,8 +58,8 @@ void		parse_dollar_sign_loop(t_cmd_list *cmd_list, t_env_list *env_list);
 // string_utils.c
 void		ft_free_str(char **str);
 size_t		ft_strlenbl(const char *s);
-int			check_is_whitespace(char c);
-int			check_whitespace_str(char *line);
+int			check_is_whitespace(const char c);
+int			check_whitespace_str(const char *line);
 char		*ft_strndup(const char *s1, size_t n);
 
 // string_utils2.c
@@ -71,6 +71,7 @@ int			is_str_all_blank(char *str);
 
 // string_utils3.c
 int			count_splitted_str(const char **splitted_str);
+int			is_meta_character(const char c);
 
 // cmd_list.c
 void		clear_cmd_list(t_cmd_list **node);
