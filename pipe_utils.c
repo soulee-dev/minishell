@@ -16,7 +16,7 @@ char	**get_path(char **envp)
 {
 	char	*path;
 
-	while (ft_strcmp("PATH", *envp))
+	while (ft_strncmp("PATH", *envp, 4))
 		envp++;
 	path = *envp + 5;
 	return (ft_split(path, ':'));
