@@ -6,7 +6,7 @@
 /*   By: soulee <soulee@studnet.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/23 16:41:30 by soulee            #+#    #+#             */
-/*   Updated: 2023/03/23 16:44:13 by soulee           ###   ########.fr       */
+/*   Updated: 2023/03/23 16:45:11 by soulee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ t_cmd_list	*parse_line(t_cmd_list **cmd_list, char *line);
 void		parse_dollar_sign(t_cmd_list *cmd_list, t_env_list *env_list);
 
 // parser_utils.c
-int			parse_quotes(char line, int quotes);
+int			parse_quotes(const char c, int quotes);
 char		*parse_redirection_in(t_cmd_list **cmd_list, char *str);
 char		*parse_redirection_out(t_cmd_list **cmd_list, char *str);
 void		add_element_node(t_cmd_list **cmd_list, int cmd_type, char **str);

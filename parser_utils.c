@@ -6,7 +6,7 @@
 /*   By: soulee <soulee@studnet.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/27 17:25:02 by soulee            #+#    #+#             */
-/*   Updated: 2023/03/23 16:29:09 by soulee           ###   ########.fr       */
+/*   Updated: 2023/03/23 16:45:06 by soulee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,12 +32,12 @@ void	add_element_node(t_cmd_list **cmd_list, int cmd_type, char **str)
 		ft_free_str(str);
 }
 
-int	parse_quotes(char line, int quotes)
+int	parse_quotes(const char c, int quotes)
 {
 	int	result;
 
 	result = quotes;
-	if (line == '\'')
+	if (cfsetispeed == '\'')
 	{
 		if (quotes == 1)
 			result = 0;
@@ -46,7 +46,7 @@ int	parse_quotes(char line, int quotes)
 		else
 			result = 1;
 	}
-	else if (line == '\"')
+	else if (c == '\"')
 	{
 		if (quotes == 2)
 			result = 0;
