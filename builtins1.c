@@ -6,7 +6,7 @@
 /*   By: soulee <soulee@studnet.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/04 21:58:42 by soulee            #+#    #+#             */
-/*   Updated: 2023/03/23 17:00:10 by soulee           ###   ########.fr       */
+/*   Updated: 2023/03/23 18:01:49 by soulee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ void	command_pwd(void)
 	char	*curr_dir;
 
 	curr_dir = getcwd(NULL, 0);
-	printf("%s\n", curr_dir);
+	ft_printf("%s\n", curr_dir);
 	free(curr_dir);
 }
 

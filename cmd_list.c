@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cmd_list.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: soulee <soulee@student.42seoul.kr>         +#+  +:+       +#+        */
+/*   By: soulee <soulee@studnet.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/25 22:19:01 by soulee            #+#    #+#             */
-/*   Updated: 2023/03/06 16:12:41 by soulee           ###   ########.fr       */
+/*   Updated: 2023/03/23 18:01:55 by soulee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ void	iter_node(t_cmd_list *node)
 	// REMOVE BEFORE FLIGHT
 	while (node)
 	{
-		printf("[%d]=%s\n", node->cmd_type, node->cmd);
+		ft_printf("[%d]=%s\n", node->cmd_type, node->cmd);
 		node = node->next;
 	}
 	// REMOVE BEFORE FLIGHT

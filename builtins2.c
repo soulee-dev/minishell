@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtins2.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: soulee <soulee@student.42seoul.kr>         +#+  +:+       +#+        */
+/*   By: soulee <soulee@studnet.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/04 22:42:37 by soulee            #+#    #+#             */
-/*   Updated: 2023/03/13 12:56:38 by soulee           ###   ########.fr       */
+/*   Updated: 2023/03/23 18:01:52 by soulee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,7 @@ void	command_env(t_env_list *env_list)
 	envp = convert_env_list_to_arr(env_list);
 	while (*envp)
 	{
-		printf("%s\n", *envp);
+		ft_printf("%s\n", *envp);
 		envp++;
 	}
 	//ft_free_strs(envp);

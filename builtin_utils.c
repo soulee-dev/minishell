@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtin_utils.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: soulee <soulee@student.42seoul.kr>         +#+  +:+       +#+        */
+/*   By: soulee <soulee@studnet.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/13 11:28:37 by soulee            #+#    #+#             */
-/*   Updated: 2023/03/13 14:07:56 by soulee           ###   ########.fr       */
+/*   Updated: 2023/03/23 18:01:44 by soulee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void	exit_numberic_argument(void)
 {
-	printf("numeric argument required\n");
+	ft_printf("numeric argument required\n");
 	exit(255);
 }
 
