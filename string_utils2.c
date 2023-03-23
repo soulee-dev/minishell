@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   string_utils2.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: subcho <subcho@student.42.fr>              +#+  +:+       +#+        */
+/*   By: soulee <soulee@studnet.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/27 22:35:09 by soulee            #+#    #+#             */
-/*   Updated: 2023/03/10 00:57:58 by subcho           ###   ########.fr       */
+/*   Updated: 2023/03/23 16:34:46 by soulee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,7 +102,7 @@ int	is_str_all_blank(char *str)
 {
 	while (*str)
 	{
-		if (*str != ' ')
+		if (!check_is_whitespace(*str))
 			return (0);
 		str++;
 	}
