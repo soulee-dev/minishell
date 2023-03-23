@@ -18,7 +18,7 @@ char	*ft_getenv(t_env_list *node, char *key)
 		return (0);
 	while (node)
 	{
-		if (!ft_strncmp(node->key, key, ft_strlen(key)))
+		if (!ft_strcmp(node->key, key))
 			return (node->value);
 		node = node->next;
 	}

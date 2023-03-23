@@ -27,7 +27,7 @@ void	command_export(t_env_list *env_list, const char **command)
 		cmd = ft_split(command[i], '=');
 		while (temp && !flag)
 		{
-			if (!ft_strncmp(temp->key, cmd[0], ft_strlen(cmd[0])))
+			if (!ft_strcmp(temp->key, cmd[0]))
 			{
 				ft_free_str(&(env_list->value));
 				temp->value = ft_strdup(cmd[1]);
@@ -49,7 +49,7 @@ void	command_unset(t_env_list *env_list, const char *key)
 	before = 0;
 	while (env_list)
 	{
-		if (!ft_strncmp(env_list->key, key, ft_strlen(key)))
+		if (!ft_strcmp(env_list->key, key))
 		{
 			temp = env_list;
 			env_list = env_list->next;
