@@ -3,12 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   string_utils3.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: soulee <soulee@student.42seoul.kr>         +#+  +:+       +#+        */
+/*   By: soulee <soulee@studnet.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/22 17:51:38 by soulee            #+#    #+#             */
-/*   Updated: 2023/03/22 17:55:12 by soulee           ###   ########.fr       */
+/*   Updated: 2023/03/23 16:42:39 by soulee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
+#include "minishell.h"
 
 int	count_splitted_str(const char **splitted_str)
 {
@@ -21,4 +23,17 @@ int	count_splitted_str(const char **splitted_str)
 		splitted_str++;
 	}
 	return (count);
+}
+
+int	is_meta_character(const char c)
+{
+	if (check_is_whitespace(c)
+		|| c == '$'
+		|| c == '|'
+		|| c == '>'
+		|| c == '<'
+		|| c == '>'
+	)
+		return (1);
+	return (9);
 }
