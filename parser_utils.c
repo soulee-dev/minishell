@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser_utils.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: subcho <subcho@student.42.fr>              +#+  +:+       +#+        */
+/*   By: soulee <soulee@studnet.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/27 17:25:02 by soulee            #+#    #+#             */
-/*   Updated: 2023/03/10 00:55:53 by subcho           ###   ########.fr       */
+/*   Updated: 2023/03/23 16:29:09 by soulee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -118,10 +118,10 @@ void	parse_dollar_sign_loop(t_cmd_list *cmd_list, t_env_list *env_list)
 	char	*str;
 	char	*key;
 
-	i = 0;
+	i = -1;
 	key = 0;
 	str = NULL;
-	while (i < ft_strlen(cmd_list->cmd))
+	while (++i < ft_strlen(cmd_list->cmd))
 	{
 		if (cmd_list->cmd[i] == '$')
 		{
@@ -136,7 +136,6 @@ void	parse_dollar_sign_loop(t_cmd_list *cmd_list, t_env_list *env_list)
 			ft_free_str(&key);
 		}
 		str = ft_strjoin_char(str, cmd_list->cmd[i]);
-		i++;
 	}
 	ft_free_str(&(cmd_list->cmd));
 	cmd_list->cmd = str;
