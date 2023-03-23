@@ -22,27 +22,33 @@ SRCS += builtin_utils.c
 SRCS += env_list_utils.c
 
 LIBFT = ./libft/libft.a
+FT_PRINTF = ./ft_printf/libftprintf.a
 
 OBJS = $(SRCS:.c=.o)
 
-all: $(LIBFT) $(NAME)
+all: $(LIBFT) $(FT_PRINTF) $(NAME)
 
 %.o: %.c
 	$(CC) -c $(CFLAGS) $? -g3
 
-$(NAME): $(OBJS) $(LIBFT)
-	$(CC) -o $@ $^ -Llibft -lft -lreadline -g3
+$(NAME): $(OBJS) $(LIBFT) $(FT_PRINTF)
+	$(CC) -o $@ $^ -Llibft -lft -Lft_printf -lftprintf -lreadline -g3
 	@echo Mandatory Compile Complete! 🥳
 
 $(LIBFT):
 	make -C ./libft bonus
 
+$(FT_PRINTF):
+	make -C ./ft_printf
+
 clean:
 	rm -f $(OBJS)
 	make clean -C ./libft
+	make clean -C ./ft_printf
 
 fclean: clean
 	make fclean -C ./libft
+	make fclean -C ./ft_printf
 	rm -f $(NAME)
 
 re:
