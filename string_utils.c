@@ -3,20 +3,20 @@
 /*                                                        :::      ::::::::   */
 /*   string_utils.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: soulee <soulee@studnet.42seoul.kr>         +#+  +:+       +#+        */
+/*   By: soulee <soulee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/26 17:00:14 by soulee            #+#    #+#             */
-/*   Updated: 2023/03/23 16:44:09 by soulee           ###   ########.fr       */
+/*   Updated: 2023/03/24 22:14:24 by soulee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	ft_free_str(char **str)
+char	*ft_free_str(char *str)
 {
-	if (*str)
-		free(*str);
-	*str = NULL;
+	if (str)
+		free(str);
+	return (NULL);
 }
 
 size_t	ft_strlenbl(const char *s)

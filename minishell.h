@@ -6,7 +6,7 @@
 /*   By: soulee <soulee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/23 16:41:30 by soulee            #+#    #+#             */
-/*   Updated: 2023/03/24 22:11:37 by soulee           ###   ########.fr       */
+/*   Updated: 2023/03/24 22:14:34 by soulee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ void		add_element_node(t_cmd_list **cmd_list, int cmd_type, char **str);
 void		parse_dollar_sign_loop(t_cmd_list *cmd_list, t_env_list *env_list);
 
 // string_utils.c
-void		ft_free_str(char **str);
+char		*ft_free_str(char *str);
 size_t		ft_strlenbl(const char *s);
 int			check_is_whitespace(const char c);
 int			check_whitespace_str(const char *line);
