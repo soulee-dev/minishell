@@ -6,7 +6,7 @@
 /*   By: soulee <soulee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/22 17:51:38 by soulee            #+#    #+#             */
-/*   Updated: 2023/03/25 01:11:10 by soulee           ###   ########.fr       */
+/*   Updated: 2023/03/25 01:34:39 by soulee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 int	is_meta_character(const char c)
 {
-	if (check_is_whitespace(c)
+	if (is_whitespace(c)
 		|| c == '$'
 		|| c == '|'
 		|| c == '>'

@@ -6,7 +6,7 @@
 /*   By: soulee <soulee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/26 17:00:14 by soulee            #+#    #+#             */
-/*   Updated: 2023/03/24 22:14:24 by soulee           ###   ########.fr       */
+/*   Updated: 2023/03/25 01:35:21 by soulee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,18 +57,18 @@ char	*ft_strndup(const char *s1, size_t n)
 	return (org_p);
 }
 
-int	check_is_whitespace(const char c)
+int	is_whitespace(const char c)
 {
 	if (c == 32 || (c >= 9 && c <= 13))
 		return (1);
 	return (0);
 }
 
-int	check_whitespace_str(const char *line)
+int	is_whitespace_str(const char *line)
 {
 	while (*line)
 	{
-		if (check_is_whitespace(*line))
+		if (is_whitespace(*line))
 			return (1);
 		line++;
 	}

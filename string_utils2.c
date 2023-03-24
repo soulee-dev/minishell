@@ -6,7 +6,7 @@
 /*   By: soulee <soulee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/27 22:35:09 by soulee            #+#    #+#             */
-/*   Updated: 2023/03/24 21:45:01 by soulee           ###   ########.fr       */
+/*   Updated: 2023/03/25 01:34:49 by soulee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,7 +104,7 @@ int	is_str_all_blank(char *str)
 {
 	while (*str)
 	{
-		if (!check_is_whitespace(*str))
+		if (!is_whitespace(*str))
 			return (0);
 		str++;
 	}

@@ -6,7 +6,7 @@
 /*   By: soulee <soulee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/23 16:41:30 by soulee            #+#    #+#             */
-/*   Updated: 2023/03/25 01:16:50 by soulee           ###   ########.fr       */
+/*   Updated: 2023/03/25 01:35:35 by soulee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,8 +59,8 @@ void		parse_dollar_sign_loop(t_cmd_list *cmd_list, t_env_list *env_list);
 // string_utils.c
 char		*ft_free_str(char *str);
 size_t		ft_strlenbl(const char *s);
-int			check_is_whitespace(const char c);
-int			check_whitespace_str(const char *line);
+int			is_whitespace(const char c);
+int			is_whitespace_str(const char *line);
 char		*ft_strndup(const char *s1, size_t n);
 
 // string_utils2.c
@@ -140,6 +140,6 @@ void		command_unset(t_env_list *env_list, const char *key);
 
 // builtin_utils.c
 void		exit_numberic_argument(void);
-int			check_long_long(long long sum, int sign, int num);
+int			is_over_long_long(long long sum, int sign, int num);
 void		preprocess_atoi(const char **str, long long *sign);
 #endif
