@@ -53,7 +53,7 @@ char	*ft_strndup(const char *s1, size_t n)
 		*(p + i) = *(s1 + i);
 		i++;
 	}
-	*(p + i) = (char) NULL;
+	*(p + i) = 0;
 	return (org_p);
 }
 
