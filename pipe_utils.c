@@ -6,7 +6,7 @@
 /*   By: soulee <soulee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/23 21:10:01 by subcho            #+#    #+#             */
-/*   Updated: 2023/03/22 20:08:24 by subcho           ###   ########.fr       */
+/*   Updated: 2023/03/24 22:07:52 by soulee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,7 @@ char	*get_cmd(char **path, char *cmd)
 	return (0);
 }
 
+// char ** 로 변경해서, 다시 0 asign 하게 바꾸기 dnagling poitner 방지
 void	ft_free_strs(char **str)
 {
 	int	i;

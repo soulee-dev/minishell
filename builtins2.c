@@ -3,15 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   builtins2.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: soulee <soulee@studnet.42seoul.kr>         +#+  +:+       +#+        */
+/*   By: soulee <soulee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/04 22:42:37 by soulee            #+#    #+#             */
-/*   Updated: 2023/03/23 18:01:52 by soulee           ###   ########.fr       */
+/*   Updated: 2023/03/24 22:08:22 by soulee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
+// LEAK 남 왜?
 void	command_export(t_env_list *env_list, const char **command)
 {
 	int			i;
@@ -67,14 +68,16 @@ void	command_unset(t_env_list *env_list, const char *key)
 
 void	command_env(t_env_list *env_list)
 {
+	int		i;
 	char	**envp;
 
+	i = 0;
 	envp = convert_env_list_to_arr(env_list);
-	while (*envp)
+	while (envp[i])
 	{
-		ft_printf("%s\n", *envp);
-		envp++;
+		ft_printf("%s\n", envp[i]);
+		i++;
 	}
-	//ft_free_strs(envp);
+	ft_free_strs(envp);
 	envp = 0;
 }
