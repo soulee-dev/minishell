@@ -6,7 +6,7 @@
 /*   By: soulee <soulee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/22 17:51:38 by soulee            #+#    #+#             */
-/*   Updated: 2023/03/25 00:53:57 by soulee           ###   ########.fr       */
+/*   Updated: 2023/03/25 01:11:10 by soulee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ char	**ft_free_strs(char **str)
 	return (NULL);
 }
 
-char	*ft_strdup_free(const char *s1, const char *s2)
+char	*ft_strdup_free(char *s1, char *s2)
 {
 	ft_free_str(s1);
 	return (ft_strdup(s2));
