@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   string_utils2.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: soulee <soulee@studnet.42seoul.kr>         +#+  +:+       +#+        */
+/*   By: soulee <soulee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/27 22:35:09 by soulee            #+#    #+#             */
-/*   Updated: 2023/03/23 16:34:46 by soulee           ###   ########.fr       */
+/*   Updated: 2023/03/24 20:52:42 by soulee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,6 +89,8 @@ int	ft_strcmp(const char *s1, const char *s2)
 	size_t	i;
 
 	i = 0;
+	if (!s1 || !s2)
+		return (0);
 	while (((unsigned char *)s1)[i] || ((unsigned char *)s2)[i])
 	{
 		if (((unsigned char *)s1)[i] != ((unsigned char *)s2)[i])
