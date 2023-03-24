@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env_list_utils.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: subcho <subcho@student.42.fr>              +#+  +:+       +#+        */
+/*   By: soulee <soulee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/27 22:21:31 by soulee            #+#    #+#             */
-/*   Updated: 2023/03/07 23:44:36 by subcho           ###   ########.fr       */
+/*   Updated: 2023/03/24 21:34:15 by soulee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 char	*ft_getenv(t_env_list *node, char *key)
 {
 	if (!key)
-		return (0);
+		return ("$");
 	while (node)
 	{
 		if (!ft_strcmp(node->key, key))

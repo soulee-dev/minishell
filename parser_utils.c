@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser_utils.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: soulee <soulee@studnet.42seoul.kr>         +#+  +:+       +#+        */
+/*   By: soulee <soulee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/27 17:25:02 by soulee            #+#    #+#             */
-/*   Updated: 2023/03/23 16:46:05 by soulee           ###   ########.fr       */
+/*   Updated: 2023/03/24 21:39:11 by soulee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -125,17 +125,17 @@ void	parse_dollar_sign_loop(t_cmd_list *cmd_list, t_env_list *env_list)
 	{
 		if (cmd_list->cmd[i] == '$')
 		{
-			i++;
-			while (cmd_list->cmd[i]
-				&& !check_is_whitespace(cmd_list->cmd[i]))
-				key = ft_strjoin_char(key, cmd_list->cmd[i++]);
+			while (cmd_list->cmd[++i] && !is_meta_character(cmd_list->cmd[i]))
+				key = ft_strjoin_char(key, cmd_list->cmd[i]);
 			if (!ft_strcmp(key, "?"))
 				str = ft_strjoin_free(str, ft_itoa(g_exit_code));
 			else
 				str = ft_strjoin_free(str, ft_getenv(env_list, key));
 			ft_free_str(&key);
+			i--;
 		}
-		str = ft_strjoin_char(str, cmd_list->cmd[i]);
+		else
+			str = ft_strjoin_char(str, cmd_list->cmd[i]);
 	}
 	ft_free_str(&(cmd_list->cmd));
 	cmd_list->cmd = str;

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   string_utils3.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: soulee <soulee@studnet.42seoul.kr>         +#+  +:+       +#+        */
+/*   By: soulee <soulee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/22 17:51:38 by soulee            #+#    #+#             */
-/*   Updated: 2023/03/23 16:42:39 by soulee           ###   ########.fr       */
+/*   Updated: 2023/03/24 21:41:03 by soulee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,5 +35,5 @@ int	is_meta_character(const char c)
 		|| c == '>'
 	)
 		return (1);
-	return (9);
+	return (0);
 }
