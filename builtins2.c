@@ -6,13 +6,12 @@
 /*   By: soulee <soulee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/04 22:42:37 by soulee            #+#    #+#             */
-/*   Updated: 2023/03/24 22:21:35 by soulee           ###   ########.fr       */
+/*   Updated: 2023/03/24 23:57:50 by soulee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-// LEAK 남 왜?
 void	command_export(t_env_list *env_list, const char **command)
 {
 	int			i;
@@ -30,15 +29,16 @@ void	command_export(t_env_list *env_list, const char **command)
 		{
 			if (!ft_strcmp(temp->key, cmd[0]))
 			{
-				env_list->value = ft_free_str(env_list->value);
+				temp->value = ft_free_str(temp->value);
 				temp->value = ft_strdup(cmd[1]);
-				cmd = ft_free_strs(cmd);
 				flag = 1;
 			}
 			temp = temp->next;
 		}
 		if (!flag)
-			add_env_node_back(&env_list, create_new_env_node(cmd[0], cmd[1]));
+			add_env_node_back(&env_list,
+				create_new_env_node(ft_strdup(cmd[0]), ft_strdup(cmd[1])));
+		cmd = ft_free_strs(cmd);
 	}
 }
 

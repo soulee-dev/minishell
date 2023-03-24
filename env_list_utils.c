@@ -6,7 +6,7 @@
 /*   By: soulee <soulee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/27 22:21:31 by soulee            #+#    #+#             */
-/*   Updated: 2023/03/24 22:02:52 by soulee           ###   ########.fr       */
+/*   Updated: 2023/03/24 23:56:30 by soulee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,8 @@ char	**convert_env_list_to_arr(t_env_list *node)
 	while (node)
 	{
 		temp = ft_strjoin_no_free(node->key, "=");
+		if (!node->value)
+			free(temp);
 		temp = ft_strjoin_free(temp, node->value);
 		env[i] = temp;
 		node = node->next;
