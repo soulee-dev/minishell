@@ -6,7 +6,7 @@
 /*   By: soulee <soulee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/23 16:41:30 by soulee            #+#    #+#             */
-/*   Updated: 2023/03/25 01:11:25 by soulee           ###   ########.fr       */
+/*   Updated: 2023/03/25 01:16:50 by soulee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,7 @@ int			is_str_all_blank(char *str);
 // string_utils3.c
 int			is_meta_character(const char c);
 char		**ft_free_strs(char **str);
-char	*ft_strdup_free(char *s1, char *s2);
+char		*ft_strdup_free(char *s1, char *s2);
 
 // cmd_list.c
 void		clear_cmd_list(t_cmd_list **node);
