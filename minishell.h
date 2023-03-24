@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: soulee <soulee@studnet.42seoul.kr>         +#+  +:+       +#+        */
+/*   By: soulee <soulee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/23 16:41:30 by soulee            #+#    #+#             */
-/*   Updated: 2023/03/23 18:01:14 by soulee           ###   ########.fr       */
+/*   Updated: 2023/03/24 22:11:37 by soulee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,8 +71,8 @@ int			ft_strcmp(const char *s1, const char *s2);
 int			is_str_all_blank(char *str);
 
 // string_utils3.c
-int			count_splitted_str(const char **splitted_str);
 int			is_meta_character(const char c);
+char		**ft_free_strs(char **str);
 
 // cmd_list.c
 void		clear_cmd_list(t_cmd_list **node);
@@ -103,7 +103,6 @@ int			exe_cmd(char **cmd, int pipe_cnt, t_env_list *env_list,
 				char **env_list_str);
 char		**get_pipe_cmd(t_cmd_list *cmd_list);
 int			get_status(int pid);
-void		ft_free_strs(char **str);
 
 // pipe_utils.c
 char		**get_path(char **envp);

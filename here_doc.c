@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   here_doc.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: subcho <subcho@student.42.fr>              +#+  +:+       +#+        */
+/*   By: soulee <soulee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/07 19:37:33 by subcho            #+#    #+#             */
-/*   Updated: 2023/03/22 20:40:43 by subcho           ###   ########.fr       */
+/*   Updated: 2023/03/24 22:12:19 by soulee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,5 +94,5 @@ void	read_here_doc(int fd, char *delimiter)
 		free(line);
 		line = NULL;
 	}
-	ft_free_strs(split_delimiter);
+	split_delimiter = ft_free_strs(split_delimiter);
 }

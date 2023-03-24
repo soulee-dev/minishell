@@ -6,7 +6,7 @@
 /*   By: soulee <soulee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/04 22:42:37 by soulee            #+#    #+#             */
-/*   Updated: 2023/03/24 22:08:22 by soulee           ###   ########.fr       */
+/*   Updated: 2023/03/24 22:12:15 by soulee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ void	command_export(t_env_list *env_list, const char **command)
 			{
 				ft_free_str(&(env_list->value));
 				temp->value = ft_strdup(cmd[1]);
-				ft_free_strs(cmd);
+				cmd = ft_free_strs(cmd);
 				flag = 1;
 			}
 			temp = temp->next;
@@ -78,6 +78,5 @@ void	command_env(t_env_list *env_list)
 		ft_printf("%s\n", envp[i]);
 		i++;
 	}
-	ft_free_strs(envp);
-	envp = 0;
+	envp = ft_free_strs(envp);
 }

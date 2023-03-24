@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipe.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: subcho <subcho@student.42.fr>              +#+  +:+       +#+        */
+/*   By: soulee <soulee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/23 21:07:21 by subcho            #+#    #+#             */
-/*   Updated: 2023/03/22 20:02:52 by subcho           ###   ########.fr       */
+/*   Updated: 2023/03/24 22:12:34 by soulee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,10 +81,10 @@ int	execute(t_cmd_list *cmd_list, t_env_list *env_list, int pipe_cnt)
 		else if (pipe_cnt || (!pipe_cnt
 				&& !is_builtin((const char **)split_cmd, env_list)))
 			status = exe_cmd(split_cmd, pipe_cnt, env_list, env_list_str);
-		ft_free_strs(split_cmd);
+		split_cmd = ft_free_strs(split_cmd);
 	}
 	delete_here_doc(here_doc_cnt);
-	ft_free_strs(env_list_str);
+	env_list_str = ft_free_strs(env_list_str);
 	redirect_std(std);
 	return (get_status(status));
 }
