@@ -29,7 +29,7 @@ void	add_element_node(t_cmd_list **cmd_list, int cmd_type, char **str)
 		add_cmd_node_back(cmd_list, create_new_cmd_node(cmd_type, cmd));
 	}
 	if (*str)
-		ft_free_str(str);
+		*str = ft_free_str(*str);
 }
 
 int	parse_quotes(const char c, int quotes)
@@ -125,17 +125,18 @@ void	parse_dollar_sign_loop(t_cmd_list *cmd_list, t_env_list *env_list)
 	{
 		if (cmd_list->cmd[i] == '$')
 		{
-			i++;
-			while (cmd_list->cmd[i] && !check_is_whitespace(cmd_list->cmd[i]))
-				key = ft_strjoin_char(key, cmd_list->cmd[i++]);
+			while (cmd_list->cmd[++i] && !is_meta_character(cmd_list->cmd[i]))
+				key = ft_strjoin_char(key, cmd_list->cmd[i]);
 			if (!ft_strcmp(key, "?"))
 				str = ft_strjoin_free(str, ft_itoa(g_exit_code));
 			else
 				str = ft_strjoin_free(str, ft_getenv(env_list, key));
-			ft_free_str(&key);
+			key = ft_free_str(key);
+			i--;
 		}
-		str = ft_strjoin_char(str, cmd_list->cmd[i]);
+		else
+			str = ft_strjoin_char(str, cmd_list->cmd[i]);
 	}
-	ft_free_str(&(cmd_list->cmd));
+	cmd_list->cmd = ft_free_str(cmd_list->cmd);
 	cmd_list->cmd = str;
 }

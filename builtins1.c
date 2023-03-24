@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtins1.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: soulee <soulee@studnet.42seoul.kr>         +#+  +:+       +#+        */
+/*   By: soulee <soulee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/04 21:58:42 by soulee            #+#    #+#             */
-/*   Updated: 2023/03/23 18:01:49 by soulee           ###   ########.fr       */
+/*   Updated: 2023/03/25 01:35:44 by soulee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,7 @@ void	command_exit(const char *str)
 			exit_numberic_argument();
 		if (*str >= '0' && *str <= '9')
 		{
-			check_long_long(num, (int)sign, *str - '0');
+			is_over_long_long(num, (int)sign, *str - '0');
 			num = num * 10 + (*str - '0');
 			str++;
 			count++;

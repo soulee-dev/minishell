@@ -3,20 +3,20 @@
 /*                                                        :::      ::::::::   */
 /*   string_utils.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: soulee <soulee@studnet.42seoul.kr>         +#+  +:+       +#+        */
+/*   By: soulee <soulee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/26 17:00:14 by soulee            #+#    #+#             */
-/*   Updated: 2023/03/23 16:44:09 by soulee           ###   ########.fr       */
+/*   Updated: 2023/03/25 01:35:21 by soulee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	ft_free_str(char **str)
+char	*ft_free_str(char *str)
 {
-	if (*str)
-		free(*str);
-	*str = NULL;
+	if (str)
+		free(str);
+	return (NULL);
 }
 
 size_t	ft_strlenbl(const char *s)
@@ -53,22 +53,22 @@ char	*ft_strndup(const char *s1, size_t n)
 		*(p + i) = *(s1 + i);
 		i++;
 	}
-	*(p + i) = (char) NULL;
+	*(p + i) = 0;
 	return (org_p);
 }
 
-int	check_is_whitespace(const char c)
+int	is_whitespace(const char c)
 {
 	if (c == 32 || (c >= 9 && c <= 13))
 		return (1);
 	return (0);
 }
 
-int	check_whitespace_str(const char *line)
+int	is_whitespace_str(const char *line)
 {
 	while (*line)
 	{
-		if (check_is_whitespace(*line))
+		if (is_whitespace(*line))
 			return (1);
 		line++;
 	}

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtins2.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: soulee <soulee@studnet.42seoul.kr>         +#+  +:+       +#+        */
+/*   By: soulee <soulee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/04 22:42:37 by soulee            #+#    #+#             */
-/*   Updated: 2023/03/23 18:01:52 by soulee           ###   ########.fr       */
+/*   Updated: 2023/03/25 00:54:45 by soulee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,15 +29,15 @@ void	command_export(t_env_list *env_list, const char **command)
 		{
 			if (!ft_strcmp(temp->key, cmd[0]))
 			{
-				ft_free_str(&(env_list->value));
-				temp->value = ft_strdup(cmd[1]);
-				ft_free_strs(cmd);
+				temp->value = ft_strdup_free(temp->value, cmd[1]);
 				flag = 1;
 			}
 			temp = temp->next;
 		}
 		if (!flag)
-			add_env_node_back(&env_list, create_new_env_node(cmd[0], cmd[1]));
+			add_env_node_back(&env_list,
+				create_new_env_node(ft_strdup(cmd[0]), ft_strdup(cmd[1])));
+		cmd = ft_free_strs(cmd);
 	}
 }
 
@@ -67,14 +67,15 @@ void	command_unset(t_env_list *env_list, const char *key)
 
 void	command_env(t_env_list *env_list)
 {
+	int		i;
 	char	**envp;
 
+	i = 0;
 	envp = convert_env_list_to_arr(env_list);
-	while (*envp)
+	while (envp[i])
 	{
-		ft_printf("%s\n", *envp);
-		envp++;
+		ft_printf("%s\n", envp[i]);
+		i++;
 	}
-	//ft_free_strs(envp);
-	envp = 0;
+	envp = ft_free_strs(envp);
 }

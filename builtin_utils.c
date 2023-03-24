@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtin_utils.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: soulee <soulee@studnet.42seoul.kr>         +#+  +:+       +#+        */
+/*   By: soulee <soulee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/13 11:28:37 by soulee            #+#    #+#             */
-/*   Updated: 2023/03/23 18:01:44 by soulee           ###   ########.fr       */
+/*   Updated: 2023/03/25 01:35:40 by soulee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ void	exit_numberic_argument(void)
 	exit(255);
 }
 
-int	check_long_long(long long sum, int sign, int num)
+int	is_over_long_long(long long sum, int sign, int num)
 {
 	if (sum == 922337203685477580)
 	{

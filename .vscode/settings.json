@@ -18,6 +18,18 @@
 		"utility": "c",
 		"vector": "c",
 		"_types.h": "c",
-		"ratio": "c"
+		"ratio": "c",
+		"minishell.h": "c",
+		"__bit_reference": "c",
+		"atomic": "c",
+		"chrono": "c",
+		"cstddef": "c",
+		"__memory": "c",
+		"limits": "c",
+		"locale": "c",
+		"optional": "c",
+		"system_error": "c",
+		"tuple": "c",
+		"type_traits": "c"
 	}
 }

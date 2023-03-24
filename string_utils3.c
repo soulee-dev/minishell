@@ -3,31 +3,18 @@
 /*                                                        :::      ::::::::   */
 /*   string_utils3.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: soulee <soulee@studnet.42seoul.kr>         +#+  +:+       +#+        */
+/*   By: soulee <soulee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/22 17:51:38 by soulee            #+#    #+#             */
-/*   Updated: 2023/03/23 16:42:39 by soulee           ###   ########.fr       */
+/*   Updated: 2023/03/25 01:34:39 by soulee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	count_splitted_str(const char **splitted_str)
-{
-	int	count;
-
-	count = 0;
-	while (*splitted_str)
-	{
-		count++;
-		splitted_str++;
-	}
-	return (count);
-}
-
 int	is_meta_character(const char c)
 {
-	if (check_is_whitespace(c)
+	if (is_whitespace(c)
 		|| c == '$'
 		|| c == '|'
 		|| c == '>'
@@ -35,5 +22,25 @@ int	is_meta_character(const char c)
 		|| c == '>'
 	)
 		return (1);
-	return (9);
+	return (0);
+}
+
+char	**ft_free_strs(char **str)
+{
+	int	i;
+
+	i = 0;
+	while (str[i])
+	{
+		free(str[i]);
+		i++;
+	}
+	free(str);
+	return (NULL);
+}
+
+char	*ft_strdup_free(char *s1, char *s2)
+{
+	ft_free_str(s1);
+	return (ft_strdup(s2));
 }

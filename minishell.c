@@ -3,17 +3,26 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: soulee <soulee@studnet.42seoul.kr>         +#+  +:+       +#+        */
+/*   By: soulee <soulee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/23 16:24:12 by soulee            #+#    #+#             */
-/*   Updated: 2023/03/23 18:02:06 by soulee           ###   ########.fr       */
+/*   Updated: 2023/03/25 01:15:47 by soulee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	print_ascii_art(void)
+void	init_minishell(int argc, char **line,
+			t_env_list **env_list, t_cmd_list **cmd_list)
 {
+	if (argc != 1)
+	{
+		print_error("arguments error");
+		exit(1);
+	}
+	*line = NULL;
+	*env_list = NULL;
+	*cmd_list = NULL;
 	ft_printf("\nMewww  |\\      _,,,—,,_        \n");
 	ft_printf("       /,`.-'`'   ._  \\-;;,_    \n");
 	ft_printf("      |,4-  ) )_   .;.(  `'-'   \n");
@@ -29,27 +38,17 @@ void	print_ascii_art(void)
 	ft_printf("                                   "
 		"|___/                            \n");
 	ft_printf("                                       "
-		"       Mewww…                      \n");
-	ft_printf("\n");
+		"       Mewww…                      \n\n");
 }
 
 int	main(int argc, char *argv[], char **envp)
 {
 	char			*line;
-	int				status;
 	t_env_list		*env_list;
 	t_cmd_list		*cmd_list;
 
-	line = NULL;
-	env_list = NULL;
-	cmd_list = NULL;
-	if (argc != 1)
-	{
-		print_error("arguments error");
-		exit(1);
-	}
+	init_minishell(argc, &line, &env_list, &cmd_list);
 	parse_envp(&env_list, envp);
-	print_ascii_art();
 	while (1)
 	{
 		line = readline("🐈 $ ");
@@ -61,7 +60,8 @@ int	main(int argc, char *argv[], char **envp)
 			cmd_list = parse_line(&cmd_list, line);
 			parse_dollar_sign(cmd_list, env_list);
 			iter_node(cmd_list);
-			status = execute(cmd_list, env_list, count_cmd_list_node(cmd_list, TYPE_PIPE) + 1);
+			g_exit_code = execute(cmd_list, env_list,
+					count_cmd_list_node(cmd_list, TYPE_PIPE) + 1);
 			clear_cmd_list(&cmd_list);
 		}
 		free(line);

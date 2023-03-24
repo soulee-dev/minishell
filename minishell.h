@@ -63,11 +63,11 @@ void	parse_dollar_sign_loop(t_cmd_list *cmd_list,
 							t_env_list *env_list);
 
 // string_utils.c
-void					ft_free_str(char **str);
-size_t					ft_strlenbl(const char *s);
-int						check_is_whitespace(const char c);
-int						check_whitespace_str(const char *line);
-char					*ft_strndup(const char *s1, size_t n);
+char		*ft_free_str(char *str);
+size_t		ft_strlenbl(const char *s);
+int			is_whitespace(const char c);
+int			is_whitespace_str(const char *line);
+char		*ft_strndup(const char *s1, size_t n);
 
 // string_utils2.c
 char					*ft_strjoin_char(char const *s1, char s2);
@@ -77,8 +77,9 @@ int						ft_strcmp(const char *s1, const char *s2);
 int						is_str_all_blank(char *str);
 
 // string_utils3.c
-int						count_splitted_str(const char **splitted_str);
-int						is_meta_character(const char c);
+int			is_meta_character(const char c);
+char		**ft_free_strs(char **str);
+char		*ft_strdup_free(char *s1, char *s2);
 
 // cmd_list.c
 void					clear_cmd_list(t_cmd_list **node);
@@ -149,7 +150,7 @@ void	command_export(t_env_list *env_list,
 void					command_unset(t_env_list *env_list, const char *key);
 
 // builtin_utils.c
-void					exit_numberic_argument(void);
-int						check_long_long(long long sum, int sign, int num);
-void					preprocess_atoi(const char **str, long long *sign);
+void		exit_numberic_argument(void);
+int			is_over_long_long(long long sum, int sign, int num);
+void		preprocess_atoi(const char **str, long long *sign);
 #endif
