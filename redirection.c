@@ -6,20 +6,21 @@
 /*   By: subcho <subcho@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/05 22:12:15 by subcho            #+#    #+#             */
-/*   Updated: 2023/03/09 23:59:36 by subcho           ###   ########.fr       */
+/*   Updated: 2023/03/25 01:35:15 by subcho           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	redirect_pipe(t_cmd_list **cmd_list)
+int	redirect_pipe(t_cmd_list **cmd_list, int *fd_in, int *fd_out)
 {
 	int	fd;
 
 	while (*cmd_list && (*cmd_list)->cmd_type != TYPE_PIPE)
 	{
 		if ((*cmd_list)->cmd_type != TYPE_WORD && fd != -1)
-			fd = redirect_fd((*cmd_list)->cmd_type, (*cmd_list)->cmd);
+			fd = redirect_fd((*cmd_list)->cmd_type, (*cmd_list)->cmd, fd_in,
+					fd_out);
 		if ((*cmd_list)->next)
 			*cmd_list = (*cmd_list)->next;
 		else
@@ -29,8 +30,7 @@ int	redirect_pipe(t_cmd_list **cmd_list)
 		*cmd_list = (*cmd_list)->next;
 	return (fd);
 }
-
-int	redirect_fd(int type, char *file_name)
+int	redirect_fd(int type, char *file_name, int *fd_in, int *fd_out)
 {
 	int		fd;
 	char	**split_file_name;
@@ -40,18 +40,24 @@ int	redirect_fd(int type, char *file_name)
 	{
 		fd = open_file(split_file_name[0]);
 		dup2(fd, STDIN_FILENO);
+		//close(fd);
+		*fd_in = fd;
 	}
 	else if (type == TYPE_REDIRECT_OUTPUT)
 	{
 		fd = create_file(split_file_name[0]);
 		dup2(fd, STDOUT_FILENO);
+		//close(fd);
+		*fd_out = fd;
 	}
 	else if (type == TYPE_REDIRECT_APPEND)
 	{
 		fd = append_file(split_file_name[0]);
 		dup2(fd, STDOUT_FILENO);
+		//close(fd);
+		*fd_out = fd;
 	}
-	ft_free_str(split_file_name);
+	ft_free_strs(split_file_name);
 	return (fd);
 }
 

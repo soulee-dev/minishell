@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser_utils.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: soulee <soulee@studnet.42seoul.kr>         +#+  +:+       +#+        */
+/*   By: subcho <subcho@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/27 17:25:02 by soulee            #+#    #+#             */
-/*   Updated: 2023/03/23 16:46:05 by soulee           ###   ########.fr       */
+/*   Updated: 2023/03/24 20:46:47 by subcho           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ void	add_element_node(t_cmd_list **cmd_list, int cmd_type, char **str)
 	}
 	if (!*str)
 		exit_error("syntax error");
-	if (!is_str_all_blank(*str))
+	if (str && *str && !is_str_all_blank(*str))
 	{
 		cmd = ft_strdup(*str);
 		add_cmd_node_back(cmd_list, create_new_cmd_node(cmd_type, cmd));
@@ -126,8 +126,7 @@ void	parse_dollar_sign_loop(t_cmd_list *cmd_list, t_env_list *env_list)
 		if (cmd_list->cmd[i] == '$')
 		{
 			i++;
-			while (cmd_list->cmd[i]
-				&& !check_is_whitespace(cmd_list->cmd[i]))
+			while (cmd_list->cmd[i] && !check_is_whitespace(cmd_list->cmd[i]))
 				key = ft_strjoin_char(key, cmd_list->cmd[i++]);
 			if (!ft_strcmp(key, "?"))
 				str = ft_strjoin_free(str, ft_itoa(g_exit_code));
