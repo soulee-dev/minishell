@@ -6,7 +6,7 @@
 /*   By: soulee <soulee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/23 21:48:04 by soulee            #+#    #+#             */
-/*   Updated: 2023/03/22 20:00:23 by soulee           ###   ########.fr       */
+/*   Updated: 2023/03/26 22:25:00 by soulee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,9 +108,9 @@ t_cmd_list	*parse_line(t_cmd_list **cmd_list, char *line)
 	else
 	{
 		if (is_pipe)
-			exit_error("syntax error");
+			exit_error("syntax error: pipe");
 	}
 	if (quotes != 0)
-		exit_error("syntax error");
+		exit_error("syntax error: unclosed quotes");
 	return (*cmd_list);
 }
