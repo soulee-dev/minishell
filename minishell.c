@@ -6,7 +6,7 @@
 /*   By: soulee <soulee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/23 16:24:12 by soulee            #+#    #+#             */
-/*   Updated: 2023/03/25 01:15:47 by soulee           ###   ########.fr       */
+/*   Updated: 2023/03/27 00:06:54 by soulee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,7 @@ int	main(int argc, char *argv[], char **envp)
 			add_history(line);
 			cmd_list = parse_line(&cmd_list, line);
 			parse_dollar_sign(cmd_list, env_list);
+			parse_quotes(cmd_list);
 			iter_node(cmd_list);
 			g_exit_code = execute(cmd_list, env_list,
 					count_cmd_list_node(cmd_list, TYPE_PIPE) + 1);

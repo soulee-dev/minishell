@@ -6,7 +6,7 @@
 /*   By: soulee <soulee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/23 21:48:04 by soulee            #+#    #+#             */
-/*   Updated: 2023/03/27 00:00:27 by soulee           ###   ########.fr       */
+/*   Updated: 2023/03/27 01:04:00 by soulee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,16 +49,34 @@ int	parse_pipe(t_cmd_list **cmd_list, int is_pipe, char c, char **str)
 
 void	parse_quotes(t_cmd_list *cmd_list)
 {
-	int	i;
-	int	quotes;
+	int		i;
+	int		quotes;
+	char	*str;
 
 	while (cmd_list)
 	{
 		i = -1;
+		str = 0;
+		quotes = 0;
 		while (++i < ft_strlen(cmd_list->cmd))
 		{
 			quotes = count_quotes(cmd_list->cmd[i], quotes);
+			if (quotes)
+			{
+				i++;
+				while (cmd_list->cmd[i]
+					&& count_quotes(cmd_list->cmd[i], quotes))
+					str = ft_strjoin_char(str, cmd_list->cmd[i++]);
+				quotes = 0;
+			}
+			else
+			{
+				while (cmd_list->cmd[i]
+					&& !count_quotes(cmd_list->cmd[i], quotes))
+					str = ft_strjoin_char(str, cmd_list->cmd[i++]);
+			}
 		}
+		printf("%s\n", str);
 		cmd_list = cmd_list->next;
 	}
 }
