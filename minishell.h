@@ -6,7 +6,7 @@
 /*   By: soulee <soulee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/23 16:41:30 by soulee            #+#    #+#             */
-/*   Updated: 2023/03/26 23:40:20 by soulee           ###   ########.fr       */
+/*   Updated: 2023/03/26 23:58:12 by soulee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ void					parse_dollar_sign(t_cmd_list *cmd_list,
 							t_env_list *env_list);
 
 // parser_utils.c
-int						parse_quotes(const char c, int quotes);
+int						count_quotes(const char c, int quotes);
 char					*parse_redirection_in(t_cmd_list **cmd_list, char *str);
 char					*parse_redirection_out(t_cmd_list **cmd_list,
 							char *str);

@@ -6,7 +6,7 @@
 /*   By: soulee <soulee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/23 21:48:04 by soulee            #+#    #+#             */
-/*   Updated: 2023/03/26 23:41:36 by soulee           ###   ########.fr       */
+/*   Updated: 2023/03/27 00:00:27 by soulee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,22 @@ int	parse_pipe(t_cmd_list **cmd_list, int is_pipe, char c, char **str)
 	}
 }
 
+void	parse_quotes(t_cmd_list *cmd_list)
+{
+	int	i;
+	int	quotes;
+
+	while (cmd_list)
+	{
+		i = -1;
+		while (++i < ft_strlen(cmd_list->cmd))
+		{
+			quotes = count_quotes(cmd_list->cmd[i], quotes);
+		}
+		cmd_list = cmd_list->next;
+	}
+}
+
 void	parse_dollar_sign(t_cmd_list *cmd_list, t_env_list *env_list)
 {
 	while (cmd_list)
@@ -68,7 +84,7 @@ t_cmd_list	*parse_line(t_cmd_list **cmd_list, char *line)
 	is_pipe = 0;
 	while (*line)
 	{
-		quotes = parse_quotes(*line, quotes);
+		quotes = count_quotes(*line, quotes);
 		if (parse_redirection(cmd_list, &line, &str))
 			continue ;
 		is_pipe = parse_pipe(cmd_list, is_pipe, *line, &str);

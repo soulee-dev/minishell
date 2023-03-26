@@ -6,7 +6,7 @@
 /*   By: soulee <soulee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/27 17:25:02 by soulee            #+#    #+#             */
-/*   Updated: 2023/03/26 23:03:34 by soulee           ###   ########.fr       */
+/*   Updated: 2023/03/27 00:00:33 by soulee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ void	add_element_node(t_cmd_list **cmd_list, int cmd_type, char **str)
 		*str = ft_free_str(*str);
 }
 
-int	parse_quotes(const char c, int quotes)
+int	count_quotes(const char c, int quotes)
 {
 	int	result;
 
@@ -127,7 +127,7 @@ void	parse_dollar_sign_loop(t_cmd_list *cmd_list, t_env_list *env_list)
 	quotes = 0;
 	while (++i < ft_strlen(cmd_list->cmd))
 	{
-		quotes = parse_quotes(cmd_list->cmd[i], quotes);
+		quotes = count_quotes(cmd_list->cmd[i], quotes);
 		if (cmd_list->cmd[i] == '$')
 		{
 			while (cmd_list->cmd[++i] && !is_meta_character(cmd_list->cmd[i]))
