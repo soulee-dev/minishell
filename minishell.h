@@ -6,7 +6,7 @@
 /*   By: soulee <soulee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/23 16:41:30 by soulee            #+#    #+#             */
-/*   Updated: 2023/03/26 22:02:20 by soulee           ###   ########.fr       */
+/*   Updated: 2023/03/26 23:18:46 by subcho           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -122,11 +122,15 @@ int						is_builtin(const char **command, t_env_list *env_list);
 int						get_echo_n_cnt(const char **command);
 
 // here_doc.c
-void					read_here_doc(int fd, char *delimiter);
+void					read_here_doc(int fd, char *delimiter,
+							t_env_list *env_list);
 void					delete_here_doc(int here_doc_cnt);
-int						is_here_doc_exist(t_cmd_list **cmd_list, int pipe_cnt);
+int						is_here_doc_exist(t_cmd_list **cmd_list, int pipe_cnt,
+							t_env_list *env_list);
 char					*create_here_doc_file(int count, char *delimiter,
-							char *here_doc_org);
+							char *here_doc_org, t_env_list *env_list);
+
+char					*get_env_line(char *line, t_env_list *env_list);
 
 // file_control.c
 int						open_file(char *file_name);
