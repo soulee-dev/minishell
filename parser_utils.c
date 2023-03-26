@@ -6,7 +6,7 @@
 /*   By: soulee <soulee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/27 17:25:02 by soulee            #+#    #+#             */
-/*   Updated: 2023/03/27 00:00:33 by soulee           ###   ########.fr       */
+/*   Updated: 2023/03/27 01:33:46 by soulee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,8 +112,6 @@ char	*parse_redirection_out(t_cmd_list **cmd_list, char *str)
 	return (str);
 }
 
-// 1 is single quote
-// 2 is double quote
 void	parse_dollar_sign_loop(t_cmd_list *cmd_list, t_env_list *env_list)
 {
 	int		i;
@@ -132,18 +130,7 @@ void	parse_dollar_sign_loop(t_cmd_list *cmd_list, t_env_list *env_list)
 		{
 			while (cmd_list->cmd[++i] && !is_meta_character(cmd_list->cmd[i]))
 				key = ft_strjoin_char(key, cmd_list->cmd[i]);
-			if (quotes != 1)
-			{
-				if (!ft_strcmp(key, "?"))
-					str = ft_strjoin_free(str, ft_itoa(g_exit_code));
-				else
-					str = ft_strjoin_free(str, ft_getenv(env_list, key));
-			}
-			else
-			{
-				str = ft_strjoin_char(str, '$');
-				str = ft_strjoin_free(str, key);
-			}
+			str = parse_dollar_sign_loop2(env_list, quotes, key, str);
 			key = ft_free_str(key);
 			i--;
 		}
