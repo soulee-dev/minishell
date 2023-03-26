@@ -6,7 +6,7 @@
 /*   By: soulee <soulee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/23 16:41:30 by soulee            #+#    #+#             */
-/*   Updated: 2023/03/26 22:01:21 by soulee           ###   ########.fr       */
+/*   Updated: 2023/03/26 22:02:20 by soulee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,7 @@ typedef struct s_cmd_list
 {
 	int					cmd_type;
 	char				*cmd;
+	char				*args;
 	struct s_cmd_list	*next;
 }						t_cmd_list;
 
