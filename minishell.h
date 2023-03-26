@@ -6,7 +6,7 @@
 /*   By: soulee <soulee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/23 16:41:30 by soulee            #+#    #+#             */
-/*   Updated: 2023/03/27 00:07:12 by soulee           ###   ########.fr       */
+/*   Updated: 2023/03/27 01:12:36 by soulee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,10 @@ void					add_element_node(t_cmd_list **cmd_list, int cmd_type,
 							char **str);
 void					parse_dollar_sign_loop(t_cmd_list *cmd_list,
 							t_env_list *env_list);
+
+// parser_utils2.c
+char					*parse_quotes_loop(t_cmd_list *cmd_list, int *i,
+							char *str, int *quotes);
 
 // string_utils.c
 char					*ft_free_str(char *str);

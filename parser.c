@@ -6,7 +6,7 @@
 /*   By: soulee <soulee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/23 21:48:04 by soulee            #+#    #+#             */
-/*   Updated: 2023/03/27 01:04:00 by soulee           ###   ########.fr       */
+/*   Updated: 2023/03/27 01:14:33 by soulee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,20 +61,7 @@ void	parse_quotes(t_cmd_list *cmd_list)
 		while (++i < ft_strlen(cmd_list->cmd))
 		{
 			quotes = count_quotes(cmd_list->cmd[i], quotes);
-			if (quotes)
-			{
-				i++;
-				while (cmd_list->cmd[i]
-					&& count_quotes(cmd_list->cmd[i], quotes))
-					str = ft_strjoin_char(str, cmd_list->cmd[i++]);
-				quotes = 0;
-			}
-			else
-			{
-				while (cmd_list->cmd[i]
-					&& !count_quotes(cmd_list->cmd[i], quotes))
-					str = ft_strjoin_char(str, cmd_list->cmd[i++]);
-			}
+			str = parse_quotes_loop(cmd_list, &i, str, &quotes);
 		}
 		printf("%s\n", str);
 		cmd_list = cmd_list->next;
