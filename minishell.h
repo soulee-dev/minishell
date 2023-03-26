@@ -6,7 +6,7 @@
 /*   By: soulee <soulee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/23 16:41:30 by soulee            #+#    #+#             */
-/*   Updated: 2023/03/27 01:50:29 by soulee           ###   ########.fr       */
+/*   Updated: 2023/03/27 01:52:41 by soulee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,7 +83,8 @@ int						ft_strcmp(const char *s1, const char *s2);
 int						is_str_all_blank(char *str);
 
 // string_utils3.c
-int						is_meta_character(const char c, int check_white_space);
+int						is_meta_character(const char c);
+int						is_white_meta_char(const char c);
 char					**ft_free_strs(char **str);
 char					*ft_strdup_free(char *s1, char *s2);
 
