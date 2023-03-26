@@ -6,7 +6,7 @@
 /*   By: soulee <soulee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/23 21:07:21 by subcho            #+#    #+#             */
-/*   Updated: 2023/03/24 22:12:34 by soulee           ###   ########.fr       */
+/*   Updated: 2023/03/25 01:35:09 by subcho           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,31 +31,40 @@ char	**get_pipe_cmd(t_cmd_list *cmd_list)
 	return (ft_split(cmd, ' '));
 }
 
-int	exe_cmd(char **cmd, int pipe_cnt, t_env_list *env_list, char **env_list_str)
+int	exe_cmd(char **cmd, int pipe_cnt, t_env_list *env_list, char **env_list_str,
+		int fd_out, int fd_in)
 {
 	pid_t	pid;
 	int		pipefd[2];
 
-	pipe(pipefd);
+	if (pipe_cnt && pipe(pipefd) < 0)
+	{
+		print_error(0);
+		return (-1);
+	}
 	pid = fork();
 	if (pid < 0)
 		print_error(0);
-	else if (!pid)
+	else if (pid == 0)
 	{
 		if (pipe_cnt)
+		{
 			dup2(pipefd[1], STDOUT_FILENO);
+			close(pipefd[0]);
+			close(pipefd[1]);
+		}
+		if (fd_out >= 0)
+			dup2(fd_out, STDOUT_FILENO);
 		if (!is_builtin((const char **)cmd, env_list))
 			execve(get_cmd(get_path(env_list_str), cmd[0]), cmd, env_list_str);
 		exit(0);
 	}
 	else
-	{	
-		if (pipe_cnt)
-		{
-			close(pipefd[1]);
-			dup2(pipefd[0], STDIN_FILENO);
-			close(pipefd[0]);
-		}
+	{
+		waitpid(pid, NULL, 0);
+		close(pipefd[1]);
+		dup2(pipefd[0], STDIN_FILENO);
+		close(pipefd[0]);
 	}
 	return (pid);
 }
@@ -63,6 +72,8 @@ int	exe_cmd(char **cmd, int pipe_cnt, t_env_list *env_list, char **env_list_str)
 int	execute(t_cmd_list *cmd_list, t_env_list *env_list, int pipe_cnt)
 {
 	int		*std;
+	int		fd_in;
+	int		fd_out;
 	int		status;
 	char	**split_cmd;
 	int		here_doc_cnt;
@@ -73,14 +84,19 @@ int	execute(t_cmd_list *cmd_list, t_env_list *env_list, int pipe_cnt)
 	here_doc_cnt = is_here_doc_exist(&cmd_list, pipe_cnt);
 	while (--pipe_cnt >= 0)
 	{
+		fd_in = STDIN_FILENO;
+		fd_out = STDOUT_FILENO;
 		split_cmd = get_pipe_cmd(cmd_list);
-		if (redirect_pipe(&cmd_list) == -1 && split_cmd)
-			status = exe_cmd(0, pipe_cnt, env_list, env_list_str);
+		if (!pipe_cnt)
+			fd_out = dup2(std[1], STDOUT_FILENO);
+		if (redirect_pipe(&cmd_list, &fd_in, &fd_out) == -1 && split_cmd)
+			status = exe_cmd(0, pipe_cnt, env_list, env_list_str, fd_out,
+					fd_in);
 		else if (!split_cmd)
 			continue ;
 		else if (pipe_cnt || (!pipe_cnt
 				&& !is_builtin((const char **)split_cmd, env_list)))
-			status = exe_cmd(split_cmd, pipe_cnt, env_list, env_list_str);
+			status = exe_cmd(split_cmd, pipe_cnt, env_list, env_list_str, fd_out, fd_in);
 		split_cmd = ft_free_strs(split_cmd);
 	}
 	delete_here_doc(here_doc_cnt);

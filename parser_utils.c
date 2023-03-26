@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser_utils.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: soulee <soulee@student.42seoul.kr>         +#+  +:+       +#+        */
+/*   By: subcho <subcho@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/27 17:25:02 by soulee            #+#    #+#             */
-/*   Updated: 2023/03/24 22:21:50 by soulee           ###   ########.fr       */
+/*   Updated: 2023/03/24 20:46:47 by subcho           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ void	add_element_node(t_cmd_list **cmd_list, int cmd_type, char **str)
 	}
 	if (!*str)
 		exit_error("syntax error");
-	if (!is_str_all_blank(*str))
+	if (str && *str && !is_str_all_blank(*str))
 	{
 		cmd = ft_strdup(*str);
 		add_cmd_node_back(cmd_list, create_new_cmd_node(cmd_type, cmd));
