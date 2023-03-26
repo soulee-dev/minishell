@@ -6,7 +6,7 @@
 /*   By: soulee <soulee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/23 21:48:04 by soulee            #+#    #+#             */
-/*   Updated: 2023/03/26 23:03:18 by soulee           ###   ########.fr       */
+/*   Updated: 2023/03/26 23:41:36 by soulee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,35 +44,6 @@ int	parse_pipe(t_cmd_list **cmd_list, int is_pipe, char c, char **str)
 		*str = ft_strjoin_char(*str, c);
 		is_pipe = 0;
 		return (is_pipe);
-	}
-}
-
-void	parse_envp(t_env_list **node, char **envp)
-{
-	char		*key;
-	int			flag;
-	char		*value;
-
-	while (*envp)
-	{
-		flag = 1;
-		key = NULL;
-		value = NULL;
-		while (**envp)
-		{
-			if (**envp == '=')
-				flag = 0;
-			else
-			{
-				if (flag)
-					key = ft_strjoin_char(key, **envp);
-				else
-					value = ft_strjoin_char(value, **envp);
-			}
-			(*envp)++;
-		}
-		add_env_node_back(node, create_new_env_node(key, value));
-		envp++;
 	}
 }
 
