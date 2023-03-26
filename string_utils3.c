@@ -6,16 +6,18 @@
 /*   By: soulee <soulee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/22 17:51:38 by soulee            #+#    #+#             */
-/*   Updated: 2023/03/26 22:37:52 by soulee           ###   ########.fr       */
+/*   Updated: 2023/03/27 01:50:16 by soulee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	is_meta_character(const char c)
+int	is_meta_character(const char c, int check_white_space)
 {
-	if (is_whitespace(c)
-		|| c == '$'
+	int	flag;
+
+	flag = 0;
+	if (c == '$'
 		|| c == '|'
 		|| c == '>'
 		|| c == '<'
@@ -23,8 +25,13 @@ int	is_meta_character(const char c)
 		|| c == '\''
 		|| c == '\"'
 	)
-		return (1);
-	return (0);
+		flag = 1;
+	if (check_white_space)
+	{
+		if (is_whitespace(c) || flag)
+			return (1);
+	}
+	return (flag);
 }
 
 char	**ft_free_strs(char **str)
