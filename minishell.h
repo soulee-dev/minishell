@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: subcho <subcho@student.42.fr>              +#+  +:+       +#+        */
+/*   By: soulee <soulee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/23 16:41:30 by soulee            #+#    #+#             */
-/*   Updated: 2023/03/25 00:06:08 by subcho           ###   ########.fr       */
+/*   Updated: 2023/03/26 22:01:21 by soulee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,25 +49,25 @@ int						g_exit_code;
 // parser.c
 void					parse_envp(t_env_list **node, char **envp);
 t_cmd_list				*parse_line(t_cmd_list **cmd_list, char *line);
-void	parse_dollar_sign(t_cmd_list *cmd_list,
-						t_env_list *env_list);
+void					parse_dollar_sign(t_cmd_list *cmd_list,
+							t_env_list *env_list);
 
 // parser_utils.c
 int						parse_quotes(const char c, int quotes);
 char					*parse_redirection_in(t_cmd_list **cmd_list, char *str);
-char	*parse_redirection_out(t_cmd_list **cmd_list,
+char					*parse_redirection_out(t_cmd_list **cmd_list,
 							char *str);
 void					add_element_node(t_cmd_list **cmd_list, int cmd_type,
 							char **str);
-void	parse_dollar_sign_loop(t_cmd_list *cmd_list,
+void					parse_dollar_sign_loop(t_cmd_list *cmd_list,
 							t_env_list *env_list);
 
 // string_utils.c
-char		*ft_free_str(char *str);
-size_t		ft_strlenbl(const char *s);
-int			is_whitespace(const char c);
-int			is_whitespace_str(const char *line);
-char		*ft_strndup(const char *s1, size_t n);
+char					*ft_free_str(char *str);
+size_t					ft_strlenbl(const char *s);
+int						is_whitespace(const char c);
+int						is_whitespace_str(const char *line);
+char					*ft_strndup(const char *s1, size_t n);
 
 // string_utils2.c
 char					*ft_strjoin_char(char const *s1, char s2);
@@ -77,9 +77,9 @@ int						ft_strcmp(const char *s1, const char *s2);
 int						is_str_all_blank(char *str);
 
 // string_utils3.c
-int			is_meta_character(const char c);
-char		**ft_free_strs(char **str);
-char		*ft_strdup_free(char *s1, char *s2);
+int						is_meta_character(const char c);
+char					**ft_free_strs(char **str);
+char					*ft_strdup_free(char *s1, char *s2);
 
 // cmd_list.c
 void					clear_cmd_list(t_cmd_list **node);
@@ -113,7 +113,6 @@ int						exe_cmd(char **cmd, int pipe_cnt, t_env_list *env_list,
 							char **env_list_str, int fd_out, int fd_in);
 char					**get_pipe_cmd(t_cmd_list *cmd_list);
 int						get_status(int pid);
-void					ft_free_strs(char **str);
 
 // pipe_utils.c
 char					**get_path(char **envp);
@@ -145,12 +144,12 @@ void					command_echo(const char **s, int no_newline);
 
 // builtins2.c
 void					command_env(t_env_list *env_list);
-void	command_export(t_env_list *env_list,
-					const char **command);
+void					command_export(t_env_list *env_list,
+							const char **command);
 void					command_unset(t_env_list *env_list, const char *key);
 
 // builtin_utils.c
-void		exit_numberic_argument(void);
-int			is_over_long_long(long long sum, int sign, int num);
-void		preprocess_atoi(const char **str, long long *sign);
+void					exit_numberic_argument(void);
+int						is_over_long_long(long long sum, int sign, int num);
+void					preprocess_atoi(const char **str, long long *sign);
 #endif
