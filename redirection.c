@@ -6,7 +6,7 @@
 /*   By: subcho <subcho@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/05 22:12:15 by subcho            #+#    #+#             */
-/*   Updated: 2023/03/25 01:35:15 by subcho           ###   ########.fr       */
+/*   Updated: 2023/03/27 01:18:14 by subcho           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@ int	redirect_pipe(t_cmd_list **cmd_list, int *fd_in, int *fd_out)
 		*cmd_list = (*cmd_list)->next;
 	return (fd);
 }
+
 int	redirect_fd(int type, char *file_name, int *fd_in, int *fd_out)
 {
 	int		fd;
@@ -40,21 +41,18 @@ int	redirect_fd(int type, char *file_name, int *fd_in, int *fd_out)
 	{
 		fd = open_file(split_file_name[0]);
 		dup2(fd, STDIN_FILENO);
-		//close(fd);
 		*fd_in = fd;
 	}
 	else if (type == TYPE_REDIRECT_OUTPUT)
 	{
 		fd = create_file(split_file_name[0]);
 		dup2(fd, STDOUT_FILENO);
-		//close(fd);
 		*fd_out = fd;
 	}
 	else if (type == TYPE_REDIRECT_APPEND)
 	{
 		fd = append_file(split_file_name[0]);
 		dup2(fd, STDOUT_FILENO);
-		//close(fd);
 		*fd_out = fd;
 	}
 	ft_free_strs(split_file_name);

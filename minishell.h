@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: soulee <soulee@student.42seoul.kr>         +#+  +:+       +#+        */
+/*   By: subcho <subcho@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/23 16:41:30 by soulee            #+#    #+#             */
-/*   Updated: 2023/03/26 23:18:46 by subcho           ###   ########.fr       */
+/*   Updated: 2023/03/27 00:35:56 by subcho           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,17 +50,17 @@ int						g_exit_code;
 // parser.c
 void					parse_envp(t_env_list **node, char **envp);
 t_cmd_list				*parse_line(t_cmd_list **cmd_list, char *line);
-void					parse_dollar_sign(t_cmd_list *cmd_list,
-							t_env_list *env_list);
+void	parse_dollar_sign(t_cmd_list *cmd_list,
+						t_env_list *env_list);
 
 // parser_utils.c
 int						parse_quotes(const char c, int quotes);
 char					*parse_redirection_in(t_cmd_list **cmd_list, char *str);
-char					*parse_redirection_out(t_cmd_list **cmd_list,
+char	*parse_redirection_out(t_cmd_list **cmd_list,
 							char *str);
 void					add_element_node(t_cmd_list **cmd_list, int cmd_type,
 							char **str);
-void					parse_dollar_sign_loop(t_cmd_list *cmd_list,
+void	parse_dollar_sign_loop(t_cmd_list *cmd_list,
 							t_env_list *env_list);
 
 // string_utils.c
@@ -108,12 +108,13 @@ int						*dup_std(void);
 void					redirect_std(int *std);
 
 // pipe.c
-int						execute(t_cmd_list *cmd_list, t_env_list *env_list,
+int						execute_main(t_cmd_list *cmd_list, t_env_list *env_list,
 							int pipe_cnt);
 int						exe_cmd(char **cmd, int pipe_cnt, t_env_list *env_list,
-							char **env_list_str, int fd_out, int fd_in);
+							char **env_list_str, int fd_in, int fd_out);
 char					**get_pipe_cmd(t_cmd_list *cmd_list);
 int						get_status(int pid);
+void					set_fd(int *fd_in, int *fd_out, int *std, int pipe_cnt);
 
 // pipe_utils.c
 char					**get_path(char **envp);
@@ -149,8 +150,8 @@ void					command_echo(const char **s, int no_newline);
 
 // builtins2.c
 void					command_env(t_env_list *env_list);
-void					command_export(t_env_list *env_list,
-							const char **command);
+void	command_export(t_env_list *env_list,
+					const char **command);
 void					command_unset(t_env_list *env_list, const char *key);
 
 // builtin_utils.c

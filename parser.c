@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: soulee <soulee@student.42seoul.kr>         +#+  +:+       +#+        */
+/*   By: subcho <subcho@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/23 21:48:04 by soulee            #+#    #+#             */
-/*   Updated: 2023/03/26 23:03:18 by soulee           ###   ########.fr       */
+/*   Updated: 2023/03/27 00:25:53 by subcho           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,9 +49,9 @@ int	parse_pipe(t_cmd_list **cmd_list, int is_pipe, char c, char **str)
 
 void	parse_envp(t_env_list **node, char **envp)
 {
-	char		*key;
-	int			flag;
-	char		*value;
+	char	*key;
+	int		flag;
+	char	*value;
 
 	while (*envp)
 	{
@@ -88,9 +88,9 @@ void	parse_dollar_sign(t_cmd_list *cmd_list, t_env_list *env_list)
 
 t_cmd_list	*parse_line(t_cmd_list **cmd_list, char *line)
 {
-	char		*str;
-	int			quotes;
-	int			is_pipe;
+	char	*str;
+	int		quotes;
+	int		is_pipe;
 
 	str = NULL;
 	quotes = 0;
