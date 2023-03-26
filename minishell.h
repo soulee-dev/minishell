@@ -6,7 +6,7 @@
 /*   By: subcho <subcho@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/23 16:41:30 by soulee            #+#    #+#             */
-/*   Updated: 2023/03/25 00:06:08 by subcho           ###   ########.fr       */
+/*   Updated: 2023/03/26 23:18:46 by subcho           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,11 +63,11 @@ void	parse_dollar_sign_loop(t_cmd_list *cmd_list,
 							t_env_list *env_list);
 
 // string_utils.c
-char		*ft_free_str(char *str);
-size_t		ft_strlenbl(const char *s);
-int			is_whitespace(const char c);
-int			is_whitespace_str(const char *line);
-char		*ft_strndup(const char *s1, size_t n);
+char					*ft_free_str(char *str);
+size_t					ft_strlenbl(const char *s);
+int						is_whitespace(const char c);
+int						is_whitespace_str(const char *line);
+char					*ft_strndup(const char *s1, size_t n);
 
 // string_utils2.c
 char					*ft_strjoin_char(char const *s1, char s2);
@@ -77,9 +77,9 @@ int						ft_strcmp(const char *s1, const char *s2);
 int						is_str_all_blank(char *str);
 
 // string_utils3.c
-int			is_meta_character(const char c);
-char		**ft_free_strs(char **str);
-char		*ft_strdup_free(char *s1, char *s2);
+int						is_meta_character(const char c);
+char					**ft_free_strs(char **str);
+char					*ft_strdup_free(char *s1, char *s2);
 
 // cmd_list.c
 void					clear_cmd_list(t_cmd_list **node);
@@ -113,7 +113,6 @@ int						exe_cmd(char **cmd, int pipe_cnt, t_env_list *env_list,
 							char **env_list_str, int fd_out, int fd_in);
 char					**get_pipe_cmd(t_cmd_list *cmd_list);
 int						get_status(int pid);
-void					ft_free_strs(char **str);
 
 // pipe_utils.c
 char					**get_path(char **envp);
@@ -122,11 +121,15 @@ int						is_builtin(const char **command, t_env_list *env_list);
 int						get_echo_n_cnt(const char **command);
 
 // here_doc.c
-void					read_here_doc(int fd, char *delimiter);
+void					read_here_doc(int fd, char *delimiter,
+							t_env_list *env_list);
 void					delete_here_doc(int here_doc_cnt);
-int						is_here_doc_exist(t_cmd_list **cmd_list, int pipe_cnt);
+int						is_here_doc_exist(t_cmd_list **cmd_list, int pipe_cnt,
+							t_env_list *env_list);
 char					*create_here_doc_file(int count, char *delimiter,
-							char *here_doc_org);
+							char *here_doc_org, t_env_list *env_list);
+
+char					*get_env_line(char *line, t_env_list *env_list);
 
 // file_control.c
 int						open_file(char *file_name);
@@ -150,7 +153,7 @@ void	command_export(t_env_list *env_list,
 void					command_unset(t_env_list *env_list, const char *key);
 
 // builtin_utils.c
-void		exit_numberic_argument(void);
-int			is_over_long_long(long long sum, int sign, int num);
-void		preprocess_atoi(const char **str, long long *sign);
+void					exit_numberic_argument(void);
+int						is_over_long_long(long long sum, int sign, int num);
+void					preprocess_atoi(const char **str, long long *sign);
 #endif

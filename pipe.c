@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipe.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: soulee <soulee@student.42seoul.kr>         +#+  +:+       +#+        */
+/*   By: subcho <subcho@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/23 21:07:21 by subcho            #+#    #+#             */
-/*   Updated: 2023/03/25 01:35:09 by subcho           ###   ########.fr       */
+/*   Updated: 2023/03/26 22:07:19 by subcho           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,7 +81,7 @@ int	execute(t_cmd_list *cmd_list, t_env_list *env_list, int pipe_cnt)
 
 	std = dup_std();
 	env_list_str = convert_env_list_to_arr(env_list);
-	here_doc_cnt = is_here_doc_exist(&cmd_list, pipe_cnt);
+	here_doc_cnt = is_here_doc_exist(&cmd_list, pipe_cnt, env_list);
 	while (--pipe_cnt >= 0)
 	{
 		fd_in = STDIN_FILENO;
@@ -94,9 +94,10 @@ int	execute(t_cmd_list *cmd_list, t_env_list *env_list, int pipe_cnt)
 					fd_in);
 		else if (!split_cmd)
 			continue ;
-		else if (pipe_cnt || (!pipe_cnt
-				&& !is_builtin((const char **)split_cmd, env_list)))
-			status = exe_cmd(split_cmd, pipe_cnt, env_list, env_list_str, fd_out, fd_in);
+		else if (pipe_cnt || (!pipe_cnt && !is_builtin((const char **)split_cmd,
+						env_list)))
+			status = exe_cmd(split_cmd, pipe_cnt, env_list, env_list_str,
+					fd_out, fd_in);
 		split_cmd = ft_free_strs(split_cmd);
 	}
 	delete_here_doc(here_doc_cnt);
