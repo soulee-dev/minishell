@@ -48,13 +48,13 @@ typedef struct s_env_list
 int						g_exit_code;
 
 // parser.c
-void					parse_envp(t_env_list **node, char **envp);
 t_cmd_list				*parse_line(t_cmd_list **cmd_list, char *line);
-void	parse_dollar_sign(t_cmd_list *cmd_list,
-						t_env_list *env_list);
+void					parse_quotes(t_cmd_list *cmd_list);
+void					parse_dollar_sign(t_cmd_list *cmd_list,
+							t_env_list *env_list);
 
 // parser_utils.c
-int						parse_quotes(const char c, int quotes);
+int						count_quotes(const char c, int quotes);
 char					*parse_redirection_in(t_cmd_list **cmd_list, char *str);
 char	*parse_redirection_out(t_cmd_list **cmd_list,
 							char *str);
@@ -63,6 +63,11 @@ void					add_element_node(t_cmd_list **cmd_list, int cmd_type,
 void	parse_dollar_sign_loop(t_cmd_list *cmd_list,
 							t_env_list *env_list);
 
+// parser_utils2.c
+char					*parse_quotes_loop(t_cmd_list *cmd_list, int *i,
+							char *str, int *quotes);
+char					*parse_dollar_sign_loop2(t_env_list *env_list,
+							int quotes, char *key, char *str);
 // string_utils.c
 char					*ft_free_str(char *str);
 size_t					ft_strlenbl(const char *s);
@@ -98,6 +103,7 @@ void					add_env_node_back(t_env_list **node, t_env_list *new);
 
 // env_list_utils.c
 char					**convert_env_list_to_arr(t_env_list *node);
+void					parse_envp(t_env_list **node, char **envp);
 
 // redirection.c
 int						redirect_pipe(t_cmd_list **cmd_list, int *fd_in,

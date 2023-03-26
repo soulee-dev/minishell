@@ -47,32 +47,24 @@ int	parse_pipe(t_cmd_list **cmd_list, int is_pipe, char c, char **str)
 	}
 }
 
-void	parse_envp(t_env_list **node, char **envp)
+void	parse_quotes(t_cmd_list *cmd_list)
 {
-	char	*key;
-	int		flag;
-	char	*value;
+	int		i;
+	int		quotes;
+	char	*str;
 
-	while (*envp)
+	while (cmd_list)
 	{
-		flag = 1;
-		key = NULL;
-		value = NULL;
-		while (**envp)
+		i = -1;
+		str = 0;
+		quotes = 0;
+		while (++i < ft_strlen(cmd_list->cmd))
 		{
-			if (**envp == '=')
-				flag = 0;
-			else
-			{
-				if (flag)
-					key = ft_strjoin_char(key, **envp);
-				else
-					value = ft_strjoin_char(value, **envp);
-			}
-			(*envp)++;
+			quotes = count_quotes(cmd_list->cmd[i], quotes);
+			str = parse_quotes_loop(cmd_list, &i, str, &quotes);
 		}
-		add_env_node_back(node, create_new_env_node(key, value));
-		envp++;
+		printf("%s\n", str);
+		cmd_list = cmd_list->next;
 	}
 }
 
@@ -97,7 +89,7 @@ t_cmd_list	*parse_line(t_cmd_list **cmd_list, char *line)
 	is_pipe = 0;
 	while (*line)
 	{
-		quotes = parse_quotes(*line, quotes);
+		quotes = count_quotes(*line, quotes);
 		if (parse_redirection(cmd_list, &line, &str))
 			continue ;
 		is_pipe = parse_pipe(cmd_list, is_pipe, *line, &str);
