@@ -33,8 +33,7 @@
 typedef struct s_cmd_list
 {
 	int					cmd_type;
-	char				*cmd;
-	char				**args;
+	char				**cmd;
 	struct s_cmd_list	*next;
 }						t_cmd_list;
 
