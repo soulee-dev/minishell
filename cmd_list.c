@@ -12,7 +12,7 @@
 
 #include "minishell.h"
 
-t_cmd_list	*create_new_cmd_node(int type, char *cmd)
+t_cmd_list	*create_new_cmd_node(int type, char **cmd)
 {
 	t_cmd_list	*new_node;
 

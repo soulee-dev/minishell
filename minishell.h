@@ -89,7 +89,7 @@ char					*ft_strdup_free(char *s1, char *s2);
 
 // cmd_list.c
 void					clear_cmd_list(t_cmd_list **node);
-t_cmd_list				*create_new_cmd_node(int type, char *cmd);
+t_cmd_list				*create_new_cmd_node(int type, char **cmd);
 int						count_cmd_list_node(t_cmd_list *node, int cmd_type);
 void					add_cmd_node_back(t_cmd_list **node, t_cmd_list *new);
 // REMOVE BEFORE FLIGHT
