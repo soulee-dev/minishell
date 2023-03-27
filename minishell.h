@@ -34,7 +34,7 @@ typedef struct s_cmd_list
 {
 	int					cmd_type;
 	char				*cmd;
-	char				*args;
+	char				**args;
 	struct s_cmd_list	*next;
 }						t_cmd_list;
 
