@@ -83,6 +83,8 @@ void	clear_cmd_list(t_cmd_list **node)
 	{
 		temp = (*node)->next;
 		free((*node)->cmd);
+		if ((*node)->args)
+			free((*node)->args);
 		free(*node);
 		*node = temp;
 	}
