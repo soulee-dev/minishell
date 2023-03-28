@@ -68,6 +68,7 @@ char					*parse_quotes_loop(t_cmd_list *cmd_list, int *i,
 							char *str, int *quotes);
 char					*parse_dollar_sign_loop2(t_env_list *env_list,
 							int quotes, char *key, char *str);
+char					**convert_args_lst(t_cmd_list *arg_list);
 // string_utils.c
 char					*ft_free_str(char *str);
 size_t					ft_strlenbl(const char *s);

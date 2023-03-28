@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser_utils2.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: soulee <soulee@student.42seoul.kr>         +#+  +:+       +#+        */
+/*   By: soulee <soulee@studnet.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/27 01:06:31 by soulee            #+#    #+#             */
-/*   Updated: 2023/03/27 01:33:16 by soulee           ###   ########.fr       */
+/*   Updated: 2023/03/28 20:43:53 by soulee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,4 +47,26 @@ char	*parse_dollar_sign_loop2(t_env_list *env_list, int quotes,
 		str = ft_strjoin_free(str, key);
 	}
 	return (str);
+}
+
+char	**convert_args_lst(t_cmd_list *arg_list)
+{
+	int			i;
+	char		**args;
+	t_cmd_list	*temp;
+
+	i = 0;
+	temp = arg_list;
+	args = malloc(sizeof(char *) * (count_cmd_list_node(arg_list, 0) + 1));
+	if (!args)
+		return (NULL);
+	while (arg_list)
+	{
+		args[i] = ft_strdup(arg_list->cmd);
+		i++;
+		arg_list = arg_list->next;
+	}
+	args[i] = NULL;
+	clear_cmd_list(&temp);
+	return (args);
 }

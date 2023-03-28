@@ -6,7 +6,7 @@
 /*   By: soulee <soulee@studnet.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/25 22:19:01 by soulee            #+#    #+#             */
-/*   Updated: 2023/03/23 18:01:55 by soulee           ###   ########.fr       */
+/*   Updated: 2023/03/28 20:44:42 by soulee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,7 @@ void	clear_cmd_list(t_cmd_list **node)
 		temp = (*node)->next;
 		free((*node)->cmd);
 		if ((*node)->args)
-			free((*node)->args);
+			ft_free_strs((*node)->args);
 		free(*node);
 		*node = temp;
 	}

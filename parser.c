@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: soulee <soulee@student.42seoul.kr>         +#+  +:+       +#+        */
+/*   By: soulee <soulee@studnet.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/23 21:48:04 by soulee            #+#    #+#             */
-/*   Updated: 2023/03/27 01:14:33 by soulee           ###   ########.fr       */
+/*   Updated: 2023/03/28 20:37:41 by soulee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,9 +98,9 @@ void	parse_quotes(t_cmd_list *cmd_list)
 			add_cmd_node_back(&arg_list, create_new_cmd_node(0, ft_strdup(str), 0));
 			str = ft_free_str(str);
 		}
+		cmd_list->args = convert_args_lst(arg_list);
 		cmd_list = cmd_list->next;
 	}
-	iter_node(arg_list);
 }
 
 void	parse_dollar_sign(t_cmd_list *cmd_list, t_env_list *env_list)
