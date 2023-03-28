@@ -65,59 +65,43 @@ void	parse_quotes(t_cmd_list *cmd_list)
 		while (++i < ft_strlen(cmd_list->cmd))
 		{
 			quotes = count_quotes(cmd_list->cmd[i], quotes);
-			if (quotes)
+			if (is_whitespace(cmd_list->cmd[i]))
 			{
-				i++;
-				while (cmd_list->cmd[i]
-					&& count_quotes(cmd_list->cmd[i], quotes))
-					str = ft_strjoin_char(str, cmd_list->cmd[(i)++]);
-				quotes = 0;
+				if (!quotes)
+				{
+					add_cmd_node_back(&arg_list, create_new_cmd_node(0, ft_strdup(str), 0));
+					str = ft_free_str(str);
+				}
 			}
 			else
 			{
-				if (str)
+				if (quotes)
 				{
-					add_cmd_node_back(&arg_list, create_new_cmd_node(0, str, 0));
-					str = ft_free_str(str);
-				}
-				while (cmd_list->cmd[i] && is_whitespace(cmd_list->cmd[i]))
 					i++;
-				while (cmd_list->cmd[i]
-					&& !count_quotes(cmd_list->cmd[i], quotes)
-					&& !is_whitespace(cmd_list->cmd[i]))
-					str = ft_strjoin_char(str, cmd_list->cmd[i++]);
+					while (cmd_list->cmd[i]
+						&& count_quotes(cmd_list->cmd[i], quotes))
+						str = ft_strjoin_char(str, cmd_list->cmd[(i)++]);
+					quotes = 0;
+				}
+				else
+				{
+					while (cmd_list->cmd[i]
+						&& !is_whitespace(cmd_list->cmd[i])
+						&& !count_quotes(cmd_list->cmd[i], quotes))
+						str = ft_strjoin_char(str, cmd_list->cmd[i++]);
+					i--;
+				}
 			}
 		}
 		if (str)
 		{
-			add_cmd_node_back(&arg_list, create_new_cmd_node(0, str, 0));
+			add_cmd_node_back(&arg_list, create_new_cmd_node(0, ft_strdup(str), 0));
 			str = ft_free_str(str);
 		}
-		iter_node(arg_list);
 		cmd_list = cmd_list->next;
 	}
+	iter_node(arg_list);
 }
-
-// void	parse_quotes(t_cmd_list *cmd_list)
-// {
-// 	int		i;
-// 	int		quotes;
-// 	char	*str;
-
-// 	while (cmd_list)
-// 	{
-// 		i = -1;
-// 		str = 0;
-// 		quotes = 0;
-// 		while (++i < ft_strlen(cmd_list->cmd))
-// 		{
-// 			quotes = count_quotes(cmd_list->cmd[i], quotes);
-// 			str = parse_quotes_loop(cmd_list, &i, str, &quotes);
-// 		}
-// 		printf("%s\n", str);
-// 		cmd_list = cmd_list->next;
-// 	}
-// }
 
 void	parse_dollar_sign(t_cmd_list *cmd_list, t_env_list *env_list)
 {
