@@ -77,7 +77,7 @@ void	parse_quotes(t_cmd_list *cmd_list)
 			{
 				if (str)
 				{
-					ft_printf("%s\n", str);
+					add_cmd_node_back(arg_list, create_new_cmd_node(0, str, 0));
 					str = ft_free_str(str);
 				}
 				while (cmd_list->cmd[i] && is_whitespace(cmd_list->cmd[i]))
@@ -85,12 +85,12 @@ void	parse_quotes(t_cmd_list *cmd_list)
 				while (cmd_list->cmd[i]
 					&& !count_quotes(cmd_list->cmd[i], quotes)
 					&& !is_whitespace(cmd_list->cmd[i]))
-					str = ft_Strjoin_char(str, cmd_list->cmd[i++]);
+					str = ft_strjoin_char(str, cmd_list->cmd[i++]);
 			}
 		}
 		if (str)
 		{
-			ft_printf("%s\n", str);
+			add_cmd_node_back(arg_list, create_new_cmd_node(0, str, 0));
 			str = ft_free_str(str);
 		}
 		cmd_list = cmd_list->next;
