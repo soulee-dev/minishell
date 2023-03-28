@@ -49,24 +49,74 @@ int	parse_pipe(t_cmd_list **cmd_list, int is_pipe, char c, char **str)
 
 void	parse_quotes(t_cmd_list *cmd_list)
 {
-	int		i;
-	int		quotes;
-	char	*str;
+	int			i;
+	char		*str;
+	int			quotes;
+	t_cmd_list	*arg_list;
 
 	while (cmd_list)
 	{
+		if (cmd_list->cmd_type != TYPE_WORD)
+			continue ;
 		i = -1;
 		str = 0;
 		quotes = 0;
+		arg_list = 0;
 		while (++i < ft_strlen(cmd_list->cmd))
 		{
 			quotes = count_quotes(cmd_list->cmd[i], quotes);
-			str = parse_quotes_loop(cmd_list, &i, str, &quotes);
+			if (quotes)
+			{
+				i++;
+				while (cmd_list->cmd[i]
+					&& count_quotes(cmd_list->cmd[i], quotes))
+					str = ft_strjoin_char(str, cmd_list->cmd[(i)++]);
+				quotes = 0;
+			}
+			else
+			{
+				if (str)
+				{
+					ft_printf("%s\n", str);
+					str = ft_free_str(str);
+				}
+				while (cmd_list->cmd[i] && is_whitespace(cmd_list->cmd[i]))
+					i++;
+				while (cmd_list->cmd[i]
+					&& !count_quotes(cmd_list->cmd[i], quotes)
+					&& !is_whitespace(cmd_list->cmd[i]))
+					str = ft_strjoin_char(str, cmd_list->cmd[i++]);			
+			}
 		}
-		printf("%s\n", str);
+		if (str)
+		{
+			ft_printf("%s\n", str);
+			str = ft_free_str(str);
+		}
 		cmd_list = cmd_list->next;
 	}
 }
+
+// void	parse_quotes(t_cmd_list *cmd_list)
+// {
+// 	int		i;
+// 	int		quotes;
+// 	char	*str;
+
+// 	while (cmd_list)
+// 	{
+// 		i = -1;
+// 		str = 0;
+// 		quotes = 0;
+// 		while (++i < ft_strlen(cmd_list->cmd))
+// 		{
+// 			quotes = count_quotes(cmd_list->cmd[i], quotes);
+// 			str = parse_quotes_loop(cmd_list, &i, str, &quotes);
+// 		}
+// 		printf("%s\n", str);
+// 		cmd_list = cmd_list->next;
+// 	}
+// }
 
 void	parse_dollar_sign(t_cmd_list *cmd_list, t_env_list *env_list)
 {
