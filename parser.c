@@ -77,7 +77,7 @@ void	parse_quotes(t_cmd_list *cmd_list)
 			{
 				if (str)
 				{
-					add_cmd_node_back(arg_list, create_new_cmd_node(0, str, 0));
+					add_cmd_node_back(&arg_list, create_new_cmd_node(0, str, 0));
 					str = ft_free_str(str);
 				}
 				while (cmd_list->cmd[i] && is_whitespace(cmd_list->cmd[i]))
@@ -90,9 +90,10 @@ void	parse_quotes(t_cmd_list *cmd_list)
 		}
 		if (str)
 		{
-			add_cmd_node_back(arg_list, create_new_cmd_node(0, str, 0));
+			add_cmd_node_back(&arg_list, create_new_cmd_node(0, str, 0));
 			str = ft_free_str(str);
 		}
+		iter_node(arg_list);
 		cmd_list = cmd_list->next;
 	}
 }
