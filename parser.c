@@ -85,7 +85,7 @@ void	parse_quotes(t_cmd_list *cmd_list)
 				while (cmd_list->cmd[i]
 					&& !count_quotes(cmd_list->cmd[i], quotes)
 					&& !is_whitespace(cmd_list->cmd[i]))
-					str = ft_strjoin_char(str, cmd_list->cmd[i++]);			
+					str = ft_Strjoin_char(str, cmd_list->cmd[i++]);
 			}
 		}
 		if (str)
