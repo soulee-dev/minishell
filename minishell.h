@@ -6,29 +6,36 @@
 /*   By: soulee <soulee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/23 16:41:30 by soulee            #+#    #+#             */
-/*   Updated: 2023/03/27 01:52:41 by soulee           ###   ########.fr       */
+/*   Updated: 2023/03/29 23:05:04 by soulee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MINISHELL_H
 # define MINISHELL_H
 
-# include "ft_printf/ft_printf.h"
-# include "libft/libft.h"
 # include <fcntl.h>
-# include <readline/history.h>
-# include <readline/readline.h>
 # include <stdio.h>
+# include <signal.h>
+# include <unistd.h>
 # include <stdlib.h>
 # include <termios.h>
-# include <unistd.h>
+# include "libft/libft.h"
+# include <readline/history.h>
+# include <readline/readline.h>
+# include "ft_printf/ft_printf.h"
 
+// Command Type
 # define TYPE_WORD 0
 # define TYPE_REDIRECT_INPUT 1
 # define TYPE_REDIRECT_OUTPUT 2
 # define TYPE_REDIRECT_HEREDOC 3
 # define TYPE_REDIRECT_APPEND 4
 # define TYPE_PIPE 5
+
+// Signals
+# define SHE 0
+# define DEFAULT 1
+# define IGNORE 2
 
 typedef struct s_cmd_list
 {
@@ -165,4 +172,7 @@ void					command_unset(t_env_list *env_list, const char *key);
 void					exit_numberic_argument(void);
 int						is_over_long_long(long long sum, int sign, int num);
 void					preprocess_atoi(const char **str, long long *sign);
+
+// signal.c
+void					set_signal(int sig_int, int sig_quit);
 #endif
