@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: soulee <soulee@studnet.42seoul.kr>         +#+  +:+       +#+        */
+/*   By: soulee <soulee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/23 21:48:04 by soulee            #+#    #+#             */
-/*   Updated: 2023/03/28 20:37:41 by soulee           ###   ########.fr       */
+/*   Updated: 2023/03/29 23:12:14 by soulee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,10 @@ void	parse_quotes(t_cmd_list *cmd_list)
 	while (cmd_list)
 	{
 		if (cmd_list->cmd_type != TYPE_WORD)
+		{
+			cmd_list = cmd_list->next;
 			continue ;
+		}
 		i = -1;
 		str = 0;
 		quotes = 0;
