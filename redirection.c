@@ -6,7 +6,7 @@
 /*   By: subcho <subcho@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/05 22:12:15 by subcho            #+#    #+#             */
-/*   Updated: 2023/03/30 22:07:47 by subcho           ###   ########.fr       */
+/*   Updated: 2023/03/30 22:44:14 by subcho           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,9 +30,9 @@ int	redirect_pipe(t_exe_list *exe_list)
 	}
 	if (exe_list->cmd_list && exe_list->cmd_list->cmd_type == TYPE_PIPE)
 		exe_list->cmd_list = exe_list->cmd_list->next;
-	if (exe_list->fd_in >= STDIN_FILENO)
+	if (exe_list->fd_in > STDIN_FILENO)
 		dup2(exe_list->fd_in, STDIN_FILENO);
-	if (exe_list->fd_out >= STDOUT_FILENO)
+	if (exe_list->fd_out > STDOUT_FILENO && exe_list->pipe_cnt)
 		dup2(exe_list->fd_out, STDOUT_FILENO);
 	return (fd);
 }
@@ -44,11 +44,20 @@ int	redirect_fd(int type, char *file_name, t_exe_list *exe_list)
 
 	split_file_name = ft_split(file_name, ' ');
 	if (type == TYPE_REDIRECT_INPUT)
+	{
 		exe_list->fd_in = open_file(split_file_name[0]);
+		return (exe_list->fd_in);
+	}
 	else if (type == TYPE_REDIRECT_OUTPUT)
+	{
 		exe_list->fd_out = create_file(split_file_name[0]);
+		return (exe_list->fd_out);
+	}
 	else if (type == TYPE_REDIRECT_APPEND)
+	{
 		exe_list->fd_out = append_file(split_file_name[0]);
+		return (exe_list->fd_out);
+	}
 	ft_free_strs(split_file_name);
 	return (fd);
 }
