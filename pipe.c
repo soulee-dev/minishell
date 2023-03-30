@@ -6,7 +6,7 @@
 /*   By: subcho <subcho@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/23 21:07:21 by subcho            #+#    #+#             */
-/*   Updated: 2023/03/30 20:11:34 by subcho           ###   ########.fr       */
+/*   Updated: 2023/03/30 20:29:30 by subcho           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,13 +46,11 @@ int	exe_cmd(char **cmd, char **env_list_str, t_exe_list *exe_list)
 		print_error(0);
 	else if (pid == 0)
 	{
+		close(pipefd[0]);
 		if (exe_list->pipe_cnt)
-		{
-			close(pipefd[0]);
 			dup2(pipefd[1], STDOUT_FILENO);
-			close(pipefd[1]);
-		}
 		dup2(exe_list->fd_out, STDOUT_FILENO);
+		close(pipefd[1]);
 		if (!is_builtin((const char **)cmd, exe_list->env_list))
 			execve(get_cmd(get_path(env_list_str), cmd[0]), cmd, env_list_str);
 		exit(0);
@@ -84,6 +82,8 @@ int	execute_pipeline(t_exe_list *exe_list)
 		else if (exe_list->pipe_cnt || (!exe_list->pipe_cnt
 				&& !is_builtin((const char **)cmd_args, exe_list->env_list)))
 			status = exe_cmd(cmd_args, env_list_str, exe_list);
+		close(exe_list->fd_in);
+		close(exe_list->fd_out);
 	}
 	env_list_str = ft_free_strs(env_list_str);
 	return (status);
