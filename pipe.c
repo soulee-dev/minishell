@@ -6,7 +6,7 @@
 /*   By: subcho <subcho@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/23 21:07:21 by subcho            #+#    #+#             */
-/*   Updated: 2023/03/27 01:45:01 by subcho           ###   ########.fr       */
+/*   Updated: 2023/03/30 18:25:21 by subcho           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ int	exe_cmd(char **cmd, int pipe_cnt, t_env_list *env_list, char **env_list_str,
 	}
 	else
 	{
-		waitpid(pid, NULL, 0);
+		//waitpid(pid, NULL, 0);
 		close(pipefd[1]);
 		dup2(pipefd[0], STDIN_FILENO);
 		close(pipefd[0]);
@@ -78,6 +78,7 @@ void	set_fd(int *fd_in, int *fd_out, int *std, int pipe_cnt)
 	else
 	{
 		*fd_out = dup2(std[1], STDOUT_FILENO);
+		//dup2(*fd_out, STDOUT_FILENO);
 	}
 }
 
