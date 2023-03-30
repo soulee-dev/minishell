@@ -13,16 +13,18 @@
 #ifndef MINISHELL_H
 # define MINISHELL_H
 
-# include "ft_printf/ft_printf.h"
-# include "libft/libft.h"
 # include <fcntl.h>
-# include <readline/history.h>
-# include <readline/readline.h>
 # include <stdio.h>
+# include <signal.h>
+# include <unistd.h>
 # include <stdlib.h>
 # include <termios.h>
-# include <unistd.h>
+# include "libft/libft.h"
+# include <readline/history.h>
+# include <readline/readline.h>
+# include "ft_printf/ft_printf.h"
 
+// Command Type
 # define TYPE_WORD 0
 # define TYPE_REDIRECT_INPUT 1
 # define TYPE_REDIRECT_OUTPUT 2
@@ -30,11 +32,16 @@
 # define TYPE_REDIRECT_APPEND 4
 # define TYPE_PIPE 5
 
+// Signals
+# define SHE 0
+# define DEFAULT 1
+# define IGNORE 2
+
 typedef struct s_cmd_list
 {
 	int					cmd_type;
 	char				*cmd;
-	char				*args;
+	char				**args;
 	struct s_cmd_list	*next;
 }						t_cmd_list;
 
@@ -68,6 +75,7 @@ char					*parse_quotes_loop(t_cmd_list *cmd_list, int *i,
 							char *str, int *quotes);
 char					*parse_dollar_sign_loop2(t_env_list *env_list,
 							int quotes, char *key, char *str);
+char					**convert_args_lst(t_cmd_list *arg_list);
 // string_utils.c
 char					*ft_free_str(char *str);
 size_t					ft_strlenbl(const char *s);
@@ -84,12 +92,13 @@ int						is_str_all_blank(char *str);
 
 // string_utils3.c
 int						is_meta_character(const char c);
+int						is_white_meta_char(const char c);
 char					**ft_free_strs(char **str);
 char					*ft_strdup_free(char *s1, char *s2);
 
 // cmd_list.c
 void					clear_cmd_list(t_cmd_list **node);
-t_cmd_list				*create_new_cmd_node(int type, char *cmd);
+t_cmd_list				*create_new_cmd_node(int type, char *cmd, char **args);
 int						count_cmd_list_node(t_cmd_list *node, int cmd_type);
 void					add_cmd_node_back(t_cmd_list **node, t_cmd_list *new);
 // REMOVE BEFORE FLIGHT
@@ -164,4 +173,7 @@ void					command_unset(t_env_list *env_list, const char *key);
 void					exit_numberic_argument(void);
 int						is_over_long_long(long long sum, int sign, int num);
 void					preprocess_atoi(const char **str, long long *sign);
+
+// signal.c
+void					set_signal(int sig_int, int sig_quit);
 #endif

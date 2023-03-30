@@ -6,13 +6,13 @@
 /*   By: soulee <soulee@studnet.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/25 22:19:01 by soulee            #+#    #+#             */
-/*   Updated: 2023/03/23 18:01:55 by soulee           ###   ########.fr       */
+/*   Updated: 2023/03/28 20:44:42 by soulee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-t_cmd_list	*create_new_cmd_node(int type, char *cmd)
+t_cmd_list	*create_new_cmd_node(int type, char *cmd, char **args)
 {
 	t_cmd_list	*new_node;
 
@@ -21,6 +21,7 @@ t_cmd_list	*create_new_cmd_node(int type, char *cmd)
 		return (NULL);
 	new_node->cmd_type = type;
 	new_node->cmd = cmd;
+	new_node->args = args;
 	new_node->next = NULL;
 	return (new_node);
 }
@@ -82,6 +83,8 @@ void	clear_cmd_list(t_cmd_list **node)
 	{
 		temp = (*node)->next;
 		free((*node)->cmd);
+		if ((*node)->args)
+			ft_free_strs((*node)->args);
 		free(*node);
 		*node = temp;
 	}

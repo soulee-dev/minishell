@@ -6,7 +6,7 @@
 /*   By: soulee <soulee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/27 17:25:02 by soulee            #+#    #+#             */
-/*   Updated: 2023/03/27 01:33:46 by soulee           ###   ########.fr       */
+/*   Updated: 2023/03/27 01:52:48 by soulee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ void	add_element_node(t_cmd_list **cmd_list, int cmd_type, char **str)
 
 	if (cmd_type == TYPE_PIPE)
 	{
-		add_cmd_node_back(cmd_list, create_new_cmd_node(TYPE_PIPE, 0));
+		add_cmd_node_back(cmd_list, create_new_cmd_node(TYPE_PIPE, 0, 0));
 		return ;
 	}
 	if (!*str)
@@ -26,7 +26,7 @@ void	add_element_node(t_cmd_list **cmd_list, int cmd_type, char **str)
 	if (str && *str && !is_str_all_blank(*str))
 	{
 		cmd = ft_strdup(*str);
-		add_cmd_node_back(cmd_list, create_new_cmd_node(cmd_type, cmd));
+		add_cmd_node_back(cmd_list, create_new_cmd_node(cmd_type, cmd, 0));
 	}
 	if (*str)
 		*str = ft_free_str(*str);
@@ -128,7 +128,7 @@ void	parse_dollar_sign_loop(t_cmd_list *cmd_list, t_env_list *env_list)
 		quotes = count_quotes(cmd_list->cmd[i], quotes);
 		if (cmd_list->cmd[i] == '$')
 		{
-			while (cmd_list->cmd[++i] && !is_meta_character(cmd_list->cmd[i]))
+			while (cmd_list->cmd[++i] && !is_white_meta_char(cmd_list->cmd[i]))
 				key = ft_strjoin_char(key, cmd_list->cmd[i]);
 			str = parse_dollar_sign_loop2(env_list, quotes, key, str);
 			key = ft_free_str(key);

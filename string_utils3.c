@@ -6,13 +6,27 @@
 /*   By: soulee <soulee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/22 17:51:38 by soulee            #+#    #+#             */
-/*   Updated: 2023/03/26 22:37:52 by soulee           ###   ########.fr       */
+/*   Updated: 2023/03/27 01:52:45 by soulee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
 int	is_meta_character(const char c)
+{
+	if (c == '$'
+		|| c == '|'
+		|| c == '>'
+		|| c == '<'
+		|| c == '>'
+		|| c == '\''
+		|| c == '\"'
+	)
+		return (1);
+	return (0);
+}
+
+int	is_white_meta_char(const char c)
 {
 	if (is_whitespace(c)
 		|| c == '$'
