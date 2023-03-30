@@ -6,7 +6,7 @@
 /*   By: subcho <subcho@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/23 21:07:21 by subcho            #+#    #+#             */
-/*   Updated: 2023/03/30 20:29:30 by subcho           ###   ########.fr       */
+/*   Updated: 2023/03/30 20:42:07 by subcho           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,6 +74,8 @@ int	execute_pipeline(t_exe_list *exe_list)
 	env_list_str = convert_env_list_to_arr(exe_list->env_list);
 	while (--(exe_list->pipe_cnt) >= 0)
 	{
+		if (!exe_list->pipe_cnt)
+			exe_list->fd_out = dup2(exe_list->std[1], STDOUT_FILENO);
 		cmd_args = get_pipe_cmd(exe_list->cmd_list);
 		if (redirect_pipe(exe_list) == -1 && cmd_args)
 			status = exe_cmd(0, env_list_str, exe_list);
