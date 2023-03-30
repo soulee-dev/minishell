@@ -6,7 +6,7 @@
 /*   By: subcho <subcho@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/23 21:10:01 by subcho            #+#    #+#             */
-/*   Updated: 2023/03/27 01:45:32 by subcho           ###   ########.fr       */
+/*   Updated: 2023/03/30 20:39:19 by subcho           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,9 +40,10 @@ char	*get_cmd(char **path, char *cmd)
 		free(cmd_pathname);
 		i++;
 	}
-	write(2, "command not found: ", 19);
 	write(2, cmd, ft_strlen(cmd));
+	write(2, ": command not found", 19);
 	write(2, "\n", 1);
+	g_exit_code = 127;
 	return (0);
 }
 
