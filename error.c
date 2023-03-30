@@ -12,9 +12,10 @@
 
 #include "minishell.h"
 
-void	exit_error(char *error_message)
+int	exit_error(char *error_message)
 {
 	ft_putendl_fd(error_message, 2);
+	return (0);
 }
 
 void	print_error(char *msg)

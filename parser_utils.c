@@ -12,17 +12,17 @@
 
 #include "minishell.h"
 
-void	add_element_node(t_cmd_list **cmd_list, int cmd_type, char **str)
+int	add_element_node(t_cmd_list **cmd_list, int cmd_type, char **str)
 {
 	char	*cmd;
 
 	if (cmd_type == TYPE_PIPE)
 	{
 		add_cmd_node_back(cmd_list, create_new_cmd_node(TYPE_PIPE, 0, 0));
-		return ;
+		return (1);
 	}
 	if (!*str)
-		exit_error("syntax error");
+		return (exit_error("syntax error"));
 	if (!is_str_all_blank(*str))
 	{
 		cmd = ft_strdup(*str);
@@ -30,6 +30,7 @@ void	add_element_node(t_cmd_list **cmd_list, int cmd_type, char **str)
 	}
 	if (*str)
 		*str = ft_free_str(*str);
+	return (1);
 }
 
 int	count_quotes(const char c, int quotes)
@@ -79,7 +80,8 @@ char	*parse_redirection_in(t_cmd_list **cmd_list, char *str)
 			n_str++;
 		len = ft_strlenbl(n_str);
 		file_name = ft_strndup(n_str, len);
-		add_element_node(cmd_list, cmd_type, &file_name);
+		if (!add_element_node(cmd_list, cmd_type, &file_name))
+			return (0);
 		return (n_str + len);
 	}
 	return (str);
@@ -106,7 +108,8 @@ char	*parse_redirection_out(t_cmd_list **cmd_list, char *str)
 			n_str++;
 		len = ft_strlenbl(n_str);
 		file_name = ft_strndup(n_str, len);
-		add_element_node(cmd_list, cmd_type, &file_name);
+		if (!add_element_node(cmd_list, cmd_type, &file_name))
+			return (0);
 		return (n_str + len);
 	}
 	return (str);
