@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: subcho <subcho@student.42.fr>              +#+  +:+       +#+        */
+/*   By: soulee <soulee@studnet.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/23 16:41:30 by soulee            #+#    #+#             */
-/*   Updated: 2023/03/30 20:04:45 by subcho           ###   ########.fr       */
+/*   Updated: 2023/03/30 21:43:44 by soulee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,6 +86,10 @@ char					*parse_quotes_loop(t_cmd_list *cmd_list, int *i,
 char					*parse_dollar_sign_loop2(t_env_list *env_list,
 							int quotes, char *key, char *str);
 char					**convert_args_lst(t_cmd_list *arg_list);
+int						check_syntax_error(char *str, int is_pipe, int quotes);
+void					init_parser(char **str, int *quotes,
+							int *is_pipe, int *ret_redirect);
+
 // string_utils.c
 char					*ft_free_str(char *str);
 size_t					ft_strlenbl(const char *s);

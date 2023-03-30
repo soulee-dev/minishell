@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: subcho <subcho@student.42.fr>              +#+  +:+       +#+        */
+/*   By: soulee <soulee@studnet.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/23 21:48:04 by soulee            #+#    #+#             */
-/*   Updated: 2023/03/29 23:12:14 by soulee           ###   ########.fr       */
+/*   Updated: 2023/03/30 21:44:41 by soulee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,14 +82,10 @@ void	parse_quotes(t_cmd_list *cmd_list)
 		while (++i < ft_strlen(cmd_list->cmd))
 		{
 			quotes = count_quotes(cmd_list->cmd[i], quotes);
-			if (is_whitespace(cmd_list->cmd[i]))
+			if (is_whitespace(cmd_list->cmd[i]) && !quotes && str)
 			{
-				if (!quotes)
-				{
-					if (str)
-						add_cmd_node_back(&arg_list, create_new_cmd_node(0, ft_strdup(str), 0));
-					str = ft_free_str(str);
-				}
+				add_cmd_node_back(&arg_list, create_new_cmd_node(0, ft_strdup(str), 0));
+				str = ft_free_str(str);
 			}
 			else
 			{
@@ -134,42 +130,25 @@ t_cmd_list	*parse_line(t_cmd_list **cmd_list, char *line)
 	char	*str;
 	int		quotes;
 	int		is_pipe;
-	int		ret_redirection;
+	int		ret_redirect;
 
-	str = NULL;
-	quotes = 0;
-	is_pipe = 0;
-	ret_redirection = 0;
+	init_parser(&str, &quotes, &is_pipe, &ret_redirect);
 	while (*line)
 	{
 		quotes = count_quotes(*line, quotes);
-		ret_redirection = parse_redirection(cmd_list, &line, &str);
-		if (ret_redirection == -1)
+		ret_redirect = parse_redirection(cmd_list, &line, &str);
+		if (ret_redirect == -1)
 			return (0);
-		else if (ret_redirection == 1)
+		else if (ret_redirect == 1)
 			continue ;
 		is_pipe = parse_pipe(cmd_list, is_pipe, *line, &str);
 		if (is_pipe == -1)
 			return (0);
 		line++;
 	}
-	if (str)
-	{
-		if (!add_element_node(cmd_list, TYPE_WORD, &str))
-			return (0);
-	}
-	else
-	{
-		if (is_pipe)
-		{
-			exit_error("syntax error: pipe");
-			return (0);
-		}
-	}
-	if (quotes != 0)
-	{
-		exit_error("syntax error: unclosed quotes");
+	if (str && !add_element_node(cmd_list, TYPE_WORD, &str))
 		return (0);
-	}
+	if (!check_syntax_error(str, is_pipe, quotes))
+		return (0);
 	return (*cmd_list);
 }

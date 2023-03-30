@@ -6,7 +6,7 @@
 /*   By: soulee <soulee@studnet.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/27 01:06:31 by soulee            #+#    #+#             */
-/*   Updated: 2023/03/28 20:43:53 by soulee           ###   ########.fr       */
+/*   Updated: 2023/03/30 21:43:46 by soulee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,4 +69,27 @@ char	**convert_args_lst(t_cmd_list *arg_list)
 	args[i] = NULL;
 	clear_cmd_list(&temp);
 	return (args);
+}
+
+int	check_syntax_error(char *str, int is_pipe, int quotes)
+{
+	if (!str && is_pipe)
+	{
+		exit_error("syntax error: pipe");
+		return (0);
+	}
+	if (quotes != 0)
+	{
+		exit_error("syntax error: unclosed quotes");
+		return (0);
+	}
+	return (1);
+}
+
+void	init_parser(char **str, int *quotes, int *is_pipe, int *ret_redirect)
+{
+	*str = NULL;
+	*quotes = 0;
+	*is_pipe = 0;
+	*ret_redirect = 0;
 }
