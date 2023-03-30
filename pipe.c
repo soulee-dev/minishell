@@ -6,7 +6,7 @@
 /*   By: subcho <subcho@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/23 21:07:21 by subcho            #+#    #+#             */
-/*   Updated: 2023/03/30 22:44:34 by subcho           ###   ########.fr       */
+/*   Updated: 2023/03/30 22:49:18 by subcho           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -122,7 +122,8 @@ int	execute_main(t_cmd_list *cmd_list, t_env_list *env_list, int pipe_cnt)
 	redirect_std(exe_list->std);
 	free(exe_list);
 	exe_list = 0;
-	return (get_status(status));
+	g_exit_code = get_status(status);
+	return (g_exit_code);
 }
 
 int	get_status(int pid)
