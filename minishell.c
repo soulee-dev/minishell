@@ -60,7 +60,6 @@ int	main(int argc, char *argv[], char **envp)
 			cmd_list = parse_line(&cmd_list, line);
 			if (!cmd_list)
 			{
-				iter_node(cmd_list);
 				clear_cmd_list(&cmd_list);
 				continue ;
 			}
@@ -70,7 +69,6 @@ int	main(int argc, char *argv[], char **envp)
 					count_cmd_list_node(cmd_list, TYPE_PIPE) + 1);
 			clear_cmd_list(&cmd_list);
 		}
-		free(line);
-		line = NULL;
+		line = ft_free_str(line);
 	}
 }
