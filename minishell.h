@@ -73,11 +73,11 @@ void					parse_dollar_sign(t_cmd_list *cmd_list,
 // parser_utils.c
 int						count_quotes(const char c, int quotes);
 char					*parse_redirection_in(t_cmd_list **cmd_list, char *str);
-char	*parse_redirection_out(t_cmd_list **cmd_list,
+char					*parse_redirection_out(t_cmd_list **cmd_list,
 							char *str);
-void					add_element_node(t_cmd_list **cmd_list, int cmd_type,
-							char **str);
-void	parse_dollar_sign_loop(t_cmd_list *cmd_list,
+int						add_element_node(t_cmd_list **cmd_list,
+							int cmd_type, char **str);
+void					parse_dollar_sign_loop(t_cmd_list *cmd_list,
 							t_env_list *env_list);
 
 // parser_utils2.c
@@ -165,7 +165,7 @@ int						append_file(char *file_name);
 
 // error.c
 void					print_error(char *msg);
-void					exit_error(char *error_message);
+int						exit_error(char *error_message);
 
 // builtins1.c
 void					command_pwd(void);
@@ -175,8 +175,8 @@ void					command_echo(const char **s, int no_newline);
 
 // builtins2.c
 void					command_env(t_env_list *env_list);
-void	command_export(t_env_list *env_list,
-					const char **command);
+void					command_export(t_env_list *env_list,
+							const char **command);
 void					command_unset(t_env_list *env_list, const char *key);
 
 // builtin_utils.c
