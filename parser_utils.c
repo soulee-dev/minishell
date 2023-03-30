@@ -23,7 +23,7 @@ void	add_element_node(t_cmd_list **cmd_list, int cmd_type, char **str)
 	}
 	if (!*str)
 		exit_error("syntax error");
-	if (str && *str && !is_str_all_blank(*str))
+	if (!is_str_all_blank(*str))
 	{
 		cmd = ft_strdup(*str);
 		add_cmd_node_back(cmd_list, create_new_cmd_node(cmd_type, cmd, 0));
