@@ -72,7 +72,8 @@ void	parse_quotes(t_cmd_list *cmd_list)
 			{
 				if (!quotes)
 				{
-					add_cmd_node_back(&arg_list, create_new_cmd_node(0, ft_strdup(str), 0));
+					if (str)
+						add_cmd_node_back(&arg_list, create_new_cmd_node(0, ft_strdup(str), 0));
 					str = ft_free_str(str);
 				}
 			}
@@ -97,10 +98,8 @@ void	parse_quotes(t_cmd_list *cmd_list)
 			}
 		}
 		if (str)
-		{
 			add_cmd_node_back(&arg_list, create_new_cmd_node(0, ft_strdup(str), 0));
-			str = ft_free_str(str);
-		}
+		str = ft_free_str(str);
 		cmd_list->args = convert_args_lst(arg_list);
 		cmd_list = cmd_list->next;
 	}
