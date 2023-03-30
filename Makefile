@@ -17,6 +17,7 @@ SRCS += file_control.c
 SRCS += string_utils.c
 SRCS += parser_utils.c
 SRCS += parser_utils2.c
+SRCS += parser_utils3.c
 SRCS += string_utils2.c
 SRCS += string_utils3.c
 SRCS += builtin_utils.c

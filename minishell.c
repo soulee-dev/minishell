@@ -3,7 +3,7 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: subcho <subcho@student.42.fr>              +#+  +:+       +#+        */
+/*   By: soulee <soulee@studnet.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/23 16:24:12 by soulee            #+#    #+#             */
 /*   Updated: 2023/03/30 22:16:14 by subcho           ###   ########.fr       */
@@ -57,10 +57,8 @@ int	main(int argc, char *argv[], char **envp)
 		if (*line != '\0')
 		{
 			add_history(line);
-			cmd_list = parse_line(&cmd_list, line);
-			parse_dollar_sign(cmd_list, env_list);
-			parse_quotes(cmd_list);
-			//iter_node(cmd_list);
+			if (!parser(&cmd_list, &env_list, line))
+				continue ;
 			g_exit_code = execute_main(cmd_list, env_list,
 					count_cmd_list_node(cmd_list, TYPE_PIPE) + 1);
 			clear_cmd_list(&cmd_list);
