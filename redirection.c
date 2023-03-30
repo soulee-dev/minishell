@@ -6,7 +6,7 @@
 /*   By: subcho <subcho@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/05 22:12:15 by subcho            #+#    #+#             */
-/*   Updated: 2023/03/30 20:30:52 by subcho           ###   ########.fr       */
+/*   Updated: 2023/03/30 20:41:54 by subcho           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,9 +30,7 @@ int	redirect_pipe(t_exe_list *exe_list)
 		exe_list->cmd_list = exe_list->cmd_list->next;
 	if (exe_list->fd_in >= STDIN_FILENO)
 		dup2(exe_list->fd_in, STDIN_FILENO);
-	if (!exe_list->pipe_cnt)
-		exe_list->fd_out = dup2(exe_list->std[1], STDOUT_FILENO);
-	else if (exe_list->fd_out >= STDOUT_FILENO)
+	if (exe_list->fd_out >= STDOUT_FILENO)
 		dup2(exe_list->fd_out, STDOUT_FILENO);
 	return (fd);
 }
