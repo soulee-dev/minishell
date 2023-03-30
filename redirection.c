@@ -6,7 +6,7 @@
 /*   By: subcho <subcho@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/05 22:12:15 by subcho            #+#    #+#             */
-/*   Updated: 2023/03/30 20:41:54 by subcho           ###   ########.fr       */
+/*   Updated: 2023/03/30 22:07:47 by subcho           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,8 @@ int	redirect_pipe(t_exe_list *exe_list)
 {
 	int	fd;
 
+	exe_list->fd_in = STDIN_FILENO;
+	exe_list->fd_out = STDOUT_FILENO;
 	while (exe_list->cmd_list && exe_list->cmd_list->cmd_type != TYPE_PIPE)
 	{
 		if (exe_list->cmd_list->cmd_type != TYPE_WORD && fd != -1)

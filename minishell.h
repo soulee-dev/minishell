@@ -6,7 +6,7 @@
 /*   By: subcho <subcho@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/23 16:41:30 by soulee            #+#    #+#             */
-/*   Updated: 2023/03/30 20:04:45 by subcho           ###   ########.fr       */
+/*   Updated: 2023/03/30 21:57:23 by subcho           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -144,7 +144,8 @@ t_exe_list				*set_exe_list(t_cmd_list *cmd_list,
 // pipe_utils.c
 char					**get_path(char **envp);
 char					*get_cmd(char **path, char *cmd);
-int						is_builtin(const char **command, t_env_list *env_list);
+int						is_builtin1(t_exe_list *t_exe_list, char **cmd_args);
+int						is_builtin2(t_exe_list *t_exe_list, char **cmd_args);
 int						get_echo_n_cnt(const char **command);
 
 // here_doc.c
