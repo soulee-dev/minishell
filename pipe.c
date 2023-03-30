@@ -6,7 +6,7 @@
 /*   By: subcho <subcho@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/23 21:07:21 by subcho            #+#    #+#             */
-/*   Updated: 2023/03/26 22:07:19 by subcho           ###   ########.fr       */
+/*   Updated: 2023/03/30 18:25:21 by subcho           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,12 +32,12 @@ char	**get_pipe_cmd(t_cmd_list *cmd_list)
 }
 
 int	exe_cmd(char **cmd, int pipe_cnt, t_env_list *env_list, char **env_list_str,
-		int fd_out, int fd_in)
+		int fd_in, int fd_out)
 {
 	pid_t	pid;
 	int		pipefd[2];
 
-	if (pipe_cnt && pipe(pipefd) < 0)
+	if (pipe(pipefd) < 0)
 	{
 		print_error(0);
 		return (-1);
@@ -53,15 +53,14 @@ int	exe_cmd(char **cmd, int pipe_cnt, t_env_list *env_list, char **env_list_str,
 			close(pipefd[0]);
 			close(pipefd[1]);
 		}
-		if (fd_out >= 0)
-			dup2(fd_out, STDOUT_FILENO);
+		dup2(fd_out, STDOUT_FILENO);
 		if (!is_builtin((const char **)cmd, env_list))
 			execve(get_cmd(get_path(env_list_str), cmd[0]), cmd, env_list_str);
 		exit(0);
 	}
 	else
 	{
-		waitpid(pid, NULL, 0);
+		//waitpid(pid, NULL, 0);
 		close(pipefd[1]);
 		dup2(pipefd[0], STDIN_FILENO);
 		close(pipefd[0]);
@@ -69,39 +68,59 @@ int	exe_cmd(char **cmd, int pipe_cnt, t_env_list *env_list, char **env_list_str,
 	return (pid);
 }
 
-int	execute(t_cmd_list *cmd_list, t_env_list *env_list, int pipe_cnt)
+void	set_fd(int *fd_in, int *fd_out, int *std, int pipe_cnt)
 {
-	int		*std;
+	if (pipe_cnt)
+	{
+		*fd_in = STDIN_FILENO;
+		*fd_out = STDOUT_FILENO;
+	}
+	else
+	{
+		*fd_out = dup2(std[1], STDOUT_FILENO);
+		//dup2(*fd_out, STDOUT_FILENO);
+	}
+}
+
+int	execute_pipeline(t_cmd_list *cmd_list, t_env_list *env_list, int *std,
+		int pipe_cnt)
+{
 	int		fd_in;
 	int		fd_out;
 	int		status;
 	char	**split_cmd;
-	int		here_doc_cnt;
 	char	**env_list_str;
 
-	std = dup_std();
 	env_list_str = convert_env_list_to_arr(env_list);
-	here_doc_cnt = is_here_doc_exist(&cmd_list, pipe_cnt, env_list);
 	while (--pipe_cnt >= 0)
 	{
-		fd_in = STDIN_FILENO;
-		fd_out = STDOUT_FILENO;
+		set_fd(&fd_in, &fd_out, std, pipe_cnt);
 		split_cmd = get_pipe_cmd(cmd_list);
-		if (!pipe_cnt)
-			fd_out = dup2(std[1], STDOUT_FILENO);
 		if (redirect_pipe(&cmd_list, &fd_in, &fd_out) == -1 && split_cmd)
-			status = exe_cmd(0, pipe_cnt, env_list, env_list_str, fd_out,
-					fd_in);
+			status = exe_cmd(0, pipe_cnt, env_list, env_list_str, fd_in,
+					fd_out);
 		else if (!split_cmd)
 			continue ;
 		else if (pipe_cnt || (!pipe_cnt && !is_builtin((const char **)split_cmd,
 						env_list)))
-			status = exe_cmd(split_cmd, pipe_cnt, env_list, env_list_str,
-					fd_out, fd_in);
+			status = exe_cmd(split_cmd, pipe_cnt, env_list, env_list_str, fd_in,
+					fd_out);
 		split_cmd = ft_free_strs(split_cmd);
 	}
-	delete_here_doc(here_doc_cnt);
 	env_list_str = ft_free_strs(env_list_str);
+	return (status);
+}
+
+int	execute_main(t_cmd_list *cmd_list, t_env_list *env_list, int pipe_cnt)
+{
+	int	*std;
+	int	status;
+	int	here_doc_cnt;
+
+	std = dup_std();
+	here_doc_cnt = is_here_doc_exist(&cmd_list, pipe_cnt, env_list);
+	status = execute_pipeline(cmd_list, env_list, std, pipe_cnt);
+	delete_here_doc(here_doc_cnt);
 	redirect_std(std);
 	return (get_status(status));
 }

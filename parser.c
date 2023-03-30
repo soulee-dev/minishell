@@ -3,7 +3,7 @@
 /*                                                        :::      ::::::::   */
 /*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: soulee <soulee@student.42seoul.kr>         +#+  +:+       +#+        */
+/*   By: subcho <subcho@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/23 21:48:04 by soulee            #+#    #+#             */
 /*   Updated: 2023/03/29 23:12:14 by soulee           ###   ########.fr       */
@@ -118,9 +118,9 @@ void	parse_dollar_sign(t_cmd_list *cmd_list, t_env_list *env_list)
 
 t_cmd_list	*parse_line(t_cmd_list **cmd_list, char *line)
 {
-	char		*str;
-	int			quotes;
-	int			is_pipe;
+	char	*str;
+	int		quotes;
+	int		is_pipe;
 
 	str = NULL;
 	quotes = 0;
