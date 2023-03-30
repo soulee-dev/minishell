@@ -6,7 +6,7 @@
 /*   By: subcho <subcho@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/23 16:24:12 by soulee            #+#    #+#             */
-/*   Updated: 2023/03/30 20:50:16 by subcho           ###   ########.fr       */
+/*   Updated: 2023/03/30 22:13:05 by subcho           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,6 @@ int	main(int argc, char *argv[], char **envp)
 			clear_cmd_list(&cmd_list);
 			ft_printf("code : %d\n", g_exit_code);
 		}
-		free(line);
-		line = NULL;
+		line = ft_free_str(line);
 	}
 }
