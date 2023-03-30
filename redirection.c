@@ -6,55 +6,51 @@
 /*   By: subcho <subcho@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/05 22:12:15 by subcho            #+#    #+#             */
-/*   Updated: 2023/03/27 20:37:26 by subcho           ###   ########.fr       */
+/*   Updated: 2023/03/30 20:05:23 by subcho           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	redirect_pipe(t_cmd_list **cmd_list, int *fd_in, int *fd_out)
+int	redirect_pipe(t_exe_list *exe_list)
 {
 	int	fd;
 
-	while (*cmd_list && (*cmd_list)->cmd_type != TYPE_PIPE)
+	exe_list->fd_in = STDIN_FILENO;
+	exe_list->fd_out = STDOUT_FILENO;
+	while (exe_list->cmd_list && exe_list->cmd_list->cmd_type != TYPE_PIPE)
 	{
-		if ((*cmd_list)->cmd_type != TYPE_WORD && fd != -1)
-			fd = redirect_fd((*cmd_list)->cmd_type, (*cmd_list)->cmd, fd_in,
-					fd_out);
-		if ((*cmd_list)->next)
-			*cmd_list = (*cmd_list)->next;
+		if (exe_list->cmd_list->cmd_type != TYPE_WORD && fd != -1)
+			fd = redirect_fd(exe_list->cmd_list->cmd_type,
+					exe_list->cmd_list->cmd, exe_list);
+		if (exe_list->cmd_list->next)
+			exe_list->cmd_list = exe_list->cmd_list->next;
 		else
 			break ;
 	}
-	if (*cmd_list && (*cmd_list)->cmd_type == TYPE_PIPE)
-		*cmd_list = (*cmd_list)->next;
+	if (exe_list->cmd_list && exe_list->cmd_list->cmd_type == TYPE_PIPE)
+		exe_list->cmd_list = exe_list->cmd_list->next;
+	if (exe_list->fd_in >= STDIN_FILENO)
+		dup2(exe_list->fd_in, STDIN_FILENO);
+	if (!exe_list->pipe_cnt)
+		exe_list->fd_out = dup2(exe_list->std[1], STDOUT_FILENO);
+	else if (exe_list->fd_out >= STDOUT_FILENO)
+		dup2(exe_list->fd_out, STDOUT_FILENO);
 	return (fd);
 }
 
-int	redirect_fd(int type, char *file_name, int *fd_in, int *fd_out)
+int	redirect_fd(int type, char *file_name, t_exe_list *exe_list)
 {
 	int		fd;
 	char	**split_file_name;
 
 	split_file_name = ft_split(file_name, ' ');
 	if (type == TYPE_REDIRECT_INPUT)
-	{
-		fd = open_file(split_file_name[0]);
-		dup2(fd, STDIN_FILENO);
-		*fd_in = fd;
-	}
+		exe_list->fd_in = open_file(split_file_name[0]);
 	else if (type == TYPE_REDIRECT_OUTPUT)
-	{
-		fd = create_file(split_file_name[0]);
-		dup2(fd, STDOUT_FILENO);
-		*fd_out = fd;
-	}
+		exe_list->fd_out = create_file(split_file_name[0]);
 	else if (type == TYPE_REDIRECT_APPEND)
-	{
-		fd = append_file(split_file_name[0]);
-		dup2(fd, STDOUT_FILENO);
-		*fd_out = fd;
-	}
+		exe_list->fd_out = append_file(split_file_name[0]);
 	ft_free_strs(split_file_name);
 	return (fd);
 }
@@ -74,4 +70,5 @@ void	redirect_std(int *std)
 	dup2(std[0], STDIN_FILENO);
 	dup2(std[1], STDOUT_FILENO);
 	free(std);
+	std = 0;
 }
