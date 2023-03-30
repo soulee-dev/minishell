@@ -31,7 +31,7 @@ int	parse_pipe(t_cmd_list **cmd_list, int is_pipe, char c, char **str)
 {
 	if (c == '|')
 	{
-		if (str)
+		if (str && *str)
 			add_element_node(cmd_list, TYPE_WORD, str);
 		if (is_pipe)
 			printf("pipe error");
