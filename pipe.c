@@ -6,7 +6,7 @@
 /*   By: subcho <subcho@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/23 21:07:21 by subcho            #+#    #+#             */
-/*   Updated: 2023/03/30 20:42:07 by subcho           ###   ########.fr       */
+/*   Updated: 2023/03/30 20:48:05 by subcho           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -135,5 +135,5 @@ int	get_status(int pid)
 		if (pid == last_pid)
 			status = temp;
 	}
-	return (status << 8);
+	return (WEXITSTATUS(status));
 }
