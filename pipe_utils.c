@@ -6,7 +6,7 @@
 /*   By: subcho <subcho@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/23 21:10:01 by subcho            #+#    #+#             */
-/*   Updated: 2023/03/30 20:39:19 by subcho           ###   ########.fr       */
+/*   Updated: 2023/03/30 22:05:00 by subcho           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,44 +60,55 @@ int	get_echo_n_cnt(const char **command)
 	return (i);
 }
 
-int	is_builtin(const char **command, t_env_list *env_list)
+int	is_builtin1(t_exe_list *t_exe_list, char **cmd_args)
 {
-	if (!ft_strcmp(command[0], "echo"))
+	const char	**cmd;
+
+	cmd = (const char **)cmd_args;
+	if (!ft_strcmp(cmd[0], "echo"))
 	{
-		if (command[1] && !ft_strcmp(command[1], "-n"))
-			command_echo(command + get_echo_n_cnt(command), 1);
+		if (cmd[1] && !ft_strcmp(cmd[1], "-n"))
+			command_echo(cmd + get_echo_n_cnt(cmd), 1);
 		else
-			command_echo(command + 1, 0);
+			command_echo(cmd + 1, 0);
 		return (1);
 	}
-	if (!ft_strcmp(command[0], "cd"))
+	if (!ft_strcmp(cmd[0], "cd"))
 	{
-		command_cd(command[1]);
+		command_cd(cmd[1]);
 		return (1);
 	}
-	if (!ft_strcmp(command[0], "unset"))
+	if (!ft_strcmp(cmd[0], "unset"))
 	{
-		command_unset(env_list, command[1]);
+		command_unset(t_exe_list->env_list, cmd[1]);
 		return (1);
 	}
-	if (!ft_strcmp(command[0], "exit"))
+	return (0);
+}
+
+int	is_builtin2(t_exe_list *t_exe_list, char **cmd_args)
+{
+	const char	**cmd;
+
+	cmd = (const char **)cmd_args;
+	if (!ft_strcmp(cmd[0], "exit"))
 	{
-		command_exit(command[1]);
+		command_exit(cmd[1]);
 		return (1);
 	}
-	if (!ft_strcmp(command[0], "pwd"))
+	if (!ft_strcmp(cmd[0], "pwd"))
 	{
 		command_pwd();
 		return (1);
 	}
-	if (!ft_strcmp(command[0], "export"))
+	if (!ft_strcmp(cmd[0], "export"))
 	{
-		command_export(env_list, command);
+		command_export(t_exe_list->env_list, cmd);
 		return (1);
 	}
-	if (!ft_strcmp(command[0], "env"))
+	if (!ft_strcmp(cmd[0], "env"))
 	{
-		command_env(env_list);
+		command_env(t_exe_list->env_list);
 		return (1);
 	}
 	return (0);
