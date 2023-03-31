@@ -6,7 +6,7 @@
 /*   By: soulee <soulee@studnet.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/30 21:53:35 by soulee            #+#    #+#             */
-/*   Updated: 2023/03/31 17:43:20 by soulee           ###   ########.fr       */
+/*   Updated: 2023/03/31 17:47:18 by soulee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,6 @@ int	check_ambigous_redirect(t_cmd_list *cmd_list)
 {
 	while (cmd_list)
 	{
-		// if (!(*cmd_list->args)
-		// 	&& cmd_list->cmd_type == TYPE_WORD)
 		if (!(*cmd_list->args)
 			&& (
 				cmd_list->cmd_type != TYPE_PIPE
