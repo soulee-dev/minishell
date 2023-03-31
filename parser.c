@@ -6,7 +6,7 @@
 /*   By: soulee <soulee@studnet.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/23 21:48:04 by soulee            #+#    #+#             */
-/*   Updated: 2023/03/31 18:46:38 by soulee           ###   ########.fr       */
+/*   Updated: 2023/03/31 22:13:03 by soulee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -132,33 +132,27 @@ void	parse_dollar_sign(t_cmd_list *cmd_list, t_env_list *env_list)
 
 t_cmd_list	*parse_line(t_cmd_list **cmd_list, char *line)
 {
-	char	*str;
-	int		quotes;
-	int		is_pipe;
-	int		ret_redirect;
+	int					is_pipe;
+	t_parse_env_lst		parse_env_lst;
+	int					ret_parser;
 
-	init_parser(&str, &quotes, &is_pipe, &ret_redirect);
+	parse_env_lst.quotes = 0;
+	parse_env_lst.str = NULL;
+	is_pipe = 0;
 	while (*line)
 	{
-		quotes = count_quotes(*line, quotes);
-		if (!quotes)
-		{
-			ret_redirect = parse_redirection(cmd_list, &line, &str);
-			if (ret_redirect == -1)
-				return (0);
-			else if (ret_redirect == 1)
-				continue ;
-			is_pipe = parse_pipe(cmd_list, is_pipe, *line, &str);
-			if (is_pipe == -1)
-				return (0);
-		}
-		else
-			str = ft_strjoin_char(str, *line);
+		ret_parser = parse_line_loop(*cmd_list,
+				&parse_env_lst, &line, &is_pipe);
+		if (ret_parser == -1)
+			return (0);
+		else if (ret_parser == 0)
+			continue ;
 		line++;
 	}
-	if (str && !add_element_node(cmd_list, TYPE_WORD, &str))
+	if (parse_env_lst.str
+		&& !add_element_node(cmd_list, TYPE_WORD, &parse_env_lst.str))
 		return (0);
-	if (!check_syntax_error(str, is_pipe, quotes))
+	if (!check_syntax_error(parse_env_lst.str, is_pipe, parse_env_lst.quotes))
 		return (0);
 	return (*cmd_list);
 }

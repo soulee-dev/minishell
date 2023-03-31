@@ -6,7 +6,7 @@
 /*   By: soulee <soulee@studnet.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/27 01:06:31 by soulee            #+#    #+#             */
-/*   Updated: 2023/03/31 16:38:28 by soulee           ###   ########.fr       */
+/*   Updated: 2023/03/31 22:04:04 by soulee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,10 +86,9 @@ int	check_syntax_error(char *str, int is_pipe, int quotes)
 	return (1);
 }
 
-void	init_parser(char **str, int *quotes, int *is_pipe, int *ret_redirect)
-{
-	*str = NULL;
-	*quotes = 0;
-	*is_pipe = 0;
-	*ret_redirect = 0;
-}
+// void	init_parser(char **str, int *quotes, int *is_pipe)
+// {
+// 	*str = NULL;
+// 	*quotes = 0;
+// 	*is_pipe = 0;
+// }
