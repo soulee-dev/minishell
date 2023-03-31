@@ -6,7 +6,7 @@
 /*   By: soulee <soulee@studnet.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/30 21:53:35 by soulee            #+#    #+#             */
-/*   Updated: 2023/03/31 22:13:21 by soulee           ###   ########.fr       */
+/*   Updated: 2023/03/31 22:48:48 by soulee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ int	parser(t_cmd_list **cmd_list, t_env_list **env_list, char *line)
 	return (1);
 }
 
-int	parse_line_loop(t_cmd_list *cmd_list, t_parse_env_lst *parse_env_lst,
+int	parse_line_loop(t_cmd_list **cmd_list, t_parse_env_lst *parse_env_lst,
 		char **line, int *is_pipe)
 {
 	int		ret_redirect;
@@ -68,13 +68,13 @@ int	parse_line_loop(t_cmd_list *cmd_list, t_parse_env_lst *parse_env_lst,
 	if (!parse_env_lst->quotes)
 	{
 		ret_redirect = parse_redirection(
-				&cmd_list, line, &(parse_env_lst->str));
+				cmd_list, line, &(parse_env_lst->str));
 		if (ret_redirect == -1)
 			return (-1);
 		else if (ret_redirect == 1)
 			return (0);
 		*is_pipe = parse_pipe(
-				&cmd_list, *is_pipe, **line, &(parse_env_lst->str));
+				cmd_list, *is_pipe, **line, &(parse_env_lst->str));
 		if (*is_pipe == -1)
 			return (-1);
 	}
