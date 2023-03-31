@@ -6,7 +6,7 @@
 /*   By: soulee <soulee@studnet.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/23 16:41:30 by soulee            #+#    #+#             */
-/*   Updated: 2023/03/31 22:14:29 by soulee           ###   ########.fr       */
+/*   Updated: 2023/03/31 22:16:17 by soulee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,6 +71,10 @@ typedef struct s_parse_env_lst
 int						g_exit_code;
 
 // parser.c
+int						parse_redirection(t_cmd_list **cmd_list,
+							char **line, char **str);
+int						parse_pipe(t_cmd_list **cmd_list,
+							int is_pipe, char c, char **str);
 t_cmd_list				*parse_line(t_cmd_list **cmd_list, char *line);
 void					parse_quotes(t_cmd_list *cmd_list);
 void					parse_dollar_sign(t_cmd_list *cmd_list,
