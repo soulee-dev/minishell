@@ -6,7 +6,7 @@
 /*   By: soulee <soulee@studnet.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/23 16:24:12 by soulee            #+#    #+#             */
-/*   Updated: 2023/03/31 21:28:24 by soulee           ###   ########.fr       */
+/*   Updated: 2023/03/31 22:41:41 by soulee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,6 +73,7 @@ int	main(int argc, char *argv[], char **envp)
 			add_history(line);
 			if (!parser(&cmd_list, &env_list, line))
 				continue ;
+			iter_node(cmd_list);
 			g_exit_code = execute_main(cmd_list, env_list,
 					count_cmd_list_node(cmd_list, TYPE_PIPE) + 1);
 			clear_cmd_list(&cmd_list);

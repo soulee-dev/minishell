@@ -6,7 +6,7 @@
 /*   By: soulee <soulee@studnet.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/23 16:41:30 by soulee            #+#    #+#             */
-/*   Updated: 2023/03/31 22:16:17 by soulee           ###   ########.fr       */
+/*   Updated: 2023/03/31 22:48:54 by soulee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,7 +103,7 @@ void					init_parser(char **str, int *quotes,
 // parser_utils3.c
 int						parser(t_cmd_list **cmd_list,
 							t_env_list **env_list, char *line);
-int						parse_line_loop(t_cmd_list *cmd_list,
+int						parse_line_loop(t_cmd_list **cmd_list,
 							t_parse_env_lst *parse_env_lst,
 							char **line, int *is_pipe);
 
