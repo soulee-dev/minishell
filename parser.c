@@ -6,7 +6,7 @@
 /*   By: soulee <soulee@studnet.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/23 21:48:04 by soulee            #+#    #+#             */
-/*   Updated: 2023/03/31 17:30:51 by soulee           ###   ########.fr       */
+/*   Updated: 2023/03/31 17:44:22 by soulee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,6 +106,8 @@ void	parse_quotes(t_cmd_list *cmd_list)
 			add_cmd_node_back(&arg_list, create_new_cmd_node(0, ft_strdup(str), 0));
 		str = ft_free_str(str);
 		cmd_list->args = convert_args_lst(arg_list);
+		free(cmd_list->cmd);
+		cmd_list->cmd = ft_strdup(cmd_list->args[0]);
 		cmd_list = cmd_list->next;
 	}
 }
