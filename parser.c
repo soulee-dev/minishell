@@ -6,7 +6,7 @@
 /*   By: soulee <soulee@studnet.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/23 21:48:04 by soulee            #+#    #+#             */
-/*   Updated: 2023/03/30 21:44:41 by soulee           ###   ########.fr       */
+/*   Updated: 2023/03/31 16:20:57 by soulee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,11 +70,6 @@ void	parse_quotes(t_cmd_list *cmd_list)
 
 	while (cmd_list)
 	{
-		if (cmd_list->cmd_type != TYPE_WORD)
-		{
-			cmd_list = cmd_list->next;
-			continue ;
-		}
 		i = -1;
 		str = 0;
 		quotes = 0;
@@ -136,14 +131,19 @@ t_cmd_list	*parse_line(t_cmd_list **cmd_list, char *line)
 	while (*line)
 	{
 		quotes = count_quotes(*line, quotes);
-		ret_redirect = parse_redirection(cmd_list, &line, &str);
-		if (ret_redirect == -1)
-			return (0);
-		else if (ret_redirect == 1)
-			continue ;
-		is_pipe = parse_pipe(cmd_list, is_pipe, *line, &str);
-		if (is_pipe == -1)
-			return (0);
+		if (!quotes)
+		{
+			ret_redirect = parse_redirection(cmd_list, &line, &str);
+			if (ret_redirect == -1)
+				return (0);
+			else if (ret_redirect == 1)
+				continue ;
+			is_pipe = parse_pipe(cmd_list, is_pipe, *line, &str);
+			if (is_pipe == -1)
+				return (0);
+		}
+		else
+			str = ft_strjoin_char(str, *line);
 		line++;
 	}
 	if (str && !add_element_node(cmd_list, TYPE_WORD, &str))
