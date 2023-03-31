@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   signal.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: soulee <soulee@student.42seoul.kr>         +#+  +:+       +#+        */
+/*   By: soulee <soulee@studnet.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/29 22:49:34 by soulee            #+#    #+#             */
-/*   Updated: 2023/03/29 23:04:32 by soulee           ###   ########.fr       */
+/*   Updated: 2023/03/31 19:46:11 by soulee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,12 +37,12 @@ void	set_signal(int sig_int, int sig_quit)
 		signal(SIGINT, SIG_IGN);
 	if (sig_int == DEFAULT)
 		signal(SIGINT, SIG_DFL);
-	if (sig_int == SHE)
+	if (sig_int == SHELL)
 		signal(SIGINT, handle_signal);
 	if (sig_quit == IGNORE)
 		signal(SIGQUIT, SIG_IGN);
 	if (sig_quit == DEFAULT)
 		signal(SIGQUIT, SIG_DFL);
-	if (sig_quit == SHE)
+	if (sig_quit == SHELL)
 		signla(SIGQUIT, handle_signal);
 }
