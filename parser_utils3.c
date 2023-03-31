@@ -6,7 +6,7 @@
 /*   By: soulee <soulee@studnet.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/30 21:53:35 by soulee            #+#    #+#             */
-/*   Updated: 2023/03/31 17:47:18 by soulee           ###   ########.fr       */
+/*   Updated: 2023/03/31 19:32:33 by soulee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,14 +14,28 @@
 
 int	check_ambigous_redirect(t_cmd_list *cmd_list)
 {
+	char	**args;
+
 	while (cmd_list)
 	{
-		if (!(*cmd_list->args)
-			&& (
-				cmd_list->cmd_type != TYPE_PIPE
-				&& cmd_list->cmd_type != TYPE_WORD
-			))
-			return (exit_error("ambiguous redirect"));
+		if (!(*cmd_list->args))
+		{
+			if (cmd_list->cmd_type == TYPE_WORD)
+			{
+				args = malloc(sizeof(char *) * 2);
+				if (!args)
+					return (exit_error("malloc error"));
+				if (cmd_list->args)
+					ft_free_strs(cmd_list->args);
+				args[0] = ft_strdup("");
+				args[1] = 0;
+				cmd_list->args = args;
+				cmd_list->cmd = ft_strdup(args[0]);
+			}
+			if (cmd_list->cmd_type != TYPE_PIPE
+				&& cmd_list->cmd_type != TYPE_WORD)
+				return (exit_error("ambiguous redirect"));
+		}
 		cmd_list = cmd_list->next;
 	}
 	return (1);
