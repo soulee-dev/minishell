@@ -6,7 +6,7 @@
 /*   By: subcho <subcho@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/07 19:37:33 by subcho            #+#    #+#             */
-/*   Updated: 2023/03/26 23:20:07 by subcho           ###   ########.fr       */
+/*   Updated: 2023/03/31 22:06:37 by subcho           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@ char	*create_here_doc_file(int count, char *delimiter, char *here_doc_org,
 	read_here_doc(fd, delimiter, env_list);
 	close(fd);
 	free(cnt_str);
+	free(delimiter);
 	return (here_doc_str);
 }
 
@@ -97,6 +98,7 @@ void	read_here_doc(int fd, char *delimiter, t_env_list *env_list)
 		free(line);
 		line = NULL;
 	}
+	free(line);
 	split_delimiter = ft_free_strs(split_delimiter);
 }
 
