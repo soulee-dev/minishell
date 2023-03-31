@@ -6,7 +6,7 @@
 /*   By: soulee <soulee@studnet.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/23 21:48:04 by soulee            #+#    #+#             */
-/*   Updated: 2023/03/31 17:44:22 by soulee           ###   ########.fr       */
+/*   Updated: 2023/03/31 18:46:38 by soulee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,6 +67,7 @@ void	parse_quotes(t_cmd_list *cmd_list)
 	char		*str;
 	int			quotes;
 	t_cmd_list	*arg_list;
+	int			flag;
 
 	while (cmd_list)
 	{
@@ -74,8 +75,10 @@ void	parse_quotes(t_cmd_list *cmd_list)
 		str = 0;
 		quotes = 0;
 		arg_list = 0;
+
 		while (++i < ft_strlen(cmd_list->cmd))
 		{
+			flag = 0;
 			quotes = count_quotes(cmd_list->cmd[i], quotes);
 			if (is_whitespace(cmd_list->cmd[i]) && !quotes && str)
 			{
@@ -97,8 +100,12 @@ void	parse_quotes(t_cmd_list *cmd_list)
 					while (cmd_list->cmd[i]
 						&& !is_whitespace(cmd_list->cmd[i])
 						&& !count_quotes(cmd_list->cmd[i], quotes))
+					{
 						str = ft_strjoin_char(str, cmd_list->cmd[i++]);
-					i--;
+						flag = 1;
+					}
+					if (flag)
+						i--;
 				}
 			}
 		}
