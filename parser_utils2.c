@@ -6,7 +6,7 @@
 /*   By: soulee <soulee@studnet.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/27 01:06:31 by soulee            #+#    #+#             */
-/*   Updated: 2023/03/31 23:16:14 by soulee           ###   ########.fr       */
+/*   Updated: 2023/03/31 23:21:50 by soulee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,10 +15,16 @@
 char	*parse_dollar_sign_loop2(t_env_list *env_list, int quotes,
 		char *key, char *str)
 {
+	char	*itoa_code;
+
 	if (quotes != 1)
 	{
 		if (!ft_strcmp(key, "?"))
-			str = ft_strjoin_free(str, ft_itoa(g_exit_code));
+		{
+			itoa_code = ft_itoa(g_exit_code);
+			str = ft_strjoin_free(str, itoa_code);
+			free(itoa_code);
+		}
 		else
 			str = ft_strjoin_free(str, ft_getenv(env_list, key));
 	}
