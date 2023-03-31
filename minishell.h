@@ -6,7 +6,7 @@
 /*   By: soulee <soulee@studnet.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/23 16:41:30 by soulee            #+#    #+#             */
-/*   Updated: 2023/03/31 19:45:57 by soulee           ###   ########.fr       */
+/*   Updated: 2023/03/31 19:47:43 by soulee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -180,6 +180,7 @@ int						append_file(char *file_name);
 // error.c
 void					print_error(char *msg);
 int						exit_error(char *error_message);
+void					cmd_not_found_error(char *cmd);
 
 // builtins1.c
 void					command_pwd(void);

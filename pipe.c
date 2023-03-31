@@ -6,7 +6,7 @@
 /*   By: subcho <subcho@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/23 21:07:21 by subcho            #+#    #+#             */
-/*   Updated: 2023/03/31 19:27:24 by subcho           ###   ########.fr       */
+/*   Updated: 2023/03/31 19:42:56 by subcho           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,12 +19,12 @@ int	exe_cmd(char **cmd, char **env_list_str, t_exe_list *exe_list)
 
 	if (pipe(pipefd) < 0)
 	{
-		print_error("exe_cmd error");
+		print_error(0);
 		return (-1);
 	}
 	pid = fork();
 	if (pid < 0)
-		print_error("pid - error");
+		print_error(0);
 	else if (pid == 0)
 	{
 		close(pipefd[0]);
@@ -63,7 +63,6 @@ int	exe_child(char **env_list_str, char **cmds,
 int	execute_pipeline(t_exe_list *exe_list)
 {
 	int		status;
-	int		redirected;
 	char	**cmd_args;
 	char	**env_list_str;
 
@@ -73,12 +72,8 @@ int	execute_pipeline(t_exe_list *exe_list)
 		if (!exe_list->pipe_cnt)
 			exe_list->fd_out = dup2(exe_list->std[1], STDOUT_FILENO);
 		cmd_args = get_pipe_cmd(exe_list->cmd_list);
-		redirected = redirect_pipe(exe_list);
-		if (redirected >= -1 && !cmd_args)
-		{
+		if (redirect_pipe(exe_list) > -1 && !cmd_args)
 			exe_cmd(0, env_list_str, exe_list);
-			continue ;
-		}
 		else if (exe_list->pipe_cnt || (exe_list->pipe_cnt == 0
 				&& !is_builtin1(exe_list, cmd_args)
 				&& !is_builtin2(exe_list, cmd_args)))
