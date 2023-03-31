@@ -6,30 +6,11 @@
 /*   By: subcho <subcho@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/23 21:07:21 by subcho            #+#    #+#             */
-/*   Updated: 2023/03/30 22:49:18 by subcho           ###   ########.fr       */
+/*   Updated: 2023/03/31 17:30:32 by subcho           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-char	**get_pipe_cmd(t_cmd_list *cmd_list)
-{
-	char	**cmd;
-
-	cmd = 0;
-	while (cmd_list && cmd_list->cmd_type != TYPE_PIPE)
-	{
-		if (cmd_list->cmd_type == TYPE_WORD)
-		{
-			cmd = cmd_list->args;
-			break ;
-		}
-		cmd_list = cmd_list->next;
-	}
-	if (!cmd)
-		return (0);
-	return (cmd);
-}
 
 int	exe_cmd(char **cmd, char **env_list_str, t_exe_list *exe_list)
 {
@@ -49,20 +30,32 @@ int	exe_cmd(char **cmd, char **env_list_str, t_exe_list *exe_list)
 		close(pipefd[0]);
 		if (exe_list->pipe_cnt)
 			dup2(pipefd[1], STDOUT_FILENO);
-		dup2(exe_list->fd_out, STDOUT_FILENO);
-		close(pipefd[1]);
-		if ((!is_builtin1(exe_list, cmd) && !is_builtin2(exe_list, cmd)))
-			execve(get_cmd(get_path(env_list_str), cmd[0]), cmd, env_list_str);
-		exit(0);
+		exe_child(env_list_str, cmd, exe_list, pipefd);
 	}
 	else
 	{
-		//waitpid(pid, NULL, 0);
 		close(pipefd[1]);
 		dup2(pipefd[0], STDIN_FILENO);
 		close(pipefd[0]);
 	}
 	return (pid);
+}
+
+int	exe_child(char **env_list_str, char **cmds,
+			t_exe_list *exe_list, int pipefd[])
+{
+	char	**path;
+	int		exit_code;
+	char	*cmd;
+
+	path = get_path(env_list_str);
+	cmd = get_cmd(path, cmds[0]);
+	dup2(exe_list->fd_out, STDOUT_FILENO);
+	close(pipefd[1]);
+	if ((!is_builtin1(exe_list, cmds) && !is_builtin2(exe_list, cmds)))
+		g_exit_code = execve(cmd, cmds, env_list_str);
+	g_exit_code = 126;
+	exit(126);
 }
 
 int	execute_pipeline(t_exe_list *exe_list)
@@ -94,21 +87,6 @@ int	execute_pipeline(t_exe_list *exe_list)
 	return (status);
 }
 
-t_exe_list	*set_exe_list(t_cmd_list *cmd_list, t_env_list *env_list,
-		int pipe_cnt)
-{
-	t_exe_list	*exe_list;
-
-	exe_list = malloc(sizeof(t_exe_list));
-	exe_list->cmd_list = cmd_list;
-	exe_list->env_list = env_list;
-	exe_list->pipe_cnt = pipe_cnt;
-	exe_list->std = dup_std();
-	exe_list->fd_in = STDIN_FILENO;
-	exe_list->fd_out = STDOUT_FILENO;
-	return (exe_list);
-}
-
 int	execute_main(t_cmd_list *cmd_list, t_env_list *env_list, int pipe_cnt)
 {
 	int			status;
@@ -124,20 +102,4 @@ int	execute_main(t_cmd_list *cmd_list, t_env_list *env_list, int pipe_cnt)
 	exe_list = 0;
 	g_exit_code = get_status(status);
 	return (g_exit_code);
-}
-
-int	get_status(int pid)
-{
-	int	status;
-	int	last_pid;
-	int	temp;
-
-	last_pid = pid;
-	while (pid != -1)
-	{
-		pid = wait(&temp);
-		if (pid == last_pid)
-			status = temp;
-	}
-	return (WEXITSTATUS(status));
 }
