@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipe.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: soulee <soulee@studnet.42seoul.kr>         +#+  +:+       +#+        */
+/*   By: subcho <subcho@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/23 21:07:21 by subcho            #+#    #+#             */
-/*   Updated: 2023/03/31 21:27:21 by soulee           ###   ########.fr       */
+/*   Updated: 2023/03/31 23:05:28 by subcho           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,6 +66,7 @@ int	execute_pipeline(t_exe_list *exe_list)
 {
 	int		status;
 	char	**cmd_args;
+	int		redirection;
 	char	**env_list_str;
 
 	env_list_str = convert_env_list_to_arr(exe_list->env_list);
@@ -74,7 +75,8 @@ int	execute_pipeline(t_exe_list *exe_list)
 		if (!exe_list->pipe_cnt)
 			exe_list->fd_out = dup2(exe_list->std[1], STDOUT_FILENO);
 		cmd_args = get_pipe_cmd(exe_list->cmd_list);
-		if (redirect_pipe(exe_list) > -1 && !cmd_args)
+		redirection = redirect_pipe(exe_list);
+		if (!cmd_args || redirection == -1)
 			exe_cmd(0, env_list_str, exe_list);
 		else if (exe_list->pipe_cnt || (exe_list->pipe_cnt == 0
 				&& !is_builtin1(exe_list, cmd_args)
