@@ -6,7 +6,7 @@
 /*   By: subcho <subcho@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/23 16:41:30 by soulee            #+#    #+#             */
-/*   Updated: 2023/03/31 17:36:15 by subcho           ###   ########.fr       */
+/*   Updated: 2023/03/31 19:40:23 by subcho           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -180,6 +180,7 @@ int						append_file(char *file_name);
 // error.c
 void					print_error(char *msg);
 int						exit_error(char *error_message);
+void					cmd_not_found_error(char *cmd);
 
 // builtins1.c
 void					command_pwd(void);
