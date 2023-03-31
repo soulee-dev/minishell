@@ -6,7 +6,7 @@
 /*   By: soulee <soulee@studnet.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/23 21:48:04 by soulee            #+#    #+#             */
-/*   Updated: 2023/03/31 16:20:57 by soulee           ###   ########.fr       */
+/*   Updated: 2023/03/31 17:30:51 by soulee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,7 +114,8 @@ void	parse_dollar_sign(t_cmd_list *cmd_list, t_env_list *env_list)
 {
 	while (cmd_list)
 	{
-		if (cmd_list->cmd && ft_strchr(cmd_list->cmd, '$'))
+		if (cmd_list->cmd && ft_strchr(cmd_list->cmd, '$')
+			&& cmd_list->cmd_type != TYPE_REDIRECT_HEREDOC)
 			parse_dollar_sign_loop(cmd_list, env_list);
 		cmd_list = cmd_list->next;
 	}
