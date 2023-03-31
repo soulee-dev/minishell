@@ -6,30 +6,11 @@
 /*   By: soulee <soulee@studnet.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/27 01:06:31 by soulee            #+#    #+#             */
-/*   Updated: 2023/03/31 22:04:04 by soulee           ###   ########.fr       */
+/*   Updated: 2023/03/31 23:16:14 by soulee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-char	*parse_quotes_loop(t_cmd_list *cmd_list, int *i, char *str, int *quotes)
-{
-	if (*quotes)
-	{
-		(*i)++;
-		while (cmd_list->cmd[*i]
-			&& count_quotes(cmd_list->cmd[*i], *quotes))
-			str = ft_strjoin_char(str, cmd_list->cmd[(*i)++]);
-		*quotes = 0;
-	}
-	else
-	{
-		while (cmd_list->cmd[*i]
-			&& !count_quotes(cmd_list->cmd[*i], *quotes))
-			str = ft_strjoin_char(str, cmd_list->cmd[(*i)++]);
-	}
-	return (str);
-}
 
 char	*parse_dollar_sign_loop2(t_env_list *env_list, int quotes,
 		char *key, char *str)
@@ -86,9 +67,49 @@ int	check_syntax_error(char *str, int is_pipe, int quotes)
 	return (1);
 }
 
-// void	init_parser(char **str, int *quotes, int *is_pipe)
-// {
-// 	*str = NULL;
-// 	*quotes = 0;
-// 	*is_pipe = 0;
-// }
+void	parse_quotes_loop2(t_cmd_list *cmd_list,
+		int *i, t_parse_env_lst *parse_env_lst)
+{
+	int	flag;
+
+	flag = 0;
+	if (parse_env_lst->quotes)
+	{
+		(*i)++;
+		while (cmd_list->cmd[*i]
+			&& count_quotes(cmd_list->cmd[*i], parse_env_lst->quotes))
+			parse_env_lst->str = ft_strjoin_char(
+					parse_env_lst->str, cmd_list->cmd[(*i)++]);
+		parse_env_lst->quotes = 0;
+	}
+	else
+	{
+		while (cmd_list->cmd[*i]
+			&& !is_whitespace(cmd_list->cmd[*i])
+			&& !count_quotes(cmd_list->cmd[*i], parse_env_lst->quotes))
+		{
+			parse_env_lst->str = ft_strjoin_char(
+					parse_env_lst->str, cmd_list->cmd[(*i)++]);
+			flag = 1;
+		}
+		if (flag)
+			(*i)--;
+	}
+}
+
+void	parse_quotes_loop(t_cmd_list *cmd_list, t_parse_env_lst *parse_env_lst,
+						t_cmd_list **arg_list, int *i)
+{
+	parse_env_lst->quotes = count_quotes(cmd_list->cmd[*i],
+			parse_env_lst->quotes);
+	if (is_whitespace(cmd_list->cmd[*i])
+		&& !parse_env_lst->quotes && parse_env_lst->str)
+	{
+		add_cmd_node_back(arg_list,
+			create_new_cmd_node(0, ft_strdup(parse_env_lst->str), 0));
+		parse_env_lst->str = ft_free_str(parse_env_lst->str);
+	}
+	else
+		parse_quotes_loop2(cmd_list, i, parse_env_lst);
+}
+

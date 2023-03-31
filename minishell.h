@@ -6,7 +6,7 @@
 /*   By: soulee <soulee@studnet.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/23 16:41:30 by soulee            #+#    #+#             */
-/*   Updated: 2023/03/31 22:48:54 by soulee           ###   ########.fr       */
+/*   Updated: 2023/03/31 23:05:17 by soulee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,14 +91,13 @@ void					parse_dollar_sign_loop(t_cmd_list *cmd_list,
 							t_env_list *env_list);
 
 // parser_utils2.c
-char					*parse_quotes_loop(t_cmd_list *cmd_list, int *i,
-							char *str, int *quotes);
+void					parse_quotes_loop(t_cmd_list *cmd_list,
+							t_parse_env_lst *parse_env_lst,
+							t_cmd_list **arg_list, int *i);
 char					*parse_dollar_sign_loop2(t_env_list *env_list,
 							int quotes, char *key, char *str);
 char					**convert_args_lst(t_cmd_list *arg_list);
 int						check_syntax_error(char *str, int is_pipe, int quotes);
-void					init_parser(char **str, int *quotes,
-							int *is_pipe);
 
 // parser_utils3.c
 int						parser(t_cmd_list **cmd_list,
