@@ -27,16 +27,16 @@ SRCS += env_list_utils.c
 
 LIBFT = ./libft/libft.a
 FT_PRINTF = ./ft_printf/libftprintf.a
-LDFLAGS= -L/Users/soulee/.brew/opt/readline/lib
-CPPFLAGS= -I/Users/soulee/.brew/opt/readline/include
+LDFLAGS= -L/Users/${USER}/.brew/opt/readline/lib
+CPPFLAGS= -I/Users/${USER}/.brew/opt/readline/include
 
 OBJS = $(SRCS:.c=.o)
 
 all: $(LIBFT) $(FT_PRINTF) $(NAME)
 
 $(NAME): $(OBJS) $(LIBFT) $(FT_PRINTF)
-	$(CC) -o $@ $^ -Llibft -lft -Lft_printf -lftprintf -lreadline -g3 $(LDFLAGS) $(CPPFLAGS)
-	@echo Mandatory Compile Complete! 🥳
+	${CC} -o $@ $^ -Llibft -lft -Lft_printf -lftprintf -lreadline -g3 ${LDFLAGS} ${CPPFLAGS}
+	@echo Compile Complete! 🥳
 
 $(LIBFT):
 	make -C ./libft bonus
@@ -45,14 +45,14 @@ $(FT_PRINTF):
 	make -C ./ft_printf
 
 clean:
-	rm -f $(OBJS)
+	rm -f ${OBJS}
 	make clean -C ./libft
 	make clean -C ./ft_printf
 
 fclean: clean
 	make fclean -C ./libft
 	make fclean -C ./ft_printf
-	rm -f $(NAME)
+	rm -f ${NAME}
 
 re:
 	make fclean
