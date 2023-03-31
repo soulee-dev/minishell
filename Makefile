@@ -12,6 +12,7 @@ SRCS += builtins1.c
 SRCS += builtins2.c
 SRCS += minishell.c
 SRCS += pipe_utils.c
+SRCS += pipe_utils2.c
 SRCS += redirection.c
 SRCS += file_control.c
 SRCS += string_utils.c
