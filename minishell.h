@@ -6,7 +6,7 @@
 /*   By: soulee <soulee@studnet.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/23 16:41:30 by soulee            #+#    #+#             */
-/*   Updated: 2023/03/31 23:05:17 by soulee           ###   ########.fr       */
+/*   Updated: 2023/03/31 23:45:14 by soulee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -171,7 +171,7 @@ int						is_builtin2(t_exe_list *t_exe_list, char **cmd_args);
 char					**get_pipe_cmd(t_cmd_list *cmd_list);
 t_exe_list				*set_exe_list(t_cmd_list *cmd_list,
 							t_env_list *env_list, int pipe_cnt);
-int						get_status(int pid);
+int						get_status(void);
 
 // here_doc.c
 void					read_here_doc(int fd, char *delimiter,

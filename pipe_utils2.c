@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipe_utils2.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: subcho <subcho@student.42.fr>              +#+  +:+       +#+        */
+/*   By: soulee <soulee@studnet.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/31 17:28:34 by subcho            #+#    #+#             */
-/*   Updated: 2023/03/31 17:30:37 by subcho           ###   ########.fr       */
+/*   Updated: 2023/03/31 23:45:30 by soulee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,21 +46,26 @@ t_exe_list	*set_exe_list(t_cmd_list *cmd_list, t_env_list *env_list,
 	return (exe_list);
 }
 
-int	get_status(int pid)
+int	get_status(void)
 {
+	int	i;
 	int	status;
-	int	last_pid;
-	int	temp;
+	int	sig_no;
 
-	last_pid = pid;
-	while (pid != -1)
+	i = 0;
+	while (wait(&status) != -1)
 	{
-		pid = wait(&temp);
-		if (pid == last_pid)
+		if (WIFSIGNALED(status))
 		{
-			status = temp;
-			g_exit_code = WEXITSTATUS(status);
+			sig_no = WTERMSIG(status);
+			if (sig_no == SIGINT && i++ == 0)
+				ft_putendl_fd("^C", 2);
+			else if (sig_no == SIGQUIT && i++ == 0)
+				ft_putendl_fd("^\\Quit: 3", 2);
+			g_exit_code = 128 + sig_no;
 		}
+		else
+			g_exit_code = WEXITSTATUS(status);
 	}
 	return (g_exit_code);
 }
