@@ -6,7 +6,7 @@
 /*   By: subcho <subcho@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/23 21:10:01 by subcho            #+#    #+#             */
-/*   Updated: 2023/03/30 22:49:24 by subcho           ###   ########.fr       */
+/*   Updated: 2023/03/30 22:58:37 by subcho           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,7 @@ char	*get_cmd(char **path, char *cmd)
 	write(2, ": command not found", 19);
 	write(2, "\n", 1);
 	g_exit_code = 127;
+	exit(127);
 	return (0);
 }
 
