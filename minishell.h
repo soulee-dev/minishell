@@ -6,7 +6,7 @@
 /*   By: soulee <soulee@studnet.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/23 16:41:30 by soulee            #+#    #+#             */
-/*   Updated: 2023/03/31 19:47:43 by soulee           ###   ########.fr       */
+/*   Updated: 2023/03/31 19:54:12 by subcho           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -134,7 +134,7 @@ void					parse_envp(t_env_list **node, char **envp);
 
 // redirection.c
 int						redirect_pipe(t_exe_list *exe_list);
-int						redirect_fd(int type, char **file_name,
+int						redirect_fd(int type, char *file_name,
 							t_exe_list *exe_list);
 int						*dup_std(void);
 void					redirect_std(int *std);
