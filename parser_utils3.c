@@ -6,7 +6,7 @@
 /*   By: soulee <soulee@studnet.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/30 21:53:35 by soulee            #+#    #+#             */
-/*   Updated: 2023/03/31 19:32:33 by soulee           ###   ########.fr       */
+/*   Updated: 2023/03/31 22:13:21 by soulee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,5 +56,29 @@ int	parser(t_cmd_list **cmd_list, t_env_list **env_list, char *line)
 		clear_cmd_list(cmd_list);
 		return (0);
 	}
+	return (1);
+}
+
+int	parse_line_loop(t_cmd_list *cmd_list, t_parse_env_lst *parse_env_lst,
+		char **line, int *is_pipe)
+{
+	int		ret_redirect;
+
+	parse_env_lst->quotes = count_quotes(**line, parse_env_lst->quotes);
+	if (!parse_env_lst->quotes)
+	{
+		ret_redirect = parse_redirection(
+				&cmd_list, line, &(parse_env_lst->str));
+		if (ret_redirect == -1)
+			return (-1);
+		else if (ret_redirect == 1)
+			return (0);
+		*is_pipe = parse_pipe(
+				&cmd_list, *is_pipe, **line, &(parse_env_lst->str));
+		if (*is_pipe == -1)
+			return (-1);
+	}
+	else
+		parse_env_lst->str = ft_strjoin_char(parse_env_lst->str, **line);
 	return (1);
 }
