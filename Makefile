@@ -5,6 +5,7 @@ SRCS :=
 SRCS += pipe.c
 SRCS += error.c
 SRCS += parser.c
+SRCS += signal.c
 SRCS += env_list.c
 SRCS += cmd_list.c
 SRCS += here_doc.c
@@ -26,16 +27,15 @@ SRCS += env_list_utils.c
 
 LIBFT = ./libft/libft.a
 FT_PRINTF = ./ft_printf/libftprintf.a
+LDFLAGS= -L/Users/soulee/.brew/opt/readline/lib
+CPPFLAGS= -I/Users/soulee/.brew/opt/readline/include
 
 OBJS = $(SRCS:.c=.o)
 
 all: $(LIBFT) $(FT_PRINTF) $(NAME)
 
-%.o: %.c
-	$(CC) -c $(CFLAGS) $? -g3
-
 $(NAME): $(OBJS) $(LIBFT) $(FT_PRINTF)
-	$(CC) -o $@ $^ -Llibft -lft -Lft_printf -lftprintf -lreadline -g3
+	$(CC) -o $@ $^ -Llibft -lft -Lft_printf -lftprintf -lreadline -g3 $(LDFLAGS) $(CPPFLAGS)
 	@echo Mandatory Compile Complete! 🥳
 
 $(LIBFT):

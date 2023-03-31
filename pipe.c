@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipe.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: subcho <subcho@student.42.fr>              +#+  +:+       +#+        */
+/*   By: soulee <soulee@studnet.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/23 21:07:21 by subcho            #+#    #+#             */
-/*   Updated: 2023/03/31 19:42:56 by subcho           ###   ########.fr       */
+/*   Updated: 2023/03/31 21:27:21 by soulee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@ int	exe_cmd(char **cmd, char **env_list_str, t_exe_list *exe_list)
 		print_error(0);
 		return (-1);
 	}
+	set_signal(DEFAULT, DEFAULT);
 	pid = fork();
 	if (pid < 0)
 		print_error(0);
@@ -37,6 +38,7 @@ int	exe_cmd(char **cmd, char **env_list_str, t_exe_list *exe_list)
 		close(pipefd[1]);
 		dup2(pipefd[0], STDIN_FILENO);
 		close(pipefd[0]);
+		set_signal(SHELL, IGNORE);
 	}
 	return (pid);
 }

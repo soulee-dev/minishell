@@ -6,7 +6,7 @@
 /*   By: soulee <soulee@studnet.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/29 22:49:34 by soulee            #+#    #+#             */
-/*   Updated: 2023/03/31 19:46:11 by soulee           ###   ########.fr       */
+/*   Updated: 2023/03/31 21:26:13 by soulee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,5 +44,5 @@ void	set_signal(int sig_int, int sig_quit)
 	if (sig_quit == DEFAULT)
 		signal(SIGQUIT, SIG_DFL);
 	if (sig_quit == SHELL)
-		signla(SIGQUIT, handle_signal);
+		signal(SIGQUIT, handle_signal);
 }

@@ -3,16 +3,27 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: subcho <subcho@student.42.fr>              +#+  +:+       +#+        */
+/*   By: soulee <soulee@studnet.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/23 16:24:12 by soulee            #+#    #+#             */
-/*   Updated: 2023/03/31 19:27:17 by subcho           ###   ########.fr       */
+/*   Updated: 2023/03/31 21:28:24 by soulee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	init_minishell(int argc, char **line,
+void	init_minishell_2(void)
+{
+	struct termios	term;
+
+	g_exit_code = 0;
+	tcgetattr(STDIN_FILENO, &term);
+	term.c_lflag &= ~(ECHOCTL);
+	tcsetattr(STDIN_FILENO, TCSANOW, &term);
+	set_signal(SHELL, IGNORE);
+}
+
+void	init_minishell_1(int argc, char **line,
 			t_env_list **env_list, t_cmd_list **cmd_list)
 {
 	if (argc != 1)
@@ -39,6 +50,7 @@ void	init_minishell(int argc, char **line,
 		"|___/                            \n");
 	ft_printf("                                       "
 		"       Mewww…                      \n\n");
+	init_minishell_2();
 }
 
 int	main(int argc, char *argv[], char **envp)
@@ -46,8 +58,10 @@ int	main(int argc, char *argv[], char **envp)
 	char			*line;
 	t_env_list		*env_list;
 	t_cmd_list		*cmd_list;
+	struct termios	term;
 
-	init_minishell(argc, &line, &env_list, &cmd_list);
+	tcgetattr(STDIN_FILENO, &term);
+	init_minishell_1(argc, &line, &env_list, &cmd_list);
 	parse_envp(&env_list, envp);
 	while (1)
 	{
@@ -62,8 +76,8 @@ int	main(int argc, char *argv[], char **envp)
 			g_exit_code = execute_main(cmd_list, env_list,
 					count_cmd_list_node(cmd_list, TYPE_PIPE) + 1);
 			clear_cmd_list(&cmd_list);
-			ft_printf("code : %d\n", g_exit_code);
 		}
 		line = ft_free_str(line);
 	}
+	tcsetattr(STDIN_FILENO, TCSANOW, &term);
 }
