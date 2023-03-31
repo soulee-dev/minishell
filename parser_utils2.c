@@ -6,7 +6,7 @@
 /*   By: soulee <soulee@studnet.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/27 01:06:31 by soulee            #+#    #+#             */
-/*   Updated: 2023/03/31 23:21:50 by soulee           ###   ########.fr       */
+/*   Updated: 2023/03/31 23:25:40 by soulee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -118,4 +118,3 @@ void	parse_quotes_loop(t_cmd_list *cmd_list, t_parse_env_lst *parse_env_lst,
 	else
 		parse_quotes_loop2(cmd_list, i, parse_env_lst);
 }
-
