@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   string_utils3.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: soulee <soulee@student.42seoul.kr>         +#+  +:+       +#+        */
+/*   By: soulee <soulee@studnet.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/22 17:51:38 by soulee            #+#    #+#             */
-/*   Updated: 2023/03/27 01:52:45 by soulee           ###   ########.fr       */
+/*   Updated: 2023/03/31 21:32:24 by soulee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,7 @@ int	is_white_meta_char(const char c)
 		|| c == '>'
 		|| c == '\''
 		|| c == '\"'
+		|| c == '.'
 	)
 		return (1);
 	return (0);
