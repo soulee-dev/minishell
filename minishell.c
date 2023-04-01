@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: soulee <soulee@studnet.42seoul.kr>         +#+  +:+       +#+        */
+/*   By: soulee <soulee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/23 16:24:12 by soulee            #+#    #+#             */
-/*   Updated: 2023/03/31 23:24:50 by soulee           ###   ########.fr       */
+/*   Updated: 2023/04/01 16:26:42 by soulee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	init_minishell_2(void)
+void	init_minishell2(void)
 {
 	struct termios	term;
 
@@ -50,7 +50,7 @@ void	init_minishell(int argc, char **line,
 		"|___/                            \n");
 	ft_printf("                                       "
 		"       Mewww…                      \n\n");
-	init_minishell_2();
+	init_minishell2();
 }
 
 int	main(int argc, char *argv[], char **envp)
