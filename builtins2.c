@@ -6,7 +6,7 @@
 /*   By: subcho <subcho@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/04 22:42:37 by soulee            #+#    #+#             */
-/*   Updated: 2023/04/03 20:12:54 by subcho           ###   ########.fr       */
+/*   Updated: 2023/04/03 21:55:21 by subcho           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,17 +64,15 @@ void	command_unset(t_env_list *env_list, const char *key)
 
 void	command_env(t_env_list *env_list)
 {
-	int		i;
-	char	**envp;
+	t_env_list	*temp;
 
-	i = 0;
-	envp = convert_env_list_to_arr(env_list);
-	while (envp[i])
+	temp = env_list;
+	while (temp)
 	{
-		ft_printf("%s\n", envp[i]);
-		i++;
+		if (temp->value)
+			ft_printf("%s=%s\n",temp->key, temp->value);
+		temp = temp->next;
 	}
-	envp = ft_free_strs(envp);
 }
 
 int	is_env_exist(t_env_list	*temp, char	**cmd)
@@ -89,4 +87,33 @@ int	is_env_exist(t_env_list	*temp, char	**cmd)
 		temp = temp->next;
 	}
 	return (0);
+}
+
+void	print_export(t_env_list *env_list)
+{
+	int		i;
+	int		j;
+	char	**splited_key1;
+	char	**splited_key2;
+	char	**env_strs;
+
+	i = -1;
+	env_strs = convert_env_list_to_export(env_list);
+	while (env_strs[++i])
+	{
+		j = -1;
+		while (env_strs[++j + 1])
+		{
+			splited_key1 = ft_split(env_strs[j], '=');
+			splited_key2 = ft_split(env_strs[j + 1], '=');
+			if (ft_strcmp(splited_key1[0], splited_key2[0]) > 0)
+				ft_swap(&env_strs[j], &env_strs[j + 1]);
+			splited_key1 = ft_free_strs(splited_key1);
+			splited_key2 = ft_free_strs(splited_key2);
+		}
+	}
+	i = 0;
+	while (env_strs[i])
+		ft_printf("declare -x %s\n", env_strs[i++]);
+	env_strs = ft_free_strs(env_strs);
 }

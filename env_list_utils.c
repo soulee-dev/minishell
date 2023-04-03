@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env_list_utils.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: soulee <soulee@student.42seoul.kr>         +#+  +:+       +#+        */
+/*   By: subcho <subcho@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/27 22:21:31 by soulee            #+#    #+#             */
-/*   Updated: 2023/03/26 23:40:03 by soulee           ###   ########.fr       */
+/*   Updated: 2023/04/03 21:54:37 by subcho           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,34 @@ char	**convert_env_list_to_arr(t_env_list *node)
 	return (env);
 }
 
+char	**convert_env_list_to_export(t_env_list *node)
+{
+	int		i;
+	char	*temp;
+	char	**env;
+
+	i = 0;
+	env = (char **)malloc(sizeof(char *) * (get_env_list_size(node)) + 1);
+	if (!env)
+		return (NULL);
+	while (node)
+	{
+		temp = ft_strdup(node->key);
+		if (node->value)
+		{
+			temp = ft_strjoin_free(temp, "=\"");
+			temp = ft_strjoin_free(temp, node->value);
+			temp = ft_strjoin_free(temp, "\"");
+		}
+		env[i] = temp;
+		node = node->next;
+		temp = 0;
+		i++;
+	}
+	env[i] = 0;
+	return (env);
+}
+
 void	parse_envp(t_env_list **node, char **envp)
 {
 	char		*key;
@@ -76,4 +104,13 @@ void	parse_envp(t_env_list **node, char **envp)
 		add_env_node_back(node, create_new_env_node(key, value));
 		envp++;
 	}
+}
+
+void	ft_swap(char **s1, char **s2)
+{
+	char	*temp;
+
+	temp = *s2;
+	*s2 = *s1;
+	*s1 = temp;
 }
