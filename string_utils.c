@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   string_utils.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: soulee <soulee@student.42seoul.kr>         +#+  +:+       +#+        */
+/*   By: soulee <soulee@studnet.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/26 17:00:14 by soulee            #+#    #+#             */
-/*   Updated: 2023/03/25 01:35:21 by soulee           ###   ########.fr       */
+/*   Updated: 2023/04/03 22:20:15 by soulee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,13 +21,25 @@ char	*ft_free_str(char *str)
 
 size_t	ft_strlenbl(const char *s)
 {
+	int		quotes;
 	size_t	count;
 
 	count = 0;
-	while (*s != ' ' && *s != '|' && *s != '>' && *s != '<' && *s++)
+	quotes = count_quotes(s[count], 0);
+	if (quotes)
+	{
 		count++;
-	if (*s == ' ')
+		while (count_quotes(s[count], quotes))
+			count++;
 		count++;
+	}
+	else
+	{
+		while (*s != ' ' && *s != '|' && *s != '>' && *s != '<' && *s++)
+			count++;
+		if (*s == ' ')
+			count++;
+	}
 	return (count);
 }
 
