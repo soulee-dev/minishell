@@ -6,7 +6,7 @@
 /*   By: subcho <subcho@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/07 19:37:33 by subcho            #+#    #+#             */
-/*   Updated: 2023/04/04 00:42:24 by subcho           ###   ########.fr       */
+/*   Updated: 2023/04/04 00:55:40 by subcho           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,8 @@ int	is_here_doc_exist(t_cmd_list **cmd_list, int pipe_cnt, t_env_list *env_list)
 			{
 				(*cmd_list)->cmd = create_here_doc_file(count, (*cmd_list)->cmd,
 						here_doc_org, env_list);
+				if (g_exit_code == 1)
+					return (-1);
 				(*cmd_list)->cmd_type = TYPE_REDIRECT_INPUT;
 				count++;
 			}
