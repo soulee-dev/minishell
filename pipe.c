@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipe.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: subcho <subcho@student.42.fr>              +#+  +:+       +#+        */
+/*   By: soulee <soulee@studnet.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/23 21:07:21 by subcho            #+#    #+#             */
-/*   Updated: 2023/03/31 23:05:28 by subcho           ###   ########.fr       */
+/*   Updated: 2023/03/31 23:45:23 by soulee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,6 +104,6 @@ int	execute_main(t_cmd_list *cmd_list, t_env_list *env_list, int pipe_cnt)
 	redirect_std(exe_list->std);
 	free(exe_list);
 	exe_list = 0;
-	g_exit_code = get_status(status);
+	g_exit_code = get_status();
 	return (g_exit_code);
 }

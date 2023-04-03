@@ -6,7 +6,7 @@
 /*   By: soulee <soulee@studnet.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/23 21:48:04 by soulee            #+#    #+#             */
-/*   Updated: 2023/03/31 22:46:14 by soulee           ###   ########.fr       */
+/*   Updated: 2023/03/31 23:14:11 by soulee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,55 +63,26 @@ int	parse_pipe(t_cmd_list **cmd_list, int is_pipe, char c, char **str)
 
 void	parse_quotes(t_cmd_list *cmd_list)
 {
-	int			i;
-	char		*str;
-	int			quotes;
-	t_cmd_list	*arg_list;
-	int			flag;
+	int				i;
+	int				flag;
+	t_cmd_list		*arg_list;
+	t_parse_env_lst	parse_env_lst;
 
 	while (cmd_list)
 	{
 		i = -1;
-		str = 0;
-		quotes = 0;
+		parse_env_lst.str = 0;
+		parse_env_lst.quotes = 0;
 		arg_list = 0;
-
 		while (++i < ft_strlen(cmd_list->cmd))
 		{
-			flag = 0;
-			quotes = count_quotes(cmd_list->cmd[i], quotes);
-			if (is_whitespace(cmd_list->cmd[i]) && !quotes && str)
-			{
-				add_cmd_node_back(&arg_list, create_new_cmd_node(0, ft_strdup(str), 0));
-				str = ft_free_str(str);
-			}
-			else
-			{
-				if (quotes)
-				{
-					i++;
-					while (cmd_list->cmd[i]
-						&& count_quotes(cmd_list->cmd[i], quotes))
-						str = ft_strjoin_char(str, cmd_list->cmd[(i)++]);
-					quotes = 0;
-				}
-				else
-				{
-					while (cmd_list->cmd[i]
-						&& !is_whitespace(cmd_list->cmd[i])
-						&& !count_quotes(cmd_list->cmd[i], quotes))
-					{
-						str = ft_strjoin_char(str, cmd_list->cmd[i++]);
-						flag = 1;
-					}
-					if (flag)
-						i--;
-				}
-			}
+			parse_quotes_loop(cmd_list, &parse_env_lst,
+				&arg_list, &i);
 		}
-		if (str)
-			add_cmd_node_back(&arg_list, create_new_cmd_node(0, ft_strdup(str), 0));
-		str = ft_free_str(str);
+		if (parse_env_lst.str)
+			add_cmd_node_back(&arg_list,
+				create_new_cmd_node(0, ft_strdup(parse_env_lst.str), 0));
+		parse_env_lst.str = ft_free_str(parse_env_lst.str);
 		cmd_list->args = convert_args_lst(arg_list);
 		free(cmd_list->cmd);
 		cmd_list->cmd = ft_strdup(cmd_list->args[0]);

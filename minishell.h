@@ -91,14 +91,13 @@ void					parse_dollar_sign_loop(t_cmd_list *cmd_list,
 							t_env_list *env_list);
 
 // parser_utils2.c
-char					*parse_quotes_loop(t_cmd_list *cmd_list, int *i,
-							char *str, int *quotes);
+void					parse_quotes_loop(t_cmd_list *cmd_list,
+							t_parse_env_lst *parse_env_lst,
+							t_cmd_list **arg_list, int *i);
 char					*parse_dollar_sign_loop2(t_env_list *env_list,
 							int quotes, char *key, char *str);
 char					**convert_args_lst(t_cmd_list *arg_list);
 int						check_syntax_error(char *str, int is_pipe, int quotes);
-void					init_parser(char **str, int *quotes,
-							int *is_pipe);
 
 // parser_utils3.c
 int						parser(t_cmd_list **cmd_list,
@@ -173,7 +172,7 @@ int						is_builtin2(t_exe_list *t_exe_list, char **cmd_args);
 char					**get_pipe_cmd(t_cmd_list *cmd_list);
 t_exe_list				*set_exe_list(t_cmd_list *cmd_list,
 							t_env_list *env_list, int pipe_cnt);
-int						get_status(int pid);
+int						get_status(void);
 
 // here_doc.c
 void					read_here_doc(int fd, char *delimiter,

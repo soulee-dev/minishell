@@ -6,7 +6,7 @@
 /*   By: soulee <soulee@studnet.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/30 21:53:35 by soulee            #+#    #+#             */
-/*   Updated: 2023/03/31 22:48:48 by soulee           ###   ########.fr       */
+/*   Updated: 2023/04/03 19:49:52 by soulee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,7 @@ int	parser(t_cmd_list **cmd_list, t_env_list **env_list, char *line)
 	parse_quotes(*cmd_list);
 	if (!check_ambigous_redirect(*cmd_list))
 	{
+		g_exit_code = 1;
 		clear_cmd_list(cmd_list);
 		return (0);
 	}

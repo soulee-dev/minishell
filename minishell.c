@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: soulee <soulee@studnet.42seoul.kr>         +#+  +:+       +#+        */
+/*   By: soulee <soulee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/23 16:24:12 by soulee            #+#    #+#             */
-/*   Updated: 2023/03/31 22:41:41 by soulee           ###   ########.fr       */
+/*   Updated: 2023/04/01 16:26:42 by soulee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	init_minishell_2(void)
+void	init_minishell2(void)
 {
 	struct termios	term;
 
@@ -23,7 +23,7 @@ void	init_minishell_2(void)
 	set_signal(SHELL, IGNORE);
 }
 
-void	init_minishell_1(int argc, char **line,
+void	init_minishell(int argc, char **line,
 			t_env_list **env_list, t_cmd_list **cmd_list)
 {
 	if (argc != 1)
@@ -50,7 +50,7 @@ void	init_minishell_1(int argc, char **line,
 		"|___/                            \n");
 	ft_printf("                                       "
 		"       Mewww…                      \n\n");
-	init_minishell_2();
+	init_minishell2();
 }
 
 int	main(int argc, char *argv[], char **envp)
@@ -61,7 +61,7 @@ int	main(int argc, char *argv[], char **envp)
 	struct termios	term;
 
 	tcgetattr(STDIN_FILENO, &term);
-	init_minishell_1(argc, &line, &env_list, &cmd_list);
+	init_minishell(argc, &line, &env_list, &cmd_list);
 	parse_envp(&env_list, envp);
 	while (1)
 	{
@@ -73,7 +73,6 @@ int	main(int argc, char *argv[], char **envp)
 			add_history(line);
 			if (!parser(&cmd_list, &env_list, line))
 				continue ;
-			iter_node(cmd_list);
 			g_exit_code = execute_main(cmd_list, env_list,
 					count_cmd_list_node(cmd_list, TYPE_PIPE) + 1);
 			clear_cmd_list(&cmd_list);
