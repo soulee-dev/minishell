@@ -27,10 +27,8 @@ SRCS+=env_list_utils.c
 
 LIBFT=./libft/libft.a
 FT_PRINTF=./ft_printf/libftprintf.a
-# LDFLAGS=-L/Users/${USER}/.brew/opt/readline/lib
-# CPPFLAGS=-I/Users/${USER}/.brew/opt/readline/include
-LDFLAGS=-L/usr/local/opt/readline/lib
-CPPFLAGS=-I/usr/local/opt/readline/include
+LDFLAGS=-L/Users/${USER}/.brew/opt/readline/lib
+CPPFLAGS=-I/Users/${USER}/.brew/opt/readline/include
 
 OBJS = $(SRCS:.c=.o)
 
