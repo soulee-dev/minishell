@@ -6,7 +6,7 @@
 /*   By: subcho <subcho@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/23 16:41:30 by soulee            #+#    #+#             */
-/*   Updated: 2023/04/03 21:55:11 by subcho           ###   ########.fr       */
+/*   Updated: 2023/04/03 22:17:09 by subcho           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -200,7 +200,7 @@ void					print_export_error(char *identifier);
 
 // builtins1.c
 void					command_pwd(void);
-void					command_cd(const char *path);
+void					command_cd(t_env_list *env_list, const char *path);
 void					command_exit(const char *str);
 void					command_echo(const char **s, int no_newline);
 

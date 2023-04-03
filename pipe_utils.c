@@ -6,7 +6,7 @@
 /*   By: subcho <subcho@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/23 21:10:01 by subcho            #+#    #+#             */
-/*   Updated: 2023/04/03 20:44:54 by subcho           ###   ########.fr       */
+/*   Updated: 2023/04/03 22:18:37 by subcho           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,7 @@ int	is_builtin1(t_exe_list *t_exe_list, char **cmd_args)
 	}
 	if (!ft_strcmp(cmd[0], "cd"))
 	{
-		command_cd(cmd[1]);
+		command_cd(t_exe_list->env_list, cmd[1]);
 		return (1);
 	}
 	if (!ft_strcmp(cmd[0], "unset"))
