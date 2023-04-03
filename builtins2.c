@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtins2.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: subcho <subcho@student.42.fr>              +#+  +:+       +#+        */
+/*   By: soulee <soulee@studnet.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/04 22:42:37 by soulee            #+#    #+#             */
-/*   Updated: 2023/04/03 21:55:21 by subcho           ###   ########.fr       */
+/*   Updated: 2023/04/03 22:47:05 by soulee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,7 @@ void	command_env(t_env_list *env_list)
 	while (temp)
 	{
 		if (temp->value)
-			ft_printf("%s=%s\n",temp->key, temp->value);
+			ft_printf("%s=%s\n", temp->key, temp->value);
 		temp = temp->next;
 	}
 }
