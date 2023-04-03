@@ -6,7 +6,7 @@
 /*   By: subcho <subcho@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/27 18:35:34 by soulee            #+#    #+#             */
-/*   Updated: 2023/03/31 19:40:08 by subcho           ###   ########.fr       */
+/*   Updated: 2023/04/03 20:07:09 by subcho           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,10 +25,18 @@ void	print_error(char *msg)
 
 void	cmd_not_found_error(char *cmd)
 {
-	write(2, "🐈: ", ft_strlen("🐈: "));
-	write(2, cmd, ft_strlen(cmd));
-	write(2, ": command not found", 19);
-	write(2, "\n", 1);
+	ft_putstr_fd("🐈: ", 2);
+	ft_putstr_fd(cmd, 2);
+	ft_putendl_fd(": command not found", 2);
 	g_exit_code = 127;
 	exit(127);
+}
+
+void	print_export_error(char *identifier)
+{
+	ft_putstr_fd("🐈: ", 2);
+	ft_putstr_fd("export: `", 2);
+	ft_putstr_fd(identifier, 2);
+	ft_putendl_fd("\': not a vaild identifier", 2);
+	g_exit_code = 1;
 }
