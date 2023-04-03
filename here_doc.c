@@ -6,7 +6,7 @@
 /*   By: subcho <subcho@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/07 19:37:33 by subcho            #+#    #+#             */
-/*   Updated: 2023/03/31 22:06:37 by subcho           ###   ########.fr       */
+/*   Updated: 2023/03/31 23:13:01 by subcho           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -119,7 +119,7 @@ char	*get_env_line(char *line, t_env_list *env_list)
 		{
 			i++;
 			while (line[i] && line[i] != ' ' && line[i] != '"'
-				&& line[i] != '\'')
+				&& line[i] != '\'' && line[i] != '.')
 				env = ft_strjoin_char(env, line[i++]);
 			env_line = ft_strjoin_free(env_line, ft_getenv(env_list, env));
 			free(env);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: soulee <soulee@studnet.42seoul.kr>         +#+  +:+       +#+        */
+/*   By: subcho <subcho@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/23 16:41:30 by soulee            #+#    #+#             */
-/*   Updated: 2023/03/31 23:45:14 by soulee           ###   ########.fr       */
+/*   Updated: 2023/04/03 21:55:11 by subcho           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -125,6 +125,7 @@ int						is_meta_character(const char c);
 int						is_white_meta_char(const char c);
 char					**ft_free_strs(char **str);
 char					*ft_strdup_free(char *s1, char *s2);
+int						ft_is_string(char *str);
 
 // cmd_list.c
 void					clear_cmd_list(t_cmd_list **node);
@@ -142,7 +143,9 @@ void					add_env_node_back(t_env_list **node, t_env_list *new);
 
 // env_list_utils.c
 char					**convert_env_list_to_arr(t_env_list *node);
+char					**convert_env_list_to_export(t_env_list *node);
 void					parse_envp(t_env_list **node, char **envp);
+void					ft_swap(char **s1, char **s2);
 
 // redirection.c
 int						redirect_pipe(t_exe_list *exe_list);
@@ -193,6 +196,7 @@ int						append_file(char *file_name);
 void					print_error(char *msg);
 int						exit_error(char *error_message);
 void					cmd_not_found_error(char *cmd);
+void					print_export_error(char *identifier);
 
 // builtins1.c
 void					command_pwd(void);
@@ -205,6 +209,8 @@ void					command_env(t_env_list *env_list);
 void					command_export(t_env_list *env_list,
 							const char **command);
 void					command_unset(t_env_list *env_list, const char *key);
+int						is_env_exist(t_env_list	*temp, char	**cmd);
+void					print_export(t_env_list *env_list);
 
 // builtin_utils.c
 void					exit_numberic_argument(void);
