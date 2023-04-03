@@ -6,7 +6,7 @@
 /*   By: subcho <subcho@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/23 21:07:21 by subcho            #+#    #+#             */
-/*   Updated: 2023/03/31 23:05:28 by subcho           ###   ########.fr       */
+/*   Updated: 2023/04/03 22:02:35 by subcho           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,14 +50,13 @@ int	exe_child(char **env_list_str, char **cmds,
 	int		exit_code;
 	char	*cmd;
 
+	if (is_builtin1(exe_list, cmds) || is_builtin2(exe_list, cmds))
+		exit(0);
 	path = get_path(env_list_str);
 	cmd = get_cmd(path, cmds[0]);
 	dup2(exe_list->fd_out, STDOUT_FILENO);
 	close(pipefd[1]);
-	if ((!is_builtin1(exe_list, cmds) && !is_builtin2(exe_list, cmds)))
-		g_exit_code = execve(cmd, cmds, env_list_str);
-	else
-		exit(0);
+	g_exit_code = execve(cmd, cmds, env_list_str);
 	g_exit_code = 126;
 	exit(126);
 }

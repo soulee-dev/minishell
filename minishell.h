@@ -6,7 +6,7 @@
 /*   By: subcho <subcho@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/23 16:41:30 by soulee            #+#    #+#             */
-/*   Updated: 2023/04/03 20:13:28 by subcho           ###   ########.fr       */
+/*   Updated: 2023/04/03 21:55:11 by subcho           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -144,7 +144,9 @@ void					add_env_node_back(t_env_list **node, t_env_list *new);
 
 // env_list_utils.c
 char					**convert_env_list_to_arr(t_env_list *node);
+char					**convert_env_list_to_export(t_env_list *node);
 void					parse_envp(t_env_list **node, char **envp);
+void					ft_swap(char **s1, char **s2);
 
 // redirection.c
 int						redirect_pipe(t_exe_list *exe_list);
@@ -209,6 +211,7 @@ void					command_export(t_env_list *env_list,
 							const char **command);
 void					command_unset(t_env_list *env_list, const char *key);
 int						is_env_exist(t_env_list	*temp, char	**cmd);
+void					print_export(t_env_list *env_list);
 
 // builtin_utils.c
 void					exit_numberic_argument(void);
