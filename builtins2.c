@@ -6,7 +6,7 @@
 /*   By: soulee <soulee@studnet.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/04 22:42:37 by soulee            #+#    #+#             */
-/*   Updated: 2023/04/03 22:47:05 by soulee           ###   ########.fr       */
+/*   Updated: 2023/04/03 23:45:47 by soulee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,7 @@ void	command_export(t_env_list *env_list, const char **command)
 		}
 		cmd = ft_free_strs(cmd);
 	}
+	g_exit_code = 0;
 }
 
 void	command_unset(t_env_list *env_list, const char *key)
@@ -60,6 +61,7 @@ void	command_unset(t_env_list *env_list, const char *key)
 		before = env_list;
 		env_list = env_list->next;
 	}
+	g_exit_code = 0;
 }
 
 void	command_env(t_env_list *env_list)
@@ -73,6 +75,7 @@ void	command_env(t_env_list *env_list)
 			ft_printf("%s=%s\n", temp->key, temp->value);
 		temp = temp->next;
 	}
+	g_exit_code = 0;
 }
 
 int	is_env_exist(t_env_list	*temp, char	**cmd)

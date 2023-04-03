@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtins1.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: subcho <subcho@student.42.fr>              +#+  +:+       +#+        */
+/*   By: soulee <soulee@studnet.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/04 21:58:42 by soulee            #+#    #+#             */
-/*   Updated: 2023/04/03 22:43:46 by subcho           ###   ########.fr       */
+/*   Updated: 2023/04/03 23:45:19 by soulee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,7 @@ void	command_echo(const char **s, int no_newline)
 	}
 	if (!no_newline)
 		ft_putchar_fd('\n', 1);
+	g_exit_code = 0;
 }
 
 void	command_cd(t_env_list *env_list, const char *path)
@@ -52,6 +53,7 @@ void	command_cd(t_env_list *env_list, const char *path)
 	new_path = ft_strjoin_no_free("PWD=", new_path);
 	ft_printf("new : %s\n", (const char **)ft_split(new_path, ' ')[0]);
 	command_export(env_list, (const char **)ft_split(new_path, ' '));
+	g_exit_code = 0;
 }
 
 void	command_pwd(void)
@@ -61,6 +63,7 @@ void	command_pwd(void)
 	curr_dir = getcwd(NULL, 0);
 	ft_printf("%s\n", curr_dir);
 	free(curr_dir);
+	g_exit_code = 0;
 }
 
 void	command_exit(const char *str)
