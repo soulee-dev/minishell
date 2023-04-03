@@ -6,7 +6,7 @@
 /*   By: subcho <subcho@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/07 19:37:33 by subcho            #+#    #+#             */
-/*   Updated: 2023/03/31 23:13:01 by subcho           ###   ########.fr       */
+/*   Updated: 2023/04/04 00:42:24 by subcho           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,18 +16,32 @@ char	*create_here_doc_file(int count, char *delimiter, char *here_doc_org,
 		t_env_list *env_list)
 {
 	int		fd;
+	pid_t	pid;
 	char	*cnt_str;
 	char	*here_doc_str;
+	int		here_doc_return;
 
 	cnt_str = ft_itoa(count);
 	here_doc_str = ft_strjoin_no_free(here_doc_org, cnt_str);
-	fd = open(here_doc_str, O_WRONLY | O_CREAT | O_TRUNC, 0644);
-	if (fd == -1)
-		print_error(NULL);
-	read_here_doc(fd, delimiter, env_list);
-	close(fd);
-	free(cnt_str);
-	free(delimiter);
+	set_signal(IGNORE, IGNORE);
+	pid = fork();
+	if (pid == 0)
+	{
+		set_signal(HEREDOC, IGNORE);
+		fd = open(here_doc_str, O_WRONLY | O_CREAT | O_TRUNC, 0644);
+		if (fd == -1)
+			exit(1);
+		read_here_doc(fd, delimiter, env_list);
+		close(fd);
+		exit(0);
+	}
+	else
+	{
+		g_exit_code = get_status();
+		set_signal(SHELL, IGNORE);
+		free(cnt_str);
+		free(delimiter);
+	}
 	return (here_doc_str);
 }
 
@@ -82,13 +96,15 @@ void	delete_here_doc(int here_doc_cnt)
 
 void	read_here_doc(int fd, char *delimiter, t_env_list *env_list)
 {
-	char	*line;
-	char	**split_delimiter;
+	char		*line;
+	char		**split_delimiter;
 
 	split_delimiter = ft_split(delimiter, ' ');
 	while (1)
 	{
 		line = readline("> ");
+		if (!line)
+			break ;
 		if (!ft_strcmp(line, split_delimiter[0]))
 			break ;
 		if (ft_strchr(line, '$'))
