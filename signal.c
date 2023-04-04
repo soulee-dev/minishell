@@ -6,14 +6,11 @@
 /*   By: subcho <subcho@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/29 22:49:34 by soulee            #+#    #+#             */
-/*   Updated: 2023/04/04 00:41:25 by subcho           ###   ########.fr       */
+/*   Updated: 2023/04/04 18:57:41 by subcho           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-// SIGINT: Ctrl-C
-// SIGQUIT:  Ctrl-\
 
 void	handle_signal(int sig)
 {

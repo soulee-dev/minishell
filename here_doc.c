@@ -6,7 +6,7 @@
 /*   By: subcho <subcho@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/07 19:37:33 by subcho            #+#    #+#             */
-/*   Updated: 2023/04/04 00:55:40 by subcho           ###   ########.fr       */
+/*   Updated: 2023/04/04 18:59:40 by subcho           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,6 @@ char	*create_here_doc_file(int count, char *delimiter, char *here_doc_org,
 	pid_t	pid;
 	char	*cnt_str;
 	char	*here_doc_str;
-	int		here_doc_return;
 
 	cnt_str = ft_itoa(count);
 	here_doc_str = ft_strjoin_no_free(here_doc_org, cnt_str);
@@ -35,44 +34,39 @@ char	*create_here_doc_file(int count, char *delimiter, char *here_doc_org,
 		close(fd);
 		exit(0);
 	}
-	else
-	{
-		g_exit_code = get_status();
-		set_signal(SHELL, IGNORE);
-		free(cnt_str);
-		free(delimiter);
-	}
+	g_exit_code = get_status();
+	set_signal(SHELL, IGNORE);
+	free(cnt_str);
+	free(delimiter);
 	return (here_doc_str);
 }
 
 int	is_here_doc_exist(t_cmd_list **cmd_list, int pipe_cnt, t_env_list *env_list)
 {
-	t_cmd_list	*top;
+	t_cmd_list	*temp;
 	int			count;
 	char		*here_doc_org;
 
 	count = 0;
 	here_doc_org = "/tmp/.here_doc";
-	top = *cmd_list;
+	temp = *cmd_list;
 	while (--pipe_cnt >= 0)
 	{
-		while (*cmd_list && (*cmd_list)->cmd_type != TYPE_PIPE)
+		while (temp && temp->cmd_type != TYPE_PIPE && ++count)
 		{
-			if ((*cmd_list)->cmd_type == TYPE_REDIRECT_HEREDOC)
+			if (temp->cmd_type == TYPE_REDIRECT_HEREDOC)
 			{
-				(*cmd_list)->cmd = create_here_doc_file(count, (*cmd_list)->cmd,
+				temp->cmd = create_here_doc_file(count, temp->cmd,
 						here_doc_org, env_list);
 				if (g_exit_code == 1)
 					return (-1);
-				(*cmd_list)->cmd_type = TYPE_REDIRECT_INPUT;
-				count++;
+				temp->cmd_type = TYPE_REDIRECT_INPUT;
 			}
-			*cmd_list = (*cmd_list)->next;
+			temp = temp->next;
 		}
-		if ((*cmd_list) && (*cmd_list)->next)
-			*cmd_list = (*cmd_list)->next;
+		if (temp && temp->next)
+			temp = temp->next;
 	}
-	*cmd_list = top;
 	return (count);
 }
 

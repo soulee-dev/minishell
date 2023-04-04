@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: soulee <soulee@studnet.42seoul.kr>         +#+  +:+       +#+        */
+/*   By: subcho <subcho@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/23 21:48:04 by soulee            #+#    #+#             */
-/*   Updated: 2023/03/31 23:14:11 by soulee           ###   ########.fr       */
+/*   Updated: 2023/04/04 18:57:32 by subcho           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,6 @@ int	parse_pipe(t_cmd_list **cmd_list, int is_pipe, char c, char **str)
 void	parse_quotes(t_cmd_list *cmd_list)
 {
 	int				i;
-	int				flag;
 	t_cmd_list		*arg_list;
 	t_parse_env_lst	parse_env_lst;
 
@@ -74,7 +73,7 @@ void	parse_quotes(t_cmd_list *cmd_list)
 		parse_env_lst.str = 0;
 		parse_env_lst.quotes = 0;
 		arg_list = 0;
-		while (++i < ft_strlen(cmd_list->cmd))
+		while (++i < (int)(ft_strlen(cmd_list->cmd)))
 		{
 			parse_quotes_loop(cmd_list, &parse_env_lst,
 				&arg_list, &i);

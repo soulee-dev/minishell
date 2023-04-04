@@ -6,7 +6,7 @@
 /*   By: subcho <subcho@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/23 21:07:21 by subcho            #+#    #+#             */
-/*   Updated: 2023/04/04 00:55:18 by subcho           ###   ########.fr       */
+/*   Updated: 2023/04/04 18:56:46 by subcho           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,6 @@ int	exe_child(char **env_list_str, char **cmds,
 			t_exe_list *exe_list, int pipefd[])
 {
 	char	**path;
-	int		exit_code;
 	char	*cmd;
 
 	if (is_builtin1(exe_list, cmds) || is_builtin2(exe_list, cmds))
