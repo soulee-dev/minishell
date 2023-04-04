@@ -22,7 +22,6 @@ void	print_error(char *msg)
 {
 	perror(msg);
 	g_exit_code = 1;
-	exit(1);
 }
 
 void	cmd_not_found_error(char *cmd)
