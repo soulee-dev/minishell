@@ -6,7 +6,7 @@
 /*   By: subcho <subcho@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/23 21:07:21 by subcho            #+#    #+#             */
-/*   Updated: 2023/04/04 19:04:22 by subcho           ###   ########.fr       */
+/*   Updated: 2023/04/04 19:52:00 by subcho           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,11 +46,11 @@ int	exe_child(char **env_list_str, char **cmds,
 	char	**path;
 	char	*cmd;
 
+	dup2(exe_list->fd_out, STDOUT_FILENO);
 	if (is_builtin1(exe_list, cmds) || is_builtin2(exe_list, cmds))
 		exit(0);
 	path = get_path(env_list_str);
 	cmd = get_cmd(path, cmds[0]);
-	dup2(exe_list->fd_out, STDOUT_FILENO);
 	close(pipefd[1]);
 	g_exit_code = execve(cmd, cmds, env_list_str);
 	g_exit_code = 126;
