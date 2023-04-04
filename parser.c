@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: subcho <subcho@student.42.fr>              +#+  +:+       +#+        */
+/*   By: soulee <soulee@studnet.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/23 21:48:04 by soulee            #+#    #+#             */
-/*   Updated: 2023/04/04 18:57:32 by subcho           ###   ########.fr       */
+/*   Updated: 2023/04/04 21:21:00 by soulee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,13 +116,13 @@ t_cmd_list	*parse_line(t_cmd_list **cmd_list, char *line)
 		if (ret_parser == 0)
 			continue ;
 		else if (ret_parser == -1)
-			return (0);
+			return (clear_return_zero(cmd_list));
 		line++;
 	}
 	if (parse_env_lst.str
 		&& !add_element_node(cmd_list, TYPE_WORD, &parse_env_lst.str))
-		return (0);
+		return (clear_return_zero(cmd_list));
 	if (!check_syntax_error(parse_env_lst.str, is_pipe, parse_env_lst.quotes))
-		return (0);
+		return (clear_return_zero(cmd_list));
 	return (*cmd_list);
 }

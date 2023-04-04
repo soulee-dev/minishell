@@ -6,7 +6,7 @@
 /*   By: soulee <soulee@studnet.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/23 16:41:30 by soulee            #+#    #+#             */
-/*   Updated: 2023/04/04 19:04:28 by soulee           ###   ########.fr       */
+/*   Updated: 2023/04/04 21:20:32 by soulee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,6 +106,7 @@ int						parser(t_cmd_list **cmd_list, t_env_list **env_list,
 int						parse_line_loop(t_cmd_list **cmd_list,
 							t_parse_env_lst *parse_env_lst,
 							char **line, int *is_pipe);
+t_cmd_list				*clear_return_zero(t_cmd_list **cmd_list);
 
 // string_utils.c
 char					*ft_free_str(char *str);
