@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   signal.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: soulee <soulee@studnet.42seoul.kr>         +#+  +:+       +#+        */
+/*   By: subcho <subcho@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/29 22:49:34 by soulee            #+#    #+#             */
-/*   Updated: 2023/03/31 23:43:57 by soulee           ###   ########.fr       */
+/*   Updated: 2023/04/04 00:41:25 by subcho           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@ void	handle_signal(int sig)
 		rl_on_new_line();
 		rl_replace_line("", 0);
 		rl_redisplay();
+		g_exit_code = 1;
 	}
 	if (sig == SIGQUIT)
 	{
@@ -31,8 +32,19 @@ void	handle_signal(int sig)
 	}
 }
 
+void	handle_heredoc_signal(int sig)
+{
+	if (sig == SIGINT)
+	{
+		ft_printf("\n");
+		exit(1);
+	}
+}
+
 void	set_signal(int sig_int, int sig_quit)
 {
+	if (sig_int == HEREDOC)
+		signal(SIGINT, handle_heredoc_signal);
 	if (sig_int == IGNORE)
 		signal(SIGINT, SIG_IGN);
 	if (sig_int == DEFAULT)

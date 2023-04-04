@@ -6,7 +6,7 @@
 /*   By: subcho <subcho@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/23 21:07:21 by subcho            #+#    #+#             */
-/*   Updated: 2023/04/03 22:07:10 by subcho           ###   ########.fr       */
+/*   Updated: 2023/04/04 00:55:18 by subcho           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,6 +97,8 @@ int	execute_main(t_cmd_list *cmd_list, t_env_list *env_list, int pipe_cnt)
 	int			here_doc_cnt;
 
 	here_doc_cnt = is_here_doc_exist(&cmd_list, pipe_cnt, env_list);
+	if (here_doc_cnt == -1)
+		return (g_exit_code);
 	exe_list = set_exe_list(cmd_list, env_list, pipe_cnt);
 	status = execute_pipeline(exe_list);
 	delete_here_doc(here_doc_cnt);

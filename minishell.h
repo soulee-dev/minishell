@@ -6,7 +6,7 @@
 /*   By: subcho <subcho@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/23 16:41:30 by soulee            #+#    #+#             */
-/*   Updated: 2023/04/03 22:17:09 by subcho           ###   ########.fr       */
+/*   Updated: 2023/04/03 23:29:34 by subcho           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,9 +33,10 @@
 # define TYPE_PIPE 5
 
 // Signals
-# define SHELL 0
-# define DEFAULT 1
-# define IGNORE 2
+# define SHELL 100
+# define DEFAULT 101
+# define IGNORE 102
+# define HEREDOC 103
 
 typedef struct s_cmd_list
 {
