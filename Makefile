@@ -1,3 +1,4 @@
+CC=cc
 NAME=minishell
 # CFLAGS = -Wall -Wextra -Werror
 
@@ -33,12 +34,12 @@ CPPFLAGS=-I/Users/${USER}/.brew/opt/readline/include
 OBJS = $(SRCS:.c=.o)
 
 %.o: %.c
-	$(CC) -c $(CFLAGS) $? ${CPPFLAGS} -g3
+	$(CC) -c $(CFLAGS) $? ${CPPFLAGS}
 
 all: $(LIBFT) $(FT_PRINTF) $(NAME)
 
 $(NAME): $(OBJS) $(LIBFT) $(FT_PRINTF)
-	${CC} -o $@ $^ -Llibft -lft -Lft_printf -lftprintf -lreadline ${LDFLAGS} ${CPPFLAGS} -g3
+	${CC} -o $@ $^ -Llibft -lft -Lft_printf -lftprintf -lreadline ${LDFLAGS} ${CPPFLAGS}
 	@echo Compile Complete! 🥳
 
 $(LIBFT):
