@@ -6,7 +6,7 @@
 /*   By: subcho <subcho@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/23 21:07:21 by subcho            #+#    #+#             */
-/*   Updated: 2023/04/04 18:56:46 by subcho           ###   ########.fr       */
+/*   Updated: 2023/04/04 19:04:22 by subcho           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,10 +18,7 @@ int	exe_cmd(char **cmd, char **env_list_str, t_exe_list *exe_list)
 	int		pipefd[2];
 
 	if (pipe(pipefd) < 0)
-	{
 		print_error(0);
-		return (-1);
-	}
 	set_signal(DEFAULT, DEFAULT);
 	pid = fork();
 	if (pid < 0)

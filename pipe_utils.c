@@ -6,7 +6,7 @@
 /*   By: subcho <subcho@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/23 21:10:01 by subcho            #+#    #+#             */
-/*   Updated: 2023/04/03 22:18:37 by subcho           ###   ########.fr       */
+/*   Updated: 2023/04/04 19:07:41 by subcho           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,14 +64,6 @@ int	is_builtin1(t_exe_list *t_exe_list, char **cmd_args)
 	const char	**cmd;
 
 	cmd = (const char **)cmd_args;
-	if (!ft_strcmp(cmd[0], "echo"))
-	{
-		if (cmd[1] && !ft_strcmp(cmd[1], "-n"))
-			command_echo(cmd + get_echo_n_cnt(cmd), 1);
-		else
-			command_echo(cmd + 1, 0);
-		return (1);
-	}
 	if (!ft_strcmp(cmd[0], "cd"))
 	{
 		command_cd(t_exe_list->env_list, cmd[1]);
@@ -82,14 +74,6 @@ int	is_builtin1(t_exe_list *t_exe_list, char **cmd_args)
 		command_unset(t_exe_list->env_list, cmd[1]);
 		return (1);
 	}
-	return (0);
-}
-
-int	is_builtin2(t_exe_list *t_exe_list, char **cmd_args)
-{
-	const char	**cmd;
-
-	cmd = (const char **)cmd_args;
 	if (!ft_strcmp(cmd[0], "exit"))
 	{
 		command_exit(cmd[1]);
@@ -98,6 +82,22 @@ int	is_builtin2(t_exe_list *t_exe_list, char **cmd_args)
 	if (!ft_strcmp(cmd[0], "pwd"))
 	{
 		command_pwd();
+		return (1);
+	}
+	return (0);
+}
+
+int	is_builtin2(t_exe_list *t_exe_list, char **cmd_args)
+{
+	const char	**cmd;
+
+	cmd = (const char **)cmd_args;
+	if (!ft_strcmp(cmd[0], "echo"))
+	{
+		if (cmd[1] && !ft_strcmp(cmd[1], "-n"))
+			command_echo(cmd + get_echo_n_cnt(cmd), 1);
+		else
+			command_echo(cmd + 1, 0);
 		return (1);
 	}
 	if (!ft_strcmp(cmd[0], "export"))
