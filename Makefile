@@ -1,6 +1,6 @@
 CC=cc
 NAME=minishell
-# CFLAGS =-Wall -Wextra -Werror
+CFLAGS =-Wall -Wextra -Werror
 
 SRCS:=
 SRCS+=pipe.c

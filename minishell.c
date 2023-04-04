@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: subcho <subcho@student.42.fr>              +#+  +:+       +#+        */
+/*   By: soulee <soulee@studnet.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/23 16:24:12 by soulee            #+#    #+#             */
-/*   Updated: 2023/04/04 18:58:38 by subcho           ###   ########.fr       */
+/*   Updated: 2023/04/04 19:03:54 by soulee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,7 @@ int	main(int argc, char *argv[], char **envp)
 		if (*line != '\0')
 		{
 			add_history(line);
-			if (!parser(&cmd_list, &env_list, line))
+			if (!parser(&cmd_list, &env_list, line, argv))
 				continue ;
 			g_exit_code = execute_main(cmd_list, env_list,
 					count_cmd_list_node(cmd_list, TYPE_PIPE) + 1);

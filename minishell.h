@@ -6,7 +6,7 @@
 /*   By: soulee <soulee@studnet.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/23 16:41:30 by soulee            #+#    #+#             */
-/*   Updated: 2023/04/04 15:35:57 by soulee           ###   ########.fr       */
+/*   Updated: 2023/04/04 19:04:28 by soulee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,8 +101,8 @@ char					**convert_args_lst(t_cmd_list *arg_list);
 int						check_syntax_error(char *str, int is_pipe, int quotes);
 
 // parser_utils3.c
-int						parser(t_cmd_list **cmd_list,
-							t_env_list **env_list, char *line);
+int						parser(t_cmd_list **cmd_list, t_env_list **env_list,
+							char *line, char *argv[]);
 int						parse_line_loop(t_cmd_list **cmd_list,
 							t_parse_env_lst *parse_env_lst,
 							char **line, int *is_pipe);

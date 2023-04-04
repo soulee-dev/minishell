@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser_utils3.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: subcho <subcho@student.42.fr>              +#+  +:+       +#+        */
+/*   By: soulee <soulee@studnet.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/30 21:53:35 by soulee            #+#    #+#             */
-/*   Updated: 2023/04/04 19:01:20 by subcho           ###   ########.fr       */
+/*   Updated: 2023/04/04 19:06:00 by soulee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,8 +41,10 @@ int	check_ambigous_redirect(t_cmd_list *cmd_list)
 	return (1);
 }
 
-int	parser(t_cmd_list **cmd_list, t_env_list **env_list, char *line)
+int	parser(t_cmd_list **cmd_list, t_env_list **env_list,
+		char *line, char *argv[])
 {
+	(void)argv;
 	*cmd_list = parse_line(cmd_list, line);
 	if (!cmd_list)
 	{
