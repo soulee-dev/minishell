@@ -6,7 +6,7 @@
 /*   By: subcho <subcho@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/05 22:12:15 by subcho            #+#    #+#             */
-/*   Updated: 2023/04/04 19:05:25 by subcho           ###   ########.fr       */
+/*   Updated: 2023/04/04 19:09:26 by subcho           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,7 @@ int	redirect_fd(int type, char *file_name, t_exe_list *exe_list)
 {
 	int		fd;
 
+	fd = -1;
 	if (type == TYPE_REDIRECT_INPUT)
 	{
 		exe_list->fd_in = open_file(file_name);
