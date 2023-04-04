@@ -6,7 +6,7 @@
 /*   By: subcho <subcho@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/27 18:35:34 by soulee            #+#    #+#             */
-/*   Updated: 2023/04/03 20:07:09 by subcho           ###   ########.fr       */
+/*   Updated: 2023/04/04 19:04:47 by subcho           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,8 @@ int	exit_error(char *error_message)
 void	print_error(char *msg)
 {
 	perror(msg);
+	g_exit_code = 1;
+	exit(1);
 }
 
 void	cmd_not_found_error(char *cmd)
