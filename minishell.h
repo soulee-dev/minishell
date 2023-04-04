@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: subcho <subcho@student.42.fr>              +#+  +:+       +#+        */
+/*   By: soulee <soulee@studnet.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/23 16:41:30 by soulee            #+#    #+#             */
-/*   Updated: 2023/04/03 23:29:34 by subcho           ###   ########.fr       */
+/*   Updated: 2023/04/04 15:35:57 by soulee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -133,8 +133,6 @@ void					clear_cmd_list(t_cmd_list **node);
 t_cmd_list				*create_new_cmd_node(int type, char *cmd, char **args);
 int						count_cmd_list_node(t_cmd_list *node, int cmd_type);
 void					add_cmd_node_back(t_cmd_list **node, t_cmd_list *new);
-// REMOVE BEFORE FLIGHT
-void					iter_node(t_cmd_list *node);
 
 // env_list.c
 int						get_env_list_size(t_env_list *node);
