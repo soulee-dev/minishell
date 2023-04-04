@@ -6,7 +6,7 @@
 /*   By: soulee <soulee@studnet.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/04 21:58:42 by soulee            #+#    #+#             */
-/*   Updated: 2023/04/03 23:45:19 by soulee           ###   ########.fr       */
+/*   Updated: 2023/04/04 14:54:28 by soulee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,18 +41,30 @@ void	command_echo(const char **s, int no_newline)
 
 void	command_cd(t_env_list *env_list, const char *path)
 {
+	char	*temp_path;
 	char	*old_path;
 	char	*new_path;
+	char	**commands;
 
-	old_path = getcwd(NULL, 0);
-	old_path = ft_strjoin_no_free("OLDPWD=", old_path);
-	command_export(env_list, (const char **)ft_split(old_path, ' '));
-	ft_printf("old : %s\n", (const char **)ft_split(old_path, ' ')[0]);
+	commands = malloc(sizeof(char *) * 3);
+	temp_path = getcwd(NULL, 0);
+	old_path = ft_strjoin_no_free("OLDPWD=", temp_path);
+	commands[0] = ft_strdup("export");
+	commands[1] = old_path;
+	commands[2] = 0;
+	command_export(env_list, (const char **)commands);
+	free(commands[0]);
+	free(old_path);
+	free(temp_path);
 	chdir(path);
-	new_path = getcwd(NULL, 0);
-	new_path = ft_strjoin_no_free("PWD=", new_path);
-	ft_printf("new : %s\n", (const char **)ft_split(new_path, ' ')[0]);
-	command_export(env_list, (const char **)ft_split(new_path, ' '));
+	temp_path = getcwd(NULL, 0);
+	new_path = ft_strjoin_no_free("PWD=", temp_path);
+	commands[0] = ft_strdup("export");
+	commands[1] = new_path;
+	commands[2] = 0;
+	command_export(env_list, (const char **)commands);
+	free(temp_path);
+	commands = ft_free_strs(commands);
 	g_exit_code = 0;
 }
 
